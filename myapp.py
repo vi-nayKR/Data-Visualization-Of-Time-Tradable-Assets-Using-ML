@@ -356,6 +356,9 @@ def prediction_graph(algo, confidence, cdata):
 #############################################################################
 
 def bprediction():
+    st.markdown('<h1 class="header-gradient">🏆 Best Model Selector</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="subheader-style" style="text-align: center;">Evaluates Linear Regression, Decision Tree, Support Vector Machines (SVR), and LSTM Neural Networks to select the most accurate predictor.</p>', unsafe_allow_html=True)
+    
     scaler = MinMaxScaler(feature_range=(0, 1))
     def data_download():
         company = company_name()
@@ -370,12 +373,9 @@ def bprediction():
         data['Volume'] = data['Volume'].apply(divide)
         data.rename(columns={'Volume': 'Volume (in millions)'}, inplace=True)
         return data
+        
     df = data_download()
-    
-    
     scaled_data = scaler.fit_transform(df)
-    
-    #pred = st.sidebar.radio("Regression Type", [ "Linear Regression", "SVR Prediction","RBF Prediction","Tree Prediction","LSTM"])
 
     # removing index which is date
     df['Date'] = df.index
@@ -388,179 +388,65 @@ def bprediction():
 
     # create a variable to predict 'x' days out into the future
     future_days = 50
-    # create a new column( target) shifted 'x' units/days up
     df['Prediction'] = df[['Close']].shift(-future_days)
 
-    # create the feature data set (x) and convet it to a numpy array and remove the last 'x' rows
     x = np.array(df.drop(['Prediction'], axis=1))[:-future_days]
-
-    # create a new target dataset (y) and convert it to a numpy array and get all of the target values except the last'x' rows)
     y = np.array(df['Prediction'])[:-future_days]
 
     # split the data into 75% training and 25% testing
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.25)
 
-    # create the models
-    # create the decision treee regressor model
+    # 1. Decision Tree Regressor
     tree = DecisionTreeRegressor().fit(x_train, y_train)
-    # create the linear regression model
-    lr = LinearRegression().fit(x_train, y_train)
-
-    # create the svr model
-    svr_rbf = SVR(C=1e3, gamma=.1)
-    svr_rbf.fit(x_train, y_train)
-
-    # create the RBF model
-    rbf_svr = SVR(kernel='rbf', C=1000.0, gamma=.85)
-    rbf_svr.fit(x_train, y_train)
-
-
-    # create the linear 2 model
-    lin_svr = SVR(kernel='linear', C=1000.0, gamma=.85)
-    lin_svr.fit(x_train, y_train)
-
-    # get the last x rows of the feature dataset
-    x_future = df.drop(['Prediction'], axis=1)[:-future_days]
-    x_future = x_future.tail(future_days)
+    tree_confidence = tree.score(x_test, y_test)
+    x_future = df.drop(['Prediction'], axis=1)[:-future_days].tail(future_days)
     x_future = np.array(x_future)
-
-    # show the model tree prediction
     tree_prediction = tree.predict(x_future)
-
-    # show the model linear regression prediction
+    
+    # 2. Linear Regression
+    lr = LinearRegression().fit(x_train, y_train)
+    lin_confidence = lr.score(x_test, y_test)
     lr_prediction = lr.predict(x_future)
 
-    # show the model SVR prediction
+    # 3. SVR (Default parameters)
+    svr_rbf = SVR(C=1e3, gamma=.1).fit(x_train, y_train)
+    svr_confidence = svr_rbf.score(x_test, y_test)
     SVR_prediction = svr_rbf.predict(x_future)
 
-    # show the model RBF prediction
-    RBF_prediction = rbf_svr.predict(x_future)
-    
-    predictions = lr_prediction
-    valid = df[x.shape[0]:].copy()
-    valid['predictions'] = predictions
-
-        # alter
-    data = {'Close': [], 'Vclose': [], 'Vpredictions': []}
-    mod = pd.DataFrame(data)
-    mod.index.name = 'index'
-    mod.Close = df.Close
-        #mod.Vclose = df.Close.loc[:747]
-        #mod.Vpredictions = df.Close.loc[150:201]
-        #mod.Vclose.loc[148:] = valid.Close
-    mod.loc[148:, 'Vpredictions'] = valid.predictions
-        #mod.Close = df.Close.loc[:200]
-    chart_data = mod
-    lin_confidence = lr.score(x_test, y_test)
-    st.markdown("Linear:")
-    st.markdown(lin_confidence)
-    
-    
-    predictions = tree_prediction
-    valid = df[x.shape[0]:].copy()
-    valid['predictions'] = predictions
-
-        # alter
-    data = {'Close': [], 'Vclose': [], 'Vpredictions': []}
-    mod = pd.DataFrame(data)
-    mod.index.name = 'index'
-    mod.Close = df.Close
-
-        # mod.Vclose = df.Close.loc[:747]
-        # mod.Vpredictions = df.Close.loc[:747]
-
-        # mod.Vclose.loc[148:] = valid.Close
-    mod.loc[148:, 'Vpredictions'] = valid.predictions
-        # mod.Close = df.Close.loc[:150]
-    chart_data = mod
-    tree_confidence = tree.score(x_test, y_test)
-    st.markdown("Tree:")
-    st.markdown(tree_confidence)
-    
-    
-    predictions = SVR_prediction
-    valid = df[x.shape[0]:].copy()
-    valid['predictions'] = predictions
-
-        # alter
-    data = {'Close': [], 'Vclose': [], 'Vpredictions': []}
-    mod = pd.DataFrame(data)
-    mod.index.name = 'index'
-    mod.Close = df.Close
-
-        # mod.Vclose = df.Close.loc[:747]
-        # mod.Vpredictions = df.Close.loc[:747]
-
-        # mod.Vclose.loc[148:] = valid.Close
-    mod.loc[148:, 'Vpredictions'] = valid.predictions
-        # mod.Close = df.Close.loc[:150]
-    chart_data = mod
-    svr_confidence = svr_rbf.score(x_test, y_test)
-    st.markdown("SVR:")
-    st.markdown(svr_confidence)
-    
-    
-    predictions = RBF_prediction
-    valid = df[x.shape[0]:].copy()
-    valid['predictions'] = predictions
-
-        # alter
-    data = {'Close': [], 'Vclose': [], 'Vpredictions': []}
-    mod = pd.DataFrame(data)
-    mod.index.name = 'index'
-    mod.Close = df.Close
-
-        # mod.Vclose = df.Close.loc[:747]
-        # mod.Vpredictions = df.Close.loc[:747]
-
-        # mod.Vclose.loc[148:] = valid.Close
-    mod.loc[148:, 'Vpredictions'] = valid.predictions
-        # mod.Close = df.Close.loc[:150]
-    chart_data = mod
+    # 4. RBF SVR (Custom parameters)
+    rbf_svr = SVR(kernel='rbf', C=1000.0, gamma=.85).fit(x_train, y_train)
     rbf_confidence = rbf_svr.score(x_test, y_test)
-    st.markdown("RBF:")
-    st.markdown(rbf_confidence)
-    
-    
-    
+    RBF_prediction = rbf_svr.predict(x_future)
+
+    # 5. LSTM (PyTorch implementation)
+    lstm_confidence = -999
+    lstm_prediction = None
     
     if HAS_LSTM:
-        data = df[['Close']]
-            
-        scaler = MinMaxScaler(feature_range=(0, 1))
-        scaled_data = scaler.fit_transform(df[['Close']])
-
-        # Load the data
-        data = scaled_data.reshape(-1, 1)
-
-        # Split the data into training and testing sets
-        train_size = int(len(data) * 0.75)
-        train_data = data[:train_size]
-        test_data = data[train_size:]
-
-        # Define the number of previous days to use for prediction
+        # Load and scale Close column
+        data_scaled = scaler.fit_transform(df[['Close']]).reshape(-1, 1)
+        train_size = int(len(data_scaled) * 0.75)
+        train_data = data_scaled[:train_size]
+        test_data = data_scaled[train_size:]
         n_days = 40
 
-        # Create the feature and target datasets for training
-        X_train, y_train = [], []
+        X_train_l, y_train_l = [], []
         for i in range(n_days, len(train_data)):
-            X_train.append(train_data[i - n_days:i, 0])
-            y_train.append(train_data[i, 0])
-        X_train, y_train = np.array(X_train), np.array(y_train)
-        X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
+            X_train_l.append(train_data[i - n_days:i, 0])
+            y_train_l.append(train_data[i, 0])
+        X_train_l, y_train_l = np.array(X_train_l), np.array(y_train_l)
+        X_train_l = np.reshape(X_train_l, (X_train_l.shape[0], X_train_l.shape[1], 1))
 
-        # Create the feature dataset for testing
-        inputs = data[len(data) - len(test_data) - n_days:]
-        X_test = []
-        for i in range(n_days, len(inputs)):
-            X_test.append(inputs[i - n_days:i, 0])
-        X_test = np.array(X_test)
-        X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
+        inputs_l = data_scaled[len(data_scaled) - len(test_data) - n_days:]
+        X_test_l = []
+        for i in range(n_days, len(inputs_l)):
+            X_test_l.append(inputs_l[i - n_days:i, 0])
+        X_test_l = np.array(X_test_l)
+        X_test_l = np.reshape(X_test_l, (X_test_l.shape[0], X_test_l.shape[1], 1))
 
-        # Train and evaluate using PyTorch
-        X_train_t = torch.FloatTensor(X_train)
-        y_train_t = torch.FloatTensor(y_train).unsqueeze(1)
-        X_test_t = torch.FloatTensor(X_test)
+        X_train_t = torch.FloatTensor(X_train_l)
+        y_train_t = torch.FloatTensor(y_train_l).unsqueeze(1)
+        X_test_t = torch.FloatTensor(X_test_l)
         test_data_t = torch.FloatTensor(test_data)
 
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -584,44 +470,76 @@ def bprediction():
         model.eval()
         with torch.no_grad():
             predictions_t = model(X_test_t.to(device))
-            test_loss_val = criterion(predictions_t, test_data_t.to(device)).item()
+            from sklearn.metrics import r2_score
+            lstm_confidence = r2_score(test_data_t.cpu().numpy(), predictions_t.cpu().numpy())
             predictions = predictions_t.cpu().numpy()
-            predictions = scaler.inverse_transform(predictions)
-            test_loss = test_loss_val
+            lstm_prediction = scaler.inverse_transform(predictions)
 
-        data = {'Close': [], 'Vclose': [], 'Vpredictions': []}
-        mod = pd.DataFrame(data)
-        mod.index.name = 'index'
-        mod.Close = df.Close
-        pred1 = []
-        for da in predictions:
-            pred1.append(da[0])
-            
-        mod.loc[150:, 'Vpredictions'] = pred1
-        chart_data = mod
-        st.markdown("LSTM:")
-        st.markdown(test_loss)
-        
-        best = max(lin_confidence,tree_confidence,rbf_confidence,svr_confidence,test_loss)
-    else:
-        st.warning("LSTM prediction is disabled because PyTorch is not installed or not supported on this Python version.")
-        best = max(lin_confidence,tree_confidence,rbf_confidence,svr_confidence)
+    # Let's map out the performance
+    models_info = {
+        "Linear Regression": {"score": lin_confidence, "pred": lr_prediction},
+        "Decision Tree": {"score": tree_confidence, "pred": tree_prediction},
+        "SVR (RBF Default)": {"score": svr_confidence, "pred": SVR_prediction},
+        "RBF SVR (Custom)": {"score": rbf_confidence, "pred": RBF_prediction}
+    }
     
-    if(best == lin_confidence):
-        st.markdown("Linear regression is better Accurate with confidence score of :")
-        st.markdown(best)
-    if(best == tree_confidence):
-        st.markdown("Tree regression is better Accurate with confidence score of :")
-        st.markdown(best)
-    if(best == rbf_confidence):
-        st.markdown("RBF is better Accurate with confidence score of :")
-        st.markdown(best)    
-    if(best == svr_confidence):
-        st.markdown("SVR is better Accurate with confidence score of :")
-        st.markdown(best)
-    if(HAS_LSTM and best == test_loss):
-        st.markdown("LSTM is better Accurate with confidence score of :")
-        st.markdown(best) 
+    if HAS_LSTM and lstm_prediction is not None:
+        lstm_flat_pred = [da[0] for da in lstm_prediction]
+        models_info["LSTM Neural Network"] = {"score": lstm_confidence, "pred": lstm_flat_pred}
+    else:
+        models_info["LSTM Neural Network"] = {"score": -999, "pred": None}
+
+    # Find best model
+    best_model_name = max(models_info, key=lambda k: models_info[k]["score"])
+    best_score = models_info[best_model_name]["score"]
+    best_prediction = models_info[best_model_name]["pred"]
+
+    # Render metrics side by side
+    st.markdown("### 📊 Model Comparison")
+    cols = st.columns(len(models_info))
+    for i, (name, info) in enumerate(models_info.items()):
+        is_best = (name == best_model_name)
+        with cols[i]:
+            badge = ""
+            border_color = "#334155"
+            bg_color = "#1e293b"
+            text_color = "#f8fafc"
+            
+            if is_best:
+                border_color = "#22c55e"
+                bg_color = "linear-gradient(135deg, #14532d 0%, #064e3b 100%)"
+                badge = '<span style="background-color:#22c55e; color:#ffffff; padding:0.2rem 0.5rem; border-radius:12px; font-size:0.65rem; font-weight:700; position:absolute; top: -10px; right: 10px;">WINNER</span>'
+                
+            score_val = info["score"]
+            score_text = f"{round(score_val * 100, 2)}%" if score_val != -999 else "N/A"
+            
+            card_html = f"""
+            <div style="background:{bg_color}; border:2px solid {border_color}; border-radius:12px; padding:1.2rem; position:relative; box-shadow:0 4px 6px rgba(0,0,0,0.1); margin-bottom:1rem; text-align:center; min-height: 120px;">
+                {badge}
+                <div style="font-size:0.8rem; color:#94a3b8; font-weight:600; text-transform:uppercase; letter-spacing:0.05rem; margin-bottom:0.5rem;">{name}</div>
+                <div style="font-size:1.6rem; font-weight:700; color:{text_color};">{score_text}</div>
+                <div style="font-size:0.75rem; color:#64748b; margin-top:0.3rem;">R² Accuracy</div>
+            </div>
+            """
+            st.markdown(card_html, unsafe_allow_html=True)
+
+    # Highlight winner in a nice success alert box
+    st.markdown("---")
+    st.success(f"🏆 **Winner:** **{best_model_name}** performed the best for this stock, achieving a **{round(best_score * 100, 2)}%** confidence score ($R^2$). Showing prediction visualization below.")
+
+    # Prepare chart data for the best model
+    valid = df[x.shape[0]:].copy()
+    valid['predictions'] = best_prediction
+
+    data_chart = {'Close': [], 'Vclose': [], 'Vpredictions': []}
+    mod = pd.DataFrame(data_chart)
+    mod.index.name = 'index'
+    mod.Close = df.Close
+    
+    start_idx = len(df) - len(best_prediction)
+    mod.loc[start_idx:, 'Vpredictions'] = valid.predictions
+    
+    prediction_graph(best_model_name, best_score, mod) 
 
 #############################################################################
 
