@@ -513,14 +513,14 @@ def bprediction():
             score_val = info["score"]
             score_text = f"{round(score_val * 100, 2)}%" if score_val != -999 else "N/A"
             
-            card_html = f"""
-            <div style="background:{bg_color}; border:2px solid {border_color}; border-radius:12px; padding:1.2rem; position:relative; box-shadow:0 4px 6px rgba(0,0,0,0.1); margin-bottom:1rem; text-align:center; min-height: 120px;">
-                {badge}
-                <div style="font-size:0.8rem; color:#94a3b8; font-weight:600; text-transform:uppercase; letter-spacing:0.05rem; margin-bottom:0.5rem;">{name}</div>
-                <div style="font-size:1.6rem; font-weight:700; color:{text_color};">{score_text}</div>
-                <div style="font-size:0.75rem; color:#64748b; margin-top:0.3rem;">R² Accuracy</div>
-            </div>
-            """
+            card_html = (
+                f'<div style="background:{bg_color}; border:2px solid {border_color}; border-radius:12px; padding:1.2rem; position:relative; box-shadow:0 4px 6px rgba(0,0,0,0.1); margin-bottom:1rem; text-align:center; min-height: 120px;">'
+                f'{badge}'
+                f'<div style="font-size:0.8rem; color:#94a3b8; font-weight:600; text-transform:uppercase; letter-spacing:0.05rem; margin-bottom:0.5rem;">{name}</div>'
+                f'<div style="font-size:1.6rem; font-weight:700; color:{text_color};">{score_text}</div>'
+                f'<div style="font-size:0.75rem; color:#64748b; margin-top:0.3rem;">R² Accuracy</div>'
+                f'</div>'
+            )
             st.markdown(card_html, unsafe_allow_html=True)
 
     # Highlight winner in a nice success alert box
