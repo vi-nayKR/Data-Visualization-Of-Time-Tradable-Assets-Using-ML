@@ -212,8 +212,6 @@ def main():
             </div>
         """, unsafe_allow_html=True)
         
-        st.info("👈 Select a mode in the sidebar to get started!")
-        
         with open('README.md', 'r', encoding='utf-8') as fp:
             st.markdown(fp.read())
     elif app_mode == "Data Analysis":
