@@ -82,14 +82,14 @@ def main():
                 padding-left: 1.5rem !important;
             }
             .sidebar-emoji {
-                font-size: 1.35rem !important;
+                font-size: 1.15rem !important;
                 margin-right: 0.5rem !important;
                 display: inline-block !important;
                 line-height: 1 !important;
             }
             .sidebar-title {
                 font-weight: 700 !important;
-                font-size: 1.35rem !important;
+                font-size: 1.15rem !important;
                 background: linear-gradient(135deg, #38bdf8, #c084fc) !important;
                 -webkit-background-clip: text !important;
                 -webkit-text-fill-color: transparent !important;
@@ -240,10 +240,10 @@ def main():
                     padding-left: 0px !important;
                 }
                 .sidebar-title {
-                    font-size: 1.1rem !important;
+                    font-size: 0.95rem !important;
                 }
                 .sidebar-emoji {
-                    font-size: 1.1rem !important;
+                    font-size: 0.95rem !important;
                 }
                 .feature-grid {
                     grid-template-columns: 1fr !important;
@@ -260,34 +260,56 @@ def main():
             a:hover {
                 text-decoration: underline;
             }
+            
+            /* Light theme overrides */
+            @media (prefers-color-scheme: light) {
+                [data-testid="stSidebar"] {
+                    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 60%, #e2e8f0 100%) !important;
+                    border-right: 2px solid #6366f1 !important;
+                }
+                .sidebar-emoji {
+                    font-size: 1.15rem !important;
+                }
+                .sidebar-title {
+                    background: linear-gradient(135deg, #4f46e5, #a855f7) !important;
+                    -webkit-background-clip: text !important;
+                    -webkit-text-fill-color: transparent !important;
+                }
+                [data-testid="stSidebar"] label, [data-testid="stSidebar"] p {
+                    color: #0f172a !important;
+                }
+                [data-testid="stSidebar"] div[data-baseweb="select"], 
+                [data-testid="stSidebar"] div[data-baseweb="input"] {
+                    background-color: #ffffff !important;
+                    border: 1.5px solid #cbd5e1 !important;
+                }
+                [data-testid="stSidebar"] div[data-baseweb="select"] *, 
+                [data-testid="stSidebar"] div[data-baseweb="input"] * {
+                    color: #0f172a !important;
+                }
+                /* Radio buttons in light theme */
+                [data-testid="stSidebar"] div[role="radiogroup"] label {
+                    background: #ffffff !important;
+                    border: 1.5px solid #cbd5e1 !important;
+                }
+                [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+                    border-color: #6366f1 !important;
+                    background-color: #f8fafc !important;
+                }
+                [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
+                    background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%) !important;
+                    border-color: #6366f1 !important;
+                    box-shadow: 0 0 12px rgba(99, 102, 241, 0.3) !important;
+                }
+            }
         </style>
     """, unsafe_allow_html=True)
 
-    st.sidebar.markdown('<div class="sidebar-header"><span class="sidebar-emoji">📈</span><span class="sidebar-title">STOCK DASHBOARD</span></div>', unsafe_allow_html=True)
+    st.sidebar.markdown('<div class="sidebar-header"><span class="sidebar-emoji">📈</span><span class="sidebar-title">STOCK MARKET DASHBOARD</span></div>', unsafe_allow_html=True)
     app_mode = st.sidebar.selectbox("Select App Mode", ["Home", "Data Analysis", "Prediction", "Best Analysis"])
 
     if app_mode == "Home":
         st.markdown('<h1><span class="header-emoji">📈</span><span class="header-gradient">Stock Market Dashboard</span></h1>', unsafe_allow_html=True)
-        
-        st.markdown("""
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <div class="feature-icon">📊</div>
-                    <div class="feature-title">Data Analysis</div>
-                    <div class="feature-desc">Explore live candlestick charts, rolling moving averages, trading volumes, and full company fundamentals.</div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🔮</div>
-                    <div class="feature-title">Stock Prediction</div>
-                    <div class="feature-desc">Compare performance across Linear Regression, SVR, Decision Trees, and RBF regression models.</div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🏆</div>
-                    <div class="feature-title">Best Model Selector</div>
-                    <div class="feature-desc">Automatically identify the model with the highest validation accuracy and view its predictions.</div>
-                </div>
-            </div>
-        """, unsafe_allow_html=True)
         
         with open('README.md', 'r', encoding='utf-8') as fp:
             st.markdown(fp.read())
