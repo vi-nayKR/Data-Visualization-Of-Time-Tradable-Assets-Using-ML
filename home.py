@@ -23,7 +23,7 @@ def main():
                               ])
         fig.update_layout(
             title='Nifty 50 volatility  in 2020',
-            yaxis_title='Stock Price (in Rs.)', width=800, height=550)
+            yaxis_title='Stock Price (in Rs.)', height=550)
 
         fig.update_xaxes(rangeslider_visible=True,
                          rangeselector=dict(
@@ -36,7 +36,7 @@ def main():
                                  dict(step="all")
                              ])
                          ))
-        st.plotly_chart(fig)
+        st.plotly_chart(fig, use_container_width=True)
         readme_text_1 = st.markdown(get_file_content_as_string("Covid.md"))
 ###########################################################################
 

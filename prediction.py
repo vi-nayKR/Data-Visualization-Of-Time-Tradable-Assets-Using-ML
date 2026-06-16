@@ -44,7 +44,7 @@ def prediction_graph(algo, confidence, cdata):
                            go.Scatter(x=list(cdata.index), y=list(cdata.Vpredictions),
                                       name='Predictions')])
 
-    fig6.update_layout(width=850, height=550)
+    fig6.update_layout(height=550)
     fig6.update_xaxes(rangeslider_visible=True,
                       rangeselector=dict(
                           buttons=list([
@@ -56,7 +56,7 @@ def prediction_graph(algo, confidence, cdata):
                               dict(step="all")
                           ])
                       ))
-    st.plotly_chart(fig6)
+    st.plotly_chart(fig6, use_container_width=True)
 
 #############################################################################################
 def prediction():

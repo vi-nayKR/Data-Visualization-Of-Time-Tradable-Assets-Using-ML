@@ -67,7 +67,7 @@ def data_analysis():
 
             fig.update_layout(
                 title='Live share price evolution',
-                yaxis_title='Stock Price (USD per shares)', width=850, height=550)
+                yaxis_title='Stock Price (USD per shares)', height=550)
 
             fig.update_xaxes(rangeslider_visible=True,
                              rangeselector=dict(
@@ -80,7 +80,7 @@ def data_analysis():
                                      dict(step="all")
                                  ])
                              ))
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)
         else:
 #             
         
@@ -94,7 +94,7 @@ def data_analysis():
 
             fig.update_layout(
                 title='Live share price evolution',
-                yaxis_title='Stock Price (USD per shares)', width=850, height=550)
+                yaxis_title='Stock Price (USD per shares)', height=550)
 
             fig.update_xaxes(rangeslider_visible=True,
                              rangeselector=dict(
@@ -107,7 +107,7 @@ def data_analysis():
                                      dict(step="all")
                                  ])
                              ))
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)
             
 
 
@@ -118,7 +118,7 @@ def data_analysis():
 
        
         fig1 = go.Figure([go.Bar(x=data.index, y=data['Volume (in millions)'])])
-        fig1.update_layout(title_text="Volume of the stock in millions", width=850, height=550)
+        fig1.update_layout(title_text="Volume of the stock in millions", height=550)
         fig1.update_xaxes(rangeslider_visible=True,
                           rangeselector=dict(
                               buttons=list([
@@ -131,7 +131,7 @@ def data_analysis():
                               ])
                           ))
 
-        st.plotly_chart(fig1)
+        st.plotly_chart(fig1, use_container_width=True)
         st.markdown("### Opening prices of the stock")
         st.markdown("The opening price is the price at which a security first trades upon the opening of an exchange "
                     "on a trading day; for example, the National Stock Exchange (NSE) opens at precisely 9:00 a.m. "
@@ -141,7 +141,7 @@ def data_analysis():
 
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=list(data.index), y=list(data.Open)))
-        fig2.update_layout(title_text="Opening price of the stock", width=850, height=550)
+        fig2.update_layout(title_text="Opening price of the stock", height=550)
         fig2.update_xaxes(rangeslider_visible=True,
                           rangeselector=dict(
                               buttons=list([
@@ -154,7 +154,7 @@ def data_analysis():
                               ])
                           ))
 
-        st.plotly_chart(fig2)
+        st.plotly_chart(fig2, use_container_width=True)
 
         st.markdown("### High price for the stock")
         st.markdown("Today's high refers to a company's intraday high trading price. Today's high is the highest "
@@ -164,7 +164,7 @@ def data_analysis():
 
         fig3 = go.Figure()
         fig3.add_trace(go.Scatter(x=list(data.index), y=list(data.High)))
-        fig3.update_layout(title_text="High price of the stock", width=850, height=550)
+        fig3.update_layout(title_text="High price of the stock", height=550)
         fig3.update_xaxes(rangeslider_visible=True,
                           rangeselector=dict(
                               buttons=list([
@@ -177,7 +177,7 @@ def data_analysis():
                               ])
                           ))
 
-        st.plotly_chart(fig3)
+        st.plotly_chart(fig3, use_container_width=True)
 
         st.markdown("### Lowest price for the stock")
         st.markdown("Today’s low is a security's intraday low trading price. Today's low is the lowest price at which a"
@@ -187,7 +187,7 @@ def data_analysis():
 
         fig4 = go.Figure()
         fig4.add_trace(go.Scatter(x=list(data.index), y=list(data.Low)))
-        fig4.update_layout(title_text="Low price of the stock", width=850, height=550)
+        fig4.update_layout(title_text="Low price of the stock", height=550)
         fig4.update_xaxes(rangeslider_visible=True,
                           rangeselector=dict(
                               buttons=list([
@@ -200,7 +200,7 @@ def data_analysis():
                               ])
                           ))
 
-        st.plotly_chart(fig4)
+        st.plotly_chart(fig4, use_container_width=True)
 
         st.markdown("### Closing price of the stock")
         st.markdown("The closing price of a stock is the price at which the share closes at the end of trading hours "
@@ -209,7 +209,7 @@ def data_analysis():
 
         fig5 = go.Figure()
         fig5.add_trace(go.Scatter(x=list(data.index), y=list(data.Close)))
-        fig5.update_layout(title_text="Closing price of the stock", width=850, height=550)
+        fig5.update_layout(title_text="Closing price of the stock", height=550)
         fig5.update_xaxes(rangeslider_visible=True,
                           rangeselector=dict(
                               buttons=list([
@@ -222,7 +222,7 @@ def data_analysis():
                               ])
                           ))
 
-        st.plotly_chart(fig5)
+        st.plotly_chart(fig5, use_container_width=True)
 
 ######################################################################################
 
