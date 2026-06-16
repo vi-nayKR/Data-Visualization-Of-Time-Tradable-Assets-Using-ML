@@ -73,24 +73,30 @@ def main():
             
             /* Sidebar Title styling - aligned center-left */
             .sidebar-header {
-                display: flex;
-                align-items: center;
-                margin-top: 1rem;
-                margin-bottom: 1.5rem;
-                padding-left: 1.5rem;
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                margin-top: 1rem !important;
+                margin-bottom: 1.5rem !important;
+                padding-left: 1.5rem !important;
             }
             .sidebar-emoji {
-                font-size: 1.35rem;
-                margin-right: 0.5rem;
+                font-size: 1.35rem !important;
+                margin-right: 0.5rem !important;
+                display: inline-block !important;
+                line-height: 1 !important;
             }
             .sidebar-title {
-                font-weight: 700;
-                font-size: 1.35rem;
-                background: linear-gradient(135deg, #38bdf8, #c084fc);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                text-transform: uppercase;
-                letter-spacing: 0.08rem;
+                font-weight: 700 !important;
+                font-size: 1.35rem !important;
+                background: linear-gradient(135deg, #38bdf8, #c084fc) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                text-transform: uppercase !important;
+                letter-spacing: 0.08rem !important;
+                white-space: nowrap !important;
+                display: inline-block !important;
             }
             
             /* Modernize Sidebar Inputs (Selectbox & inputs) */
