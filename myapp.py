@@ -49,10 +49,18 @@ def main():
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
             
-            /* Hide Streamlit default top Deploy button, keep the 3-dots menu button */
+            /* Hide Streamlit default top Deploy button, Fork button, GitHub link, and header actions, keep 3-dots settings */
             .stAppDeployButton,
             button[data-testid="stHeaderDeployButton"],
-            [data-testid="stHeader"] button:not(:last-child) {
+            [data-testid="stHeader"] button:not(:last-child),
+            [data-testid="stHeader"] a,
+            [data-testid="stHeader"] iframe,
+            header a,
+            header iframe,
+            #GithubIcon,
+            [data-testid="stHeader"] #GithubIcon,
+            a[href*="github.com/vi-nayKR"],
+            a[href*="github.com/Lakshya-Ag"] {
                 display: none !important;
             }
             
@@ -69,6 +77,12 @@ def main():
             [data-testid="stSidebar"] {
                 background: linear-gradient(180deg, #111827 0%, #1e1b4b 60%, #2e1065 100%) !important;
                 border-right: 2px solid #4f46e5 !important;
+                container-type: inline-size !important;
+                container-name: sidebar !important;
+            }
+            [data-testid="stSidebarUserContent"] {
+                container-type: inline-size !important;
+                container-name: sidebar !important;
             }
             
             /* Sidebar Title styling - aligned center-left */
@@ -79,17 +93,21 @@ def main():
                 justify-content: flex-start !important;
                 margin-top: 1rem !important;
                 margin-bottom: 1.5rem !important;
-                padding-left: 1.5rem !important;
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+                width: 100% !important;
+                flex-wrap: nowrap !important;
             }
             .sidebar-emoji {
-                font-size: 1.05rem !important;
-                margin-right: 0.4rem !important;
+                font-size: clamp(0.7rem, 6cqw, 1.2rem) !important;
+                margin-right: 0.3rem !important;
                 display: inline-block !important;
                 line-height: 1 !important;
+                flex-shrink: 0 !important;
             }
             .sidebar-title {
                 font-weight: 700 !important;
-                font-size: 1.0rem !important;
+                font-size: clamp(0.55rem, 5.2cqw, 1.1rem) !important;
                 background: linear-gradient(135deg, #38bdf8, #c084fc) !important;
                 -webkit-background-clip: text !important;
                 -webkit-text-fill-color: transparent !important;
@@ -97,6 +115,7 @@ def main():
                 letter-spacing: 0.02rem !important;
                 white-space: nowrap !important;
                 display: inline-block !important;
+                flex-shrink: 0 !important;
             }
             
             /* Modernize Sidebar Inputs (Selectbox & inputs) */
@@ -272,9 +291,6 @@ def main():
                 [data-testid="stSidebar"] {
                     background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 60%, #e2e8f0 100%) !important;
                     border-right: 2px solid #6366f1 !important;
-                }
-                .sidebar-emoji {
-                    font-size: 1.05rem !important;
                 }
                 .sidebar-title {
                     background: linear-gradient(135deg, #4f46e5, #a855f7) !important;
