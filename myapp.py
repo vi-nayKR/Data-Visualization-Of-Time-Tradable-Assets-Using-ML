@@ -91,18 +91,40 @@ def main():
                 font-weight: 600 !important;
             }
 
-            /* Radio Buttons and Slider customization in sidebar */
+            /* Radio Buttons customization in sidebar */
+            [data-testid="stSidebar"] div[role="radiogroup"] {
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                gap: 0.5rem !important;
+            }
             [data-testid="stSidebar"] div[role="radiogroup"] label {
+                width: 100% !important;
                 background: #1f2937 !important;
-                border: 1px solid #374151 !important;
-                border-radius: 8px !important;
-                padding: 0.4rem 0.8rem !important;
-                margin-bottom: 0.4rem !important;
-                transition: all 0.2s ease;
+                border: 1.5px solid #374151 !important;
+                border-radius: 10px !important;
+                padding: 0.6rem 1rem !important;
+                margin-bottom: 0 !important;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                display: flex !important;
+                align-items: center !important;
             }
             [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
                 border-color: #818cf8 !important;
                 background-color: #374151 !important;
+            }
+            [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
+                background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%) !important;
+                border-color: #a855f7 !important;
+                box-shadow: 0 0 12px rgba(168, 85, 247, 0.3) !important;
+            }
+            
+            /* Style the radio checked circle color to match purple theme */
+            [data-testid="stSidebar"] div[role="radiogroup"] div[data-baseweb="radio"] > div {
+                border-color: #818cf8 !important;
+            }
+            [data-testid="stSidebar"] div[role="radiogroup"] div[data-baseweb="radio"] > div > div {
+                background-color: #818cf8 !important;
             }
             
             .header-gradient {
