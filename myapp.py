@@ -190,7 +190,6 @@ def main():
 
     if app_mode == "Home":
         st.markdown('<h1 class="header-gradient">📈 Stock Market Dashboard</h1>', unsafe_allow_html=True)
-        st.markdown('<p class="subheader-style">Interactive analytical dashboard powered by machine learning algorithms</p>', unsafe_allow_html=True)
         
         st.markdown("""
             <div class="feature-grid">
