@@ -82,19 +82,19 @@ def main():
                 padding-left: 1.5rem !important;
             }
             .sidebar-emoji {
-                font-size: 1.15rem !important;
-                margin-right: 0.5rem !important;
+                font-size: 1.05rem !important;
+                margin-right: 0.4rem !important;
                 display: inline-block !important;
                 line-height: 1 !important;
             }
             .sidebar-title {
                 font-weight: 700 !important;
-                font-size: 1.15rem !important;
+                font-size: 1.0rem !important;
                 background: linear-gradient(135deg, #38bdf8, #c084fc) !important;
                 -webkit-background-clip: text !important;
                 -webkit-text-fill-color: transparent !important;
                 text-transform: uppercase !important;
-                letter-spacing: 0.08rem !important;
+                letter-spacing: 0.02rem !important;
                 white-space: nowrap !important;
                 display: inline-block !important;
             }
@@ -235,15 +235,21 @@ def main():
                 h3, [data-testid="stAppViewContainer"] h3 {
                     font-size: 1.15rem !important;
                 }
+                [data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
+                    padding-left: 0.5rem !important;
+                    padding-right: 0.5rem !important;
+                }
                 .sidebar-header {
                     justify-content: center !important;
                     padding-left: 0px !important;
+                    margin-top: 0.5rem !important;
+                    margin-bottom: 1rem !important;
                 }
                 .sidebar-title {
-                    font-size: 0.95rem !important;
+                    font-size: 0.85rem !important;
                 }
                 .sidebar-emoji {
-                    font-size: 0.95rem !important;
+                    font-size: 0.85rem !important;
                 }
                 .feature-grid {
                     grid-template-columns: 1fr !important;
@@ -268,7 +274,7 @@ def main():
                     border-right: 2px solid #6366f1 !important;
                 }
                 .sidebar-emoji {
-                    font-size: 1.15rem !important;
+                    font-size: 1.05rem !important;
                 }
                 .sidebar-title {
                     background: linear-gradient(135deg, #4f46e5, #a855f7) !important;
