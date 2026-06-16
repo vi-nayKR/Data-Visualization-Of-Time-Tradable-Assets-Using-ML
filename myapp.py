@@ -19,10 +19,25 @@ import matplotlib.animation as ani
 import altair as alt
 from sklearn.preprocessing import MinMaxScaler
 try:
-    from keras.models import Sequential
-    from tensorflow.keras.models import Sequential
-    from tensorflow.keras.layers import LSTM, Dense
+    import torch
+    import torch.nn as nn
+    import torch.optim as optim
     HAS_LSTM = True
+
+    class PyTorchLSTM(nn.Module):
+        def __init__(self, input_size=1, hidden_size=50, num_layers=2, output_size=1):
+            super(PyTorchLSTM, self).__init__()
+            self.hidden_size = hidden_size
+            self.num_layers = num_layers
+            self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
+            self.fc = nn.Linear(hidden_size, output_size)
+
+        def forward(self, x):
+            h0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size).to(x.device)
+            c0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size).to(x.device)
+            out, _ = self.lstm(x, (h0, c0))
+            out = self.fc(out[:, -1, :])
+            return out
 except ImportError:
     HAS_LSTM = False
 
@@ -57,18 +72,25 @@ def main():
             }
             
             /* Sidebar Title styling - aligned center-left */
+            .sidebar-header {
+                display: flex;
+                align-items: center;
+                margin-top: 1rem;
+                margin-bottom: 1.5rem;
+                padding-left: 1.5rem;
+            }
+            .sidebar-emoji {
+                font-size: 1.35rem;
+                margin-right: 0.5rem;
+            }
             .sidebar-title {
                 font-weight: 700;
                 font-size: 1.35rem;
                 background: linear-gradient(135deg, #38bdf8, #c084fc);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
-                margin-top: 1rem;
-                margin-bottom: 1.5rem;
                 text-transform: uppercase;
                 letter-spacing: 0.08rem;
-                text-align: left;
-                padding-left: 1.5rem;
             }
             
             /* Modernize Sidebar Inputs (Selectbox & inputs) */
@@ -127,6 +149,11 @@ def main():
                 background-color: #818cf8 !important;
             }
             
+            .header-emoji {
+                font-size: 3rem;
+                vertical-align: middle;
+                margin-right: 0.5rem;
+            }
             .header-gradient {
                 background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
                 -webkit-background-clip: text;
@@ -135,6 +162,8 @@ def main():
                 font-size: 3rem;
                 margin-bottom: 0.2rem;
                 letter-spacing: -0.05rem;
+                vertical-align: middle;
+                display: inline-block;
             }
             .subheader-style {
                 font-weight: 400;
@@ -185,6 +214,9 @@ def main():
                     padding-left: 0.75rem !important;
                     padding-right: 0.75rem !important;
                 }
+                .header-emoji {
+                    font-size: 1.8rem !important;
+                }
                 .header-gradient {
                     font-size: 1.8rem !important;
                 }
@@ -197,10 +229,15 @@ def main():
                 h3, [data-testid="stAppViewContainer"] h3 {
                     font-size: 1.15rem !important;
                 }
+                .sidebar-header {
+                    justify-content: center !important;
+                    padding-left: 0px !important;
+                }
                 .sidebar-title {
                     font-size: 1.1rem !important;
-                    padding-left: 0.5rem !important;
-                    text-align: center !important;
+                }
+                .sidebar-emoji {
+                    font-size: 1.1rem !important;
                 }
                 .feature-grid {
                     grid-template-columns: 1fr !important;
@@ -220,11 +257,11 @@ def main():
         </style>
     """, unsafe_allow_html=True)
 
-    st.sidebar.markdown('<p class="sidebar-title">📈 STOCK DASHBOARD</p>', unsafe_allow_html=True)
+    st.sidebar.markdown('<div class="sidebar-header"><span class="sidebar-emoji">📈</span><span class="sidebar-title">STOCK DASHBOARD</span></div>', unsafe_allow_html=True)
     app_mode = st.sidebar.selectbox("Select App Mode", ["Home", "Data Analysis", "Prediction", "Best Analysis"])
 
     if app_mode == "Home":
-        st.markdown('<h1 class="header-gradient">📈 Stock Market Dashboard</h1>', unsafe_allow_html=True)
+        st.markdown('<h1><span class="header-emoji">📈</span><span class="header-gradient">Stock Market Dashboard</span></h1>', unsafe_allow_html=True)
         
         st.markdown("""
             <div class="feature-grid">
@@ -490,25 +527,21 @@ def bprediction():
     if HAS_LSTM:
         data = df[['Close']]
             
-            # LSTM code
-           
         scaler = MinMaxScaler(feature_range=(0, 1))
-            #scaled_data = scaler.fit_transform(data)
-
         scaled_data = scaler.fit_transform(df[['Close']])
 
-            # Load the data
+        # Load the data
         data = scaled_data.reshape(-1, 1)
 
-            # Split the data into training and testing sets
+        # Split the data into training and testing sets
         train_size = int(len(data) * 0.75)
         train_data = data[:train_size]
         test_data = data[train_size:]
 
-            # Define the number of previous days to use for prediction
+        # Define the number of previous days to use for prediction
         n_days = 40
 
-            # Create the feature and target datasets for training
+        # Create the feature and target datasets for training
         X_train, y_train = [], []
         for i in range(n_days, len(train_data)):
             X_train.append(train_data[i - n_days:i, 0])
@@ -516,15 +549,7 @@ def bprediction():
         X_train, y_train = np.array(X_train), np.array(y_train)
         X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
 
-            # Build the LSTM model
-        model = Sequential()
-        model.add(LSTM(units=50, return_sequences=True, input_shape=(X_train.shape[1], 1)))
-        model.add(LSTM(units=50))
-        model.add(Dense(units=1))
-        model.compile(optimizer='adam', loss='mean_squared_error')
-        model.fit(X_train, y_train, epochs=10, batch_size=32)
-
-            # Create the feature dataset for testing
+        # Create the feature dataset for testing
         inputs = data[len(data) - len(test_data) - n_days:]
         X_test = []
         for i in range(n_days, len(inputs)):
@@ -532,19 +557,38 @@ def bprediction():
         X_test = np.array(X_test)
         X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
 
-            # Make predictions on the testing data
-        predictions = model.predict(X_test)
-        predictions = scaler.inverse_transform(predictions)
-                
+        # Train and evaluate using PyTorch
+        X_train_t = torch.FloatTensor(X_train)
+        y_train_t = torch.FloatTensor(y_train).unsqueeze(1)
+        X_test_t = torch.FloatTensor(X_test)
+        test_data_t = torch.FloatTensor(test_data)
 
-            # Visualize the predictions using Streamlit
-    #         st.line_chart(predictions)
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        model = PyTorchLSTM().to(device)
+        criterion = nn.MSELoss()
+        optimizer = optim.Adam(model.parameters(), lr=0.001)
 
+        dataset = torch.utils.data.TensorDataset(X_train_t, y_train_t)
+        loader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=True)
 
-            # Evaluate the model
-        test_loss = model.evaluate(X_test, test_data)
-           
-           
+        model.train()
+        for epoch in range(10):
+            for batch_x, batch_y in loader:
+                batch_x, batch_y = batch_x.to(device), batch_y.to(device)
+                optimizer.zero_grad()
+                outputs = model(batch_x)
+                loss = criterion(outputs, batch_y)
+                loss.backward()
+                optimizer.step()
+
+        model.eval()
+        with torch.no_grad():
+            predictions_t = model(X_test_t.to(device))
+            test_loss_val = criterion(predictions_t, test_data_t.to(device)).item()
+            predictions = predictions_t.cpu().numpy()
+            predictions = scaler.inverse_transform(predictions)
+            test_loss = test_loss_val
+
         data = {'Close': [], 'Vclose': [], 'Vpredictions': []}
         mod = pd.DataFrame(data)
         mod.index.name = 'index'
@@ -554,14 +598,13 @@ def bprediction():
             pred1.append(da[0])
             
         mod.loc[150:, 'Vpredictions'] = pred1
-            # mod.Close = df.Close.loc[:150]
         chart_data = mod
         st.markdown("LSTM:")
         st.markdown(test_loss)
         
         best = max(lin_confidence,tree_confidence,rbf_confidence,svr_confidence,test_loss)
     else:
-        st.warning("LSTM prediction is disabled because TensorFlow/Keras is not installed or not supported on this Python version.")
+        st.warning("LSTM prediction is disabled because PyTorch is not installed or not supported on this Python version.")
         best = max(lin_confidence,tree_confidence,rbf_confidence,svr_confidence)
     
     if(best == lin_confidence):
@@ -948,78 +991,84 @@ def prediction():
   
 
     elif pred == "LSTM":
-    # LSTM code
-    # Preprocess the data
-        data = df[['Close']]
-        
-        # LSTM code
-       
-        scaler = MinMaxScaler(feature_range=(0, 1))
-        #scaled_data = scaler.fit_transform(data)
-
-        scaled_data = scaler.fit_transform(df[['Close']])
-
-        # Load the data
-        data = scaled_data.reshape(-1, 1)
-
-        # Split the data into training and testing sets
-        train_size = int(len(data) * 0.75)
-        train_data = data[:train_size]
-        test_data = data[train_size:]
-
-        # Define the number of previous days to use for prediction
-        n_days = 40
-
-        # Create the feature and target datasets for training
-        X_train, y_train = [], []
-        for i in range(n_days, len(train_data)):
-            X_train.append(train_data[i - n_days:i, 0])
-            y_train.append(train_data[i, 0])
-        X_train, y_train = np.array(X_train), np.array(y_train)
-        X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
-
-        # Build the LSTM model
-        model = Sequential()
-        model.add(LSTM(units=50, return_sequences=True, input_shape=(X_train.shape[1], 1)))
-        model.add(LSTM(units=50))
-        model.add(Dense(units=1))
-        model.compile(optimizer='adam', loss='mean_squared_error')
-        model.fit(X_train, y_train, epochs=10, batch_size=32)
-
-        # Create the feature dataset for testing
-        inputs = data[len(data) - len(test_data) - n_days:]
-        X_test = []
-        for i in range(n_days, len(inputs)):
-            X_test.append(inputs[i - n_days:i, 0])
-        X_test = np.array(X_test)
-        X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
-
-        # Make predictions on the testing data
-        predictions = model.predict(X_test)
-        predictions = scaler.inverse_transform(predictions)
+        if HAS_LSTM:
+            data = df[['Close']]
             
+            scaler = MinMaxScaler(feature_range=(0, 1))
+            scaled_data = scaler.fit_transform(df[['Close']])
 
-        # Visualize the predictions using Streamlit
-#         st.line_chart(predictions)
+            # Load the data
+            data = scaled_data.reshape(-1, 1)
 
+            # Split the data into training and testing sets
+            train_size = int(len(data) * 0.75)
+            train_data = data[:train_size]
+            test_data = data[train_size:]
 
-        # Evaluate the model
-        test_loss = model.evaluate(X_test, test_data)
-       
-        
-        data = {'Close': [], 'Vclose': [], 'Vpredictions': []}
-        mod = pd.DataFrame(data)
-        mod.index.name = 'index'
-        mod.Close = df.Close
-        pred1 = []
-        for da in predictions:
-            pred1.append(da[0])
-        
-        mod.loc[150:, 'Vpredictions'] = pred1
-        # mod.Close = df.Close.loc[:150]
-        chart_data = mod
-        prediction_graph(pred, test_loss, chart_data)
-        #st.write(f'Test Loss: {test_loss}')
+            # Define the number of previous days to use for prediction
+            n_days = 40
+
+            # Create the feature and target datasets for training
+            X_train, y_train = [], []
+            for i in range(n_days, len(train_data)):
+                X_train.append(train_data[i - n_days:i, 0])
+                y_train.append(train_data[i, 0])
+            X_train, y_train = np.array(X_train), np.array(y_train)
+            X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
+
+            # Create the feature dataset for testing
+            inputs = data[len(data) - len(test_data) - n_days:]
+            X_test = []
+            for i in range(n_days, len(inputs)):
+                X_test.append(inputs[i - n_days:i, 0])
+            X_test = np.array(X_test)
+            X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
+
+            # Train and evaluate using PyTorch
+            X_train_t = torch.FloatTensor(X_train)
+            y_train_t = torch.FloatTensor(y_train).unsqueeze(1)
+            X_test_t = torch.FloatTensor(X_test)
+            test_data_t = torch.FloatTensor(test_data)
+
+            device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+            model = PyTorchLSTM().to(device)
+            criterion = nn.MSELoss()
+            optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+            dataset = torch.utils.data.TensorDataset(X_train_t, y_train_t)
+            loader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=True)
+
+            model.train()
+            for epoch in range(10):
+                for batch_x, batch_y in loader:
+                    batch_x, batch_y = batch_x.to(device), batch_y.to(device)
+                    optimizer.zero_grad()
+                    outputs = model(batch_x)
+                    loss = criterion(outputs, batch_y)
+                    loss.backward()
+                    optimizer.step()
+
+            model.eval()
+            with torch.no_grad():
+                predictions_t = model(X_test_t.to(device))
+                test_loss_val = criterion(predictions_t, test_data_t.to(device)).item()
+                predictions = predictions_t.cpu().numpy()
+                predictions = scaler.inverse_transform(predictions)
+                test_loss = test_loss_val
+
+            data = {'Close': [], 'Vclose': [], 'Vpredictions': []}
+            mod = pd.DataFrame(data)
+            mod.index.name = 'index'
+            mod.Close = df.Close
+            pred1 = []
+            for da in predictions:
+                pred1.append(da[0])
+            
+            mod.loc[150:, 'Vpredictions'] = pred1
+            chart_data = mod
+            prediction_graph(pred, test_loss, chart_data)
+        else:
+            st.warning("LSTM prediction is disabled because PyTorch is not installed or not supported on this Python version.")
 
 
       
