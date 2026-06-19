@@ -99,6 +99,11 @@ def prediction():
     # create a new target dataset (y) and convert it to a numpy array and get all of the target values except the last'x' rows)
     y = np.array(df['Prediction'])[:-future_days]
 
+    # Remove NaN values from y and corresponding x values
+    valid_indices = ~np.isnan(y)
+    x = x[valid_indices]
+    y = y[valid_indices]
+
     # split the data into 75% training and 25% testing
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.25)
 
