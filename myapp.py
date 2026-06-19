@@ -85,18 +85,19 @@ def main():
                 container-name: sidebar !important;
             }
             
-            /* Sidebar Title styling - aligned center-left */
+            /* Sidebar Title styling - centered */
             .sidebar-header {
                 display: flex !important;
-                flex-direction: row !important;
+                flex-direction: column !important;
                 align-items: center !important;
-                justify-content: flex-start !important;
+                justify-content: center !important;
                 margin-top: 1rem !important;
                 margin-bottom: 1.5rem !important;
-                padding-left: 0.5rem !important;
-                padding-right: 1rem !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
                 width: 100% !important;
-                flex-wrap: nowrap !important;
+                flex-wrap: wrap !important;
+                gap: 0.25rem !important;
             }
             .sidebar-emoji {
                 font-size: clamp(0.7rem, 6cqw, 1.2rem) !important;
@@ -107,15 +108,18 @@ def main():
             }
             .sidebar-title {
                 font-weight: 700 !important;
-                font-size: clamp(0.95rem, 7cqw, 1.4rem) !important;
+                font-size: clamp(1.1rem, 8.5cqw, 1.6rem) !important;
                 background: linear-gradient(135deg, #38bdf8, #c084fc) !important;
                 -webkit-background-clip: text !important;
                 -webkit-text-fill-color: transparent !important;
                 text-transform: uppercase !important;
                 letter-spacing: 0.02rem !important;
-                white-space: nowrap !important;
-                display: inline-block !important;
-                flex-shrink: 0 !important;
+                white-space: normal !important;
+                text-align: center !important;
+                display: block !important;
+                flex-shrink: 1 !important;
+                word-break: break-word !important;
+                overflow-wrap: break-word !important;
             }
             
             /* Modernize Sidebar Inputs (Selectbox & inputs) */
@@ -136,6 +140,7 @@ def main():
             [data-testid="stSidebar"] label, [data-testid="stSidebar"] p {
                 color: #e2e8f0 !important;
                 font-weight: 600 !important;
+                text-align: center !important;
             }
 
             /* Radio Buttons customization in sidebar */
