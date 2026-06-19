@@ -299,41 +299,52 @@ def main():
                 text-decoration: underline;
             }
             
-            /* Light theme overrides for Microsoft Azure style */
+            /* Modern, clean light theme sidebar styling */
             @media (prefers-color-scheme: light) {
                 [data-testid="stSidebar"] {
-                    background-color: #f3f3f3 !important;
-                    border-right: 1px solid #eaeaea !important;
+                    background-color: #f8fafc !important; /* Soft Slate gray/white */
+                    border-right: 1px solid #e2e8f0 !important; /* Crisp border */
                 }
                 [data-testid="stSidebarUserContent"] {
-                    background-color: #f3f3f3 !important;
+                    background-color: #f8fafc !important;
+                }
+                .sidebar-logo {
+                    color: #0284c7 !important; /* Sky Blue logo */
                 }
                 .sidebar-title {
-                    color: #242424 !important;
+                    color: #0f172a !important; /* Slate Dark */
                 }
                 .sidebar-header {
-                    border-bottom: 1px solid #eaeaea !important;
+                    border-bottom: 1px solid #e2e8f0 !important;
                 }
                 [data-testid="stSidebar"] label, [data-testid="stSidebar"] p {
-                    color: #323130 !important;
+                    color: #475569 !important; /* Slate-600 */
                 }
                 [data-testid="stSidebar"] div[data-baseweb="select"], 
                 [data-testid="stSidebar"] div[data-baseweb="input"] {
                     background-color: #ffffff !important;
-                    border: 1px solid #d2d0ce !important;
+                    border: 1px solid #cbd5e1 !important;
+                    border-radius: 6px !important;
                 }
                 [data-testid="stSidebar"] div[data-baseweb="select"] *, 
                 [data-testid="stSidebar"] div[data-baseweb="input"] * {
-                    color: #242424 !important;
+                    color: #0f172a !important;
+                }
+                [data-testid="stSidebar"] div[role="radiogroup"] label {
+                    border-radius: 6px !important;
                 }
                 [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-                    background-color: #eaeaea !important;
+                    background-color: #f1f5f9 !important; /* Slate-100 */
                     border-color: #cbd5e1 !important;
                 }
                 [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
-                    background-color: #ffffff !important;
-                    border-color: #0078d4 !important;
-                    border-left: 4px solid #0078d4 !important;
+                    background-color: #f0f9ff !important; /* Sky Blue-50 */
+                    border-color: #0284c7 !important;
+                    border-left: 4px solid #0284c7 !important;
+                }
+                [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) span {
+                    color: #0369a1 !important; /* Sky Blue-700 */
+                    font-weight: 600 !important;
                 }
             }
         </style>
@@ -343,7 +354,7 @@ def main():
     app_mode = st.sidebar.selectbox("Select App Mode", ["Home", "Data Analysis", "Prediction", "Best Analysis"])
 
     if app_mode == "Home":
-        st.markdown('<h1><span class="header-emoji">📈</span><span class="header-gradient">Data Visualization of Time Tradable Assets</span></h1>', unsafe_allow_html=True)
+        st.markdown('<h1><span class="header-emoji">📈</span><span class="header-gradient">Stock Market Dashboard</span></h1>', unsafe_allow_html=True)
         
         with open('README.md', 'r', encoding='utf-8') as fp:
             st.markdown(fp.read())
