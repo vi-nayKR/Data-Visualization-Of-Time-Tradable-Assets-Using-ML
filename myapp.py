@@ -42,7 +42,7 @@ except ImportError:
     HAS_LSTM = False
 
 def main():
-    st.set_page_config(page_title="Stock Market Dashboard", page_icon="📈", layout="wide")
+    st.set_page_config(page_title="Data Visualization of Time Tradable Assets", page_icon="📈", layout="wide")
     
     # Custom CSS for premium modern dark UI and styled sidebar
     st.markdown("""
@@ -65,118 +65,126 @@ def main():
             }
             
             html, body, [class*="css"] {
-                font-family: 'Outfit', sans-serif;
+                font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Outfit', sans-serif !important;
             }
             
             /* Center all page headers (h1, h2, h3) in main tabs */
             h1, h2, h3, [data-testid="stAppViewContainer"] h1, [data-testid="stAppViewContainer"] h2 {
                 text-align: center !important;
             }
-            
-            /* Modern, colorful sidebar gradient */
+                      /* Microsoft Azure-style sidebar styling */
             [data-testid="stSidebar"] {
-                background: linear-gradient(180deg, #111827 0%, #1e1b4b 60%, #2e1065 100%) !important;
-                border-right: 1px solid #4f46e5 !important;
+                background-color: #181818 !important;
+                border-right: 1px solid #323130 !important;
                 container-type: inline-size !important;
                 container-name: sidebar !important;
             }
             [data-testid="stSidebarUserContent"] {
+                background-color: #181818 !important;
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
                 container-type: inline-size !important;
                 container-name: sidebar !important;
             }
             
-            /* Sidebar Title styling - centered */
+            /* Sidebar Title styling - Microsoft Fluent style */
             .sidebar-header {
                 display: flex !important;
-                flex-direction: column !important;
+                flex-direction: row !important;
                 align-items: center !important;
-                justify-content: center !important;
-                margin-top: 1rem !important;
-                margin-bottom: 1.5rem !important;
-                padding-left: 0 !important;
-                padding-right: 0 !important;
+                justify-content: flex-start !important;
+                margin-top: 1.5rem !important;
+                margin-bottom: 2rem !important;
+                padding-left: 0.25rem !important;
+                padding-right: 0.25rem !important;
                 width: 100% !important;
-                flex-wrap: wrap !important;
-                gap: 0.25rem !important;
+                gap: 0.75rem !important;
+                border-bottom: 1px solid #323130 !important;
+                padding-bottom: 1.25rem !important;
             }
-            .sidebar-emoji {
-                font-size: clamp(0.7rem, 6cqw, 1.2rem) !important;
-                margin-right: 0.3rem !important;
-                display: none !important;
-                line-height: 1 !important;
-                flex-shrink: 0 !important;
+            .sidebar-logo {
+                font-size: 1.4rem !important;
+                color: #0078d4 !important;
+                display: inline-block !important;
             }
             .sidebar-title {
-                font-weight: 700 !important;
-                font-size: clamp(1.1rem, 8.5cqw, 1.6rem) !important;
-                background: linear-gradient(135deg, #38bdf8, #c084fc) !important;
-                -webkit-background-clip: text !important;
-                -webkit-text-fill-color: transparent !important;
+                font-weight: 600 !important;
+                font-size: 0.88rem !important;
+                color: #ffffff !important;
                 text-transform: uppercase !important;
-                letter-spacing: 0.02rem !important;
+                letter-spacing: 0.05rem !important;
                 white-space: normal !important;
-                text-align: center !important;
+                text-align: left !important;
+                line-height: 1.35 !important;
                 display: block !important;
                 flex-shrink: 1 !important;
-                word-break: break-word !important;
-                overflow-wrap: break-word !important;
+                font-family: 'Segoe UI', -apple-system, sans-serif !important;
             }
             
-            /* Modernize Sidebar Inputs (Selectbox & inputs) */
+            /* Microsoft Fluent Sidebar Inputs (Selectbox & inputs) */
             [data-testid="stSidebar"] div[data-baseweb="select"], 
             [data-testid="stSidebar"] div[data-baseweb="input"] {
-                background-color: #1f2937 !important;
-                border: 1.5px solid #4f46e5 !important;
-                border-radius: 10px !important;
-                transition: all 0.25s ease;
+                background-color: #252525 !important;
+                border: 1px solid #605e5c !important;
+                border-radius: 4px !important;
+                transition: all 0.15s ease-in-out;
             }
             [data-testid="stSidebar"] div[data-baseweb="select"]:hover, 
             [data-testid="stSidebar"] div[data-baseweb="input"]:hover {
-                border-color: #a855f7 !important;
-                box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+                border-color: #a19f9d !important;
+            }
+            [data-testid="stSidebar"] div[data-baseweb="select"]:focus-within, 
+            [data-testid="stSidebar"] div[data-baseweb="input"]:focus-within {
+                border-color: #0078d4 !important;
+                box-shadow: 0 0 0 1px #0078d4 !important;
             }
             
             /* Sidebar labels & paragraphs */
             [data-testid="stSidebar"] label, [data-testid="stSidebar"] p {
-                color: #e2e8f0 !important;
-                font-weight: 600 !important;
-                text-align: center !important;
+                color: #cccccc !important;
+                font-weight: 500 !important;
+                text-align: left !important;
+                font-size: 0.85rem !important;
+                margin-bottom: 0.25rem !important;
             }
 
-            /* Radio Buttons customization in sidebar */
+            /* Microsoft Fluent Menu Navigation (Radio Buttons as navigation lists) */
             [data-testid="stSidebar"] div[role="radiogroup"] {
                 display: flex !important;
                 flex-direction: column !important;
                 width: 100% !important;
-                gap: 0.5rem !important;
+                gap: 0.25rem !important;
             }
             [data-testid="stSidebar"] div[role="radiogroup"] label {
                 width: 100% !important;
-                background: #1f2937 !important;
-                border: 1.5px solid #374151 !important;
-                border-radius: 10px !important;
-                padding: 0.6rem 1rem !important;
+                background: transparent !important;
+                border: 1px solid transparent !important;
+                border-radius: 4px !important;
+                padding: 0.5rem 0.75rem !important;
                 margin-bottom: 0 !important;
-                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                transition: all 0.15s ease-in-out !important;
                 display: flex !important;
                 align-items: center !important;
+                justify-content: flex-start !important;
+                cursor: pointer !important;
             }
             [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-                border-color: #818cf8 !important;
-                background-color: #374151 !important;
+                background-color: #252525 !important;
+                border-color: #323130 !important;
             }
             [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
-                background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%) !important;
-                border-color: #a855f7 !important;
-                box-shadow: 0 0 12px rgba(168, 85, 247, 0.3) !important;
+                background-color: #292929 !important;
+                border-color: #0078d4 !important;
+                border-left: 4px solid #0078d4 !important;
+                font-weight: 600 !important;
+            }
+            [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) span {
+                color: #ffffff !important;
             }
             
-            /* Style the radio checked circle color to match purple theme */
+            /* Hide the default radio circle indicator to look like clean Azure sidebar menu items */
             [data-testid="stSidebar"] div[role="radiogroup"] div[data-baseweb="radio"] > div {
-                border-color: #818cf8 !important;
-            }
-            [data-testid="stSidebar"] div[role="radiogroup"] div[data-baseweb="radio"] > div > div {
-                background-color: #818cf8 !important;
+                display: none !important;
             }
             
             .header-emoji {
@@ -291,52 +299,51 @@ def main():
                 text-decoration: underline;
             }
             
-            /* Light theme overrides */
+            /* Light theme overrides for Microsoft Azure style */
             @media (prefers-color-scheme: light) {
                 [data-testid="stSidebar"] {
-                    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 60%, #e2e8f0 100%) !important;
-                    border-right: 2px solid #6366f1 !important;
+                    background-color: #f3f3f3 !important;
+                    border-right: 1px solid #eaeaea !important;
+                }
+                [data-testid="stSidebarUserContent"] {
+                    background-color: #f3f3f3 !important;
                 }
                 .sidebar-title {
-                    background: linear-gradient(135deg, #4f46e5, #a855f7) !important;
-                    -webkit-background-clip: text !important;
-                    -webkit-text-fill-color: transparent !important;
+                    color: #242424 !important;
+                }
+                .sidebar-header {
+                    border-bottom: 1px solid #eaeaea !important;
                 }
                 [data-testid="stSidebar"] label, [data-testid="stSidebar"] p {
-                    color: #0f172a !important;
+                    color: #323130 !important;
                 }
                 [data-testid="stSidebar"] div[data-baseweb="select"], 
                 [data-testid="stSidebar"] div[data-baseweb="input"] {
                     background-color: #ffffff !important;
-                    border: 1.5px solid #cbd5e1 !important;
+                    border: 1px solid #d2d0ce !important;
                 }
                 [data-testid="stSidebar"] div[data-baseweb="select"] *, 
                 [data-testid="stSidebar"] div[data-baseweb="input"] * {
-                    color: #0f172a !important;
-                }
-                /* Radio buttons in light theme */
-                [data-testid="stSidebar"] div[role="radiogroup"] label {
-                    background: #ffffff !important;
-                    border: 1.5px solid #cbd5e1 !important;
+                    color: #242424 !important;
                 }
                 [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-                    border-color: #6366f1 !important;
-                    background-color: #f8fafc !important;
+                    background-color: #eaeaea !important;
+                    border-color: #cbd5e1 !important;
                 }
                 [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
-                    background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%) !important;
-                    border-color: #6366f1 !important;
-                    box-shadow: 0 0 12px rgba(99, 102, 241, 0.3) !important;
+                    background-color: #ffffff !important;
+                    border-color: #0078d4 !important;
+                    border-left: 4px solid #0078d4 !important;
                 }
             }
         </style>
     """, unsafe_allow_html=True)
 
-    st.sidebar.markdown('<div class="sidebar-header"><span class="sidebar-title">STOCK MARKET DASHBOARD</span></div>', unsafe_allow_html=True)
+    st.sidebar.markdown('<div class="sidebar-header"><span class="sidebar-logo">📊</span><span class="sidebar-title">Data Visualization of Time Tradable Assets</span></div>', unsafe_allow_html=True)
     app_mode = st.sidebar.selectbox("Select App Mode", ["Home", "Data Analysis", "Prediction", "Best Analysis"])
 
     if app_mode == "Home":
-        st.markdown('<h1><span class="header-emoji">📈</span><span class="header-gradient">Stock Market Dashboard</span></h1>', unsafe_allow_html=True)
+        st.markdown('<h1><span class="header-emoji">📈</span><span class="header-gradient">Data Visualization of Time Tradable Assets</span></h1>', unsafe_allow_html=True)
         
         with open('README.md', 'r', encoding='utf-8') as fp:
             st.markdown(fp.read())
