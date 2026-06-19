@@ -47,6 +47,13 @@ def data_analysis():
         data.rename(columns={'Volume': 'Volume (in millions)'}, inplace=True)
         return data
     data = data_download()
+    if data is None or data.empty:
+        st.error("Error: Downloaded data is empty. Yahoo Finance might be blocking the request, or the ticker may be delisted.")
+        return
+    data.dropna(inplace=True)
+    if data.empty:
+        st.error("Error: All downloaded data contains NaNs or is empty.")
+        return
     show = show_data()
     df1 = data
 

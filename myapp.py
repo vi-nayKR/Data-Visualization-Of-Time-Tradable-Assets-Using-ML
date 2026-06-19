@@ -430,7 +430,13 @@ def bprediction():
         return data
         
     df = data_download()
-    scaled_data = scaler.fit_transform(df)
+    if df is None or df.empty:
+        st.error("Error: Downloaded data is empty. Yahoo Finance might be blocking the request, or the ticker may be delisted.")
+        return
+    df.dropna(inplace=True)
+    if df.empty:
+        st.error("Error: All downloaded data contains NaNs or is empty.")
+        return
 
     # removing index which is date
     df['Date'] = df.index
@@ -443,6 +449,10 @@ def bprediction():
 
     # create a variable to predict 'x' days out into the future
     future_days = 50
+    if len(df) <= future_days:
+        st.error(f"Error: Not enough data points (only {len(df)} available) to predict {future_days} days into the future. Need at least {future_days + 10} days of data.")
+        return
+
     df['Prediction'] = df[['Close']].shift(-future_days)
 
     x = np.array(df.drop(['Prediction'], axis=1))[:-future_days]
@@ -613,6 +623,13 @@ def data_analysis():
         data.rename(columns={'Volume': 'Volume (in millions)'}, inplace=True)
         return data
     data = data_download()
+    if data is None or data.empty:
+        st.error("Error: Downloaded data is empty. Yahoo Finance might be blocking the request, or the ticker may be delisted.")
+        return
+    data.dropna(inplace=True)
+    if data.empty:
+        st.error("Error: All downloaded data contains NaNs or is empty.")
+        return
     show = show_data()
     df1 = data
 
@@ -809,9 +826,13 @@ def prediction():
         data.rename(columns={'Volume': 'Volume (in millions)'}, inplace=True)
         return data
     df = data_download()
-    
-    
-    scaled_data = scaler.fit_transform(df)
+    if df is None or df.empty:
+        st.error("Error: Downloaded data is empty. Yahoo Finance might be blocking the request, or the ticker may be delisted.")
+        return
+    df.dropna(inplace=True)
+    if df.empty:
+        st.error("Error: All downloaded data contains NaNs or is empty.")
+        return
     
     pred = st.sidebar.radio("Regression Type", [ "Linear Regression", "SVR Prediction",
                                                 "RBF Prediction","Tree Prediction","LSTM"])
@@ -827,6 +848,10 @@ def prediction():
 
     # create a variable to predict 'x' days out into the future
     future_days = 50
+    if len(df) <= future_days:
+        st.error(f"Error: Not enough data points (only {len(df)} available) to predict {future_days} days into the future. Need at least {future_days + 10} days of data.")
+        return
+        
     # create a new column( target) shifted 'x' units/days up
     df['Prediction'] = df[['Close']].shift(-future_days)
 
@@ -891,7 +916,7 @@ def prediction():
         #mod.Vclose = df.Close.loc[:747]
         #mod.Vpredictions = df.Close.loc[150:201]
         #mod.Vclose.loc[148:] = valid.Close
-        mod.loc[148:, 'Vpredictions'] = valid.predictions
+        mod.loc[valid.index, 'Vpredictions'] = valid.predictions
         #mod.Close = df.Close.loc[:200]
         chart_data = mod
         lin_confidence = lr.score(x_test, y_test)
@@ -913,7 +938,7 @@ def prediction():
         # mod.Vpredictions = df.Close.loc[:747]
 
         # mod.Vclose.loc[148:] = valid.Close
-        mod.loc[148:, 'Vpredictions'] = valid.predictions
+        mod.loc[valid.index, 'Vpredictions'] = valid.predictions
         # mod.Close = df.Close.loc[:150]
         chart_data = mod
         tree_confidence = tree.score(x_test, y_test)
@@ -934,7 +959,7 @@ def prediction():
         # mod.Vpredictions = df.Close.loc[:747]
 
         # mod.Vclose.loc[148:] = valid.Close
-        mod.loc[148:, 'Vpredictions'] = valid.predictions
+        mod.loc[valid.index, 'Vpredictions'] = valid.predictions
         # mod.Close = df.Close.loc[:150]
         chart_data = mod
         svr_confidence = svr_rbf.score(x_test, y_test)
@@ -955,7 +980,7 @@ def prediction():
         # mod.Vpredictions = df.Close.loc[:747]
 
         # mod.Vclose.loc[148:] = valid.Close
-        mod.loc[148:, 'Vpredictions'] = valid.predictions
+        mod.loc[valid.index, 'Vpredictions'] = valid.predictions
         # mod.Close = df.Close.loc[:150]
         chart_data = mod
         rbf_confidence = rbf_svr.score(x_test, y_test)
@@ -1037,7 +1062,7 @@ def prediction():
             for da in predictions:
                 pred1.append(da[0])
             
-            mod.loc[150:, 'Vpredictions'] = pred1
+            mod.loc[df.index[-len(pred1):], 'Vpredictions'] = pred1
             chart_data = mod
             prediction_graph(pred, test_loss, chart_data)
         else:

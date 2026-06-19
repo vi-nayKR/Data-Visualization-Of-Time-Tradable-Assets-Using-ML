@@ -75,6 +75,13 @@ def prediction():
         return data
 
     df = data_download()
+    if df is None or df.empty:
+        st.error("Error: Downloaded data is empty. Yahoo Finance might be blocking the request, or the ticker may be delisted.")
+        return
+    df.dropna(inplace=True)
+    if df.empty:
+        st.error("Error: All downloaded data contains NaNs or is empty.")
+        return
 
     pred = st.sidebar.radio("Regression Type", [ "Linear Regression", "SVR Prediction",
                                                 "RBF Prediction","Tree Prediction", "Polynomial Prediction", "LSTM"])
@@ -90,6 +97,10 @@ def prediction():
 
     # create a variable to predict 'x' days out into the future
     future_days = 50
+    if len(df) <= future_days:
+        st.error(f"Error: Not enough data points (only {len(df)} available) to predict {future_days} days into the future. Need at least {future_days + 10} days of data.")
+        return
+
     # create a new column( target) shifted 'x' units/days up
     df['Prediction'] = df[['Close']].shift(-future_days)
 
@@ -157,7 +168,7 @@ def prediction():
         mod.index.name = 'index'
         mod.Close = df.Close
 
-        mod.loc[148:, 'Vpredictions'] = valid.predictions
+        mod.loc[valid.index, 'Vpredictions'] = valid.predictions
         #mod.Close = df.Close.loc[:200]
         chart_data = mod
         lin_confidence = lr.score(x_test, y_test)
@@ -174,7 +185,7 @@ def prediction():
         mod.index.name = 'index'
         mod.Close = df.Close
 
-        mod.loc[148:, 'Vpredictions'] = valid.predictions
+        mod.loc[valid.index, 'Vpredictions'] = valid.predictions
         # mod.Close = df.Close.loc[:150]
         chart_data = mod
         tree_confidence = tree.score(x_test, y_test)
@@ -191,7 +202,7 @@ def prediction():
         mod.index.name = 'index'
         mod.Close = df.Close
 
-        mod.loc[148:, 'Vpredictions'] = valid.predictions
+        mod.loc[valid.index, 'Vpredictions'] = valid.predictions
         # mod.Close = df.Close.loc[:150]
         chart_data = mod
         svr_confidence = svr_rbf.score(x_test, y_test)
@@ -209,7 +220,7 @@ def prediction():
         mod.Close = df.Close
 
         
-        mod.loc[148:, 'Vpredictions'] = valid.predictions
+        mod.loc[valid.index, 'Vpredictions'] = valid.predictions
         
         chart_data = mod
         rbf_confidence = rbf_svr.score(x_test, y_test)
