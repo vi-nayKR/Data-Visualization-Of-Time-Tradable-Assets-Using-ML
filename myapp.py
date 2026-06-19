@@ -76,7 +76,7 @@ def main():
             /* Modern, colorful sidebar gradient */
             [data-testid="stSidebar"] {
                 background: linear-gradient(180deg, #111827 0%, #1e1b4b 60%, #2e1065 100%) !important;
-                border-right: 2px solid #4f46e5 !important;
+                border-right: 1px solid #4f46e5 !important;
                 container-type: inline-size !important;
                 container-name: sidebar !important;
             }
@@ -93,7 +93,7 @@ def main():
                 justify-content: flex-start !important;
                 margin-top: 1rem !important;
                 margin-bottom: 1.5rem !important;
-                padding-left: 1rem !important;
+                padding-left: 0.5rem !important;
                 padding-right: 1rem !important;
                 width: 100% !important;
                 flex-wrap: nowrap !important;
@@ -101,13 +101,13 @@ def main():
             .sidebar-emoji {
                 font-size: clamp(0.7rem, 6cqw, 1.2rem) !important;
                 margin-right: 0.3rem !important;
-                display: inline-block !important;
+                display: none !important;
                 line-height: 1 !important;
                 flex-shrink: 0 !important;
             }
             .sidebar-title {
                 font-weight: 700 !important;
-                font-size: clamp(0.55rem, 5.2cqw, 1.1rem) !important;
+                font-size: clamp(0.95rem, 7cqw, 1.4rem) !important;
                 background: linear-gradient(135deg, #38bdf8, #c084fc) !important;
                 -webkit-background-clip: text !important;
                 -webkit-text-fill-color: transparent !important;
@@ -327,7 +327,7 @@ def main():
         </style>
     """, unsafe_allow_html=True)
 
-    st.sidebar.markdown('<div class="sidebar-header"><span class="sidebar-emoji">📈</span><span class="sidebar-title">STOCK MARKET DASHBOARD</span></div>', unsafe_allow_html=True)
+    st.sidebar.markdown('<div class="sidebar-header"><span class="sidebar-title">STOCK MARKET DASHBOARD</span></div>', unsafe_allow_html=True)
     app_mode = st.sidebar.selectbox("Select App Mode", ["Home", "Data Analysis", "Prediction", "Best Analysis"])
 
     if app_mode == "Home":
