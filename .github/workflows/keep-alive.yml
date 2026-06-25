@@ -1,0 +1,29 @@
+name: Keep Streamlit Alive
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # Runs every 30 minutes
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Streamlit App
+        run: |
+          STREAMLIT_URL="https://data-visualization-of-time-tradable-assets.streamlit.app/"
+          
+          echo "Pinging Streamlit app at: $STREAMLIT_URL"
+          
+          curl -X GET "$STREAMLIT_URL" \
+          -H "User-Agent: Keep-Alive-Bot" \
+          --connect-timeout 10 \
+          --max-time 20 \
+          -v
+          
+          if [ $? -eq 0 ]; then
+            echo "✓ Keep-alive ping successful"
+          else
+            echo "✗ Keep-alive ping failed"
+            exit 1
+          fi
