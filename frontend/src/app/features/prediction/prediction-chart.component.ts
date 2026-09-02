@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, input, effect, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, input, effect, inject, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OHLCVRecord } from '../../core/models/stock.model';
 import { StockApiService } from '../../core/services/stock-api.service';
@@ -9,9 +9,13 @@ declare const Plotly: any;
   selector: 'app-prediction-chart',
   standalone: true,
   imports: [CommonModule],
-  template: `<div #chartContainer class="w-full h-full min-h-[420px] sm:min-h-[500px] md:min-h-[600px] bg-[var(--color-void)] overflow-hidden transition-colors duration-300"></div>`
+  template: `
+    <div #chartContainer 
+         class="tv-chart-touch-canvas w-full h-full min-h-[420px] sm:min-h-[500px] md:min-h-[600px] bg-[var(--color-void)] overflow-hidden transition-colors duration-300 select-none">
+    </div>
+  `
 })
-export class PredictionChartComponent {
+export class PredictionChartComponent implements AfterViewInit, OnDestroy {
   api = inject(StockApiService);
 
   records = input.required<OHLCVRecord[]>();
@@ -19,6 +23,9 @@ export class PredictionChartComponent {
   modelName = input<string>('ML Model');
 
   @ViewChild('chartContainer', { static: true }) chartContainer!: ElementRef;
+
+  private touchStartDistance = 0;
+  private resizeObserver?: ResizeObserver;
 
   constructor() {
     effect(() => {
@@ -29,6 +36,75 @@ export class PredictionChartComponent {
       if (recs && recs.length > 0 && typeof Plotly !== 'undefined') {
         this.renderChart(recs, preds, name, isDark);
       }
+    });
+  }
+
+  ngAfterViewInit() {
+    this.setupTouchGestures();
+    if (typeof ResizeObserver !== 'undefined' && this.chartContainer?.nativeElement) {
+      this.resizeObserver = new ResizeObserver(() => {
+        if (typeof Plotly !== 'undefined' && this.chartContainer?.nativeElement) {
+          Plotly.Plots.resize(this.chartContainer.nativeElement);
+        }
+      });
+      this.resizeObserver.observe(this.chartContainer.nativeElement);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
+  }
+
+  private setupTouchGestures() {
+    const el = this.chartContainer?.nativeElement;
+    if (!el) return;
+
+    el.addEventListener('touchstart', (e: TouchEvent) => {
+      if (e.touches.length === 2) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        this.touchStartDistance = Math.hypot(dx, dy);
+      }
+    }, { passive: true });
+
+    el.addEventListener('touchmove', (e: TouchEvent) => {
+      if (e.touches.length === 2 && this.touchStartDistance > 0) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const currentDistance = Math.hypot(dx, dy);
+        const factor = currentDistance / this.touchStartDistance;
+
+        if (Math.abs(factor - 1) > 0.08) {
+          this.zoomScale(factor > 1 ? 0.85 : 1.15);
+          this.touchStartDistance = currentDistance;
+        }
+      }
+    }, { passive: true });
+
+    el.addEventListener('touchend', () => {
+      this.touchStartDistance = 0;
+    }, { passive: true });
+  }
+
+  private zoomScale(scaleFactor: number) {
+    const el = this.chartContainer?.nativeElement;
+    if (!el || !el._fullLayout || !el._fullLayout.xaxis) return;
+    
+    const xRange = el._fullLayout.xaxis.range;
+    if (!xRange || xRange.length < 2) return;
+
+    const t0 = new Date(xRange[0]).getTime();
+    const t1 = new Date(xRange[1]).getTime();
+    const mid = (t0 + t1) / 2;
+    const halfSpan = ((t1 - t0) * scaleFactor) / 2;
+
+    const newStart = new Date(mid - halfSpan).toISOString().split('T')[0];
+    const newEnd = new Date(mid + halfSpan).toISOString().split('T')[0];
+
+    Plotly.relayout(el, {
+      'xaxis.range': [newStart, newEnd]
     });
   }
 
@@ -90,6 +166,7 @@ export class PredictionChartComponent {
       paper_bgcolor: bgVoid,
       plot_bgcolor: bgVoid,
       autosize: true,
+      dragmode: 'pan', // Default to smooth single-finger drag/pan
       font: { color: textMuted, family: 'Inter, -apple-system, sans-serif', size: isMobile ? 9 : 11 },
       margin: isMobile 
         ? { l: 5, r: 48, t: 15, b: 35 }
@@ -112,6 +189,7 @@ export class PredictionChartComponent {
       xaxis: {
         type: 'date',
         range: [dates[0], dates[dates.length - 1]],
+        fixedrange: false, // Zoomable & pannable by hand
         rangeslider: {
           visible: true,
           thickness: isMobile ? 0.05 : 0.06,
@@ -133,6 +211,7 @@ export class PredictionChartComponent {
         side: 'right',
         range: yRange,
         autorange: false,
+        fixedrange: false, // Zoomable & pannable by hand
         gridcolor: isDark ? '#12121a' : '#f3f4f6',
         linecolor: border,
         tickformat: '.2f',
@@ -148,8 +227,10 @@ export class PredictionChartComponent {
 
     const config = {
       responsive: true,
+      scrollZoom: true,     // Enables pinch zoom and mousewheel zoom
       displayModeBar: false,
-      scrollZoom: true
+      doubleClick: 'reset', // Double tap to reset
+      showTips: false
     };
 
     Plotly.react(this.chartContainer.nativeElement, [actualTrace, predTrace], layout, config);

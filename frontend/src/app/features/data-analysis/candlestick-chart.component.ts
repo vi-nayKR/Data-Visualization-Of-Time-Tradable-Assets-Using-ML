@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, input, effect, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, input, effect, inject, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OHLCVRecord, ChartType } from '../../core/models/stock.model';
 import { StockApiService } from '../../core/services/stock-api.service';
@@ -9,9 +9,13 @@ declare const Plotly: any;
   selector: 'app-candlestick-chart',
   standalone: true,
   imports: [CommonModule],
-  template: `<div #chartContainer class="w-full h-full min-h-[420px] sm:min-h-[520px] md:min-h-[640px] bg-[var(--color-void)] overflow-hidden transition-colors duration-300"></div>`
+  template: `
+    <div #chartContainer 
+         class="tv-chart-touch-canvas w-full h-full min-h-[420px] sm:min-h-[520px] md:min-h-[640px] bg-[var(--color-void)] overflow-hidden transition-colors duration-300 select-none">
+    </div>
+  `
 })
-export class CandlestickChartComponent {
+export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
   api = inject(StockApiService);
 
   data = input.required<OHLCVRecord[]>();
@@ -23,6 +27,9 @@ export class CandlestickChartComponent {
   chartType = input<ChartType>('candlestick');
   
   @ViewChild('chartContainer', { static: true }) chartContainer!: ElementRef;
+
+  private touchStartDistance = 0;
+  private resizeObserver?: ResizeObserver;
 
   constructor() {
     // Render chart on data/indicator/theme changes
@@ -63,6 +70,77 @@ export class CandlestickChartComponent {
     });
   }
 
+  ngAfterViewInit() {
+    this.setupTouchGestures();
+    if (typeof ResizeObserver !== 'undefined' && this.chartContainer?.nativeElement) {
+      this.resizeObserver = new ResizeObserver(() => {
+        if (typeof Plotly !== 'undefined' && this.chartContainer?.nativeElement) {
+          Plotly.Plots.resize(this.chartContainer.nativeElement);
+        }
+      });
+      this.resizeObserver.observe(this.chartContainer.nativeElement);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
+  }
+
+  private setupTouchGestures() {
+    const el = this.chartContainer?.nativeElement;
+    if (!el) return;
+
+    // Dual-finger pinch-to-zoom handler for mobile touchscreens
+    el.addEventListener('touchstart', (e: TouchEvent) => {
+      if (e.touches.length === 2) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        this.touchStartDistance = Math.hypot(dx, dy);
+      }
+    }, { passive: true });
+
+    el.addEventListener('touchmove', (e: TouchEvent) => {
+      if (e.touches.length === 2 && this.touchStartDistance > 0) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const currentDistance = Math.hypot(dx, dy);
+        const factor = currentDistance / this.touchStartDistance;
+
+        // Apply smooth pinch scaling if significant delta
+        if (Math.abs(factor - 1) > 0.08) {
+          this.zoomScale(factor > 1 ? 0.85 : 1.15);
+          this.touchStartDistance = currentDistance;
+        }
+      }
+    }, { passive: true });
+
+    el.addEventListener('touchend', () => {
+      this.touchStartDistance = 0;
+    }, { passive: true });
+  }
+
+  private zoomScale(scaleFactor: number) {
+    const el = this.chartContainer?.nativeElement;
+    if (!el || !el._fullLayout || !el._fullLayout.xaxis) return;
+    
+    const xRange = el._fullLayout.xaxis.range;
+    if (!xRange || xRange.length < 2) return;
+
+    const t0 = new Date(xRange[0]).getTime();
+    const t1 = new Date(xRange[1]).getTime();
+    const mid = (t0 + t1) / 2;
+    const halfSpan = ((t1 - t0) * scaleFactor) / 2;
+
+    const newStart = new Date(mid - halfSpan).toISOString().split('T')[0];
+    const newEnd = new Date(mid + halfSpan).toISOString().split('T')[0];
+
+    Plotly.relayout(el, {
+      'xaxis.range': [newStart, newEnd]
+    });
+  }
+
   private applyDrawingTool(tool: string) {
     if (!this.chartContainer?.nativeElement) return;
     const el = this.chartContainer.nativeElement;
@@ -85,12 +163,12 @@ export class CandlestickChartComponent {
       Plotly.relayout(el, { dragmode: 'select' });
     } else if (tool === 'crosshair') {
       Plotly.relayout(el, {
-        dragmode: 'zoom',
+        dragmode: 'pan',
         'xaxis.showspikes': true,
         'yaxis.showspikes': true
       });
     } else {
-      Plotly.relayout(el, { dragmode: 'zoom' });
+      Plotly.relayout(el, { dragmode: 'pan' });
     }
   }
 
@@ -307,11 +385,12 @@ export class CandlestickChartComponent {
       });
     }
 
-    // Layout configuration with Portfolio Light/Dark theme reactivity
+    // Layout configuration with TradingView Pan/Zoom touch mechanics
     const layout: any = {
       paper_bgcolor: bgVoid,
       plot_bgcolor: bgVoid,
       autosize: true,
+      dragmode: 'pan', // Default to smooth single-finger drag/pan like TradingView
       font: { color: textMuted, family: 'Inter, -apple-system, sans-serif', size: isMobile ? 9 : 11 },
       margin: isMobile 
         ? { l: 5, r: 48, t: 10, b: 35 }
@@ -333,6 +412,7 @@ export class CandlestickChartComponent {
       xaxis: {
         type: 'date',
         range: [dates[0], dates[dates.length - 1]],
+        fixedrange: false, // Fully zoomable & pannable by hand!
         rangeslider: {
           visible: true,
           thickness: isMobile ? 0.05 : 0.06,
@@ -356,6 +436,7 @@ export class CandlestickChartComponent {
         side: 'right',
         range: yRange,
         autorange: false,
+        fixedrange: false, // Zoomable & stretchable by hand!
         domain: showRSI ? [0.38, 1.0] : [0.24, 1.0],
         gridcolor: isDark ? '#12121a' : '#f3f4f6',
         linecolor: border,
@@ -371,6 +452,7 @@ export class CandlestickChartComponent {
       yaxis2: {
         title: '',
         side: 'right',
+        fixedrange: true,
         domain: showRSI ? [0.20, 0.35] : [0.08, 0.22],
         gridcolor: isDark ? '#12121a' : '#f3f4f6',
         linecolor: border,
@@ -382,6 +464,7 @@ export class CandlestickChartComponent {
       layout.yaxis3 = {
         title: 'RSI',
         side: 'right',
+        fixedrange: true,
         domain: [0.08, 0.18],
         gridcolor: isDark ? '#12121a' : '#f3f4f6',
         linecolor: border,
@@ -393,8 +476,10 @@ export class CandlestickChartComponent {
 
     const config = {
       responsive: true,
+      scrollZoom: true,     // Enables pinch-to-zoom and wheel zoom
       displayModeBar: false,
-      scrollZoom: true
+      doubleClick: 'reset', // Double tap to reset
+      showTips: false
     };
 
     Plotly.react(this.chartContainer.nativeElement, traces, layout, config);

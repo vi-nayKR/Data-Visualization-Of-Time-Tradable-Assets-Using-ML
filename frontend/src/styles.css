@@ -87,14 +87,26 @@ html, body {
   border-radius: 2px;
 }
 
-/* Hide scrollbar utility for mobile horizontal swipes */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
+/* Mobile Horizontal Scrollable Header & Ribbons */
+.header-scroll-container,
 .no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  white-space: nowrap !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+.header-scroll-container::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Touch action for TradingView-grade pinch-to-zoom & panning */
+.tv-chart-touch-canvas {
+  touch-action: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
 }
 
 /* Vector SVG Icon Helper */
@@ -146,8 +158,8 @@ html, body {
 .tv-nav-tab {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 5px 9px;
+  gap: 5px;
+  padding: 5px 10px;
   font-size: 11px;
   font-weight: 600;
   color: var(--color-muted);
@@ -155,6 +167,7 @@ html, body {
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 @media (min-width: 640px) {
@@ -177,13 +190,14 @@ html, body {
 }
 
 .tv-timeframe-btn {
-  padding: 3px 6px;
+  padding: 4px 7px;
   font-size: 11px;
   font-weight: 600;
   color: var(--color-muted);
   border-radius: 6px;
   transition: all 0.15s ease;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 @media (min-width: 640px) {
