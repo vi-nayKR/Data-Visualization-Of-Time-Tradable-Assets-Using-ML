@@ -1,6 +1,7 @@
-import { Component, ElementRef, ViewChild, input, effect } from '@angular/core';
+import { Component, ElementRef, ViewChild, input, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OHLCVRecord } from '../../core/models/stock.model';
+import { StockApiService } from '../../core/services/stock-api.service';
 
 declare const Plotly: any;
 
@@ -8,9 +9,11 @@ declare const Plotly: any;
   selector: 'app-prediction-chart',
   standalone: true,
   imports: [CommonModule],
-  template: `<div #chartContainer class="w-full h-[620px] bg-[#131722] overflow-hidden"></div>`
+  template: `<div #chartContainer class="w-full h-[620px] bg-[var(--color-void)] overflow-hidden transition-colors duration-300"></div>`
 })
 export class PredictionChartComponent {
+  api = inject(StockApiService);
+
   records = input.required<OHLCVRecord[]>();
   predictions = input.required<(number | null)[]>();
   modelName = input<string>('ML Model');
@@ -22,15 +25,25 @@ export class PredictionChartComponent {
       const recs = this.records();
       const preds = this.predictions();
       const name = this.modelName();
+      const isDark = this.api.isDarkMode();
       if (recs && recs.length > 0 && typeof Plotly !== 'undefined') {
-        this.renderChart(recs, preds, name);
+        this.renderChart(recs, preds, name, isDark);
       }
     });
   }
 
-  private renderChart(records: OHLCVRecord[], predictions: (number | null)[], modelName: string) {
+  private renderChart(records: OHLCVRecord[], predictions: (number | null)[], modelName: string, isDark: boolean) {
     const dates = records.map(r => r.date);
     const closePrices = records.map(r => r.close);
+
+    // Theme Palette
+    const bgVoid = isDark ? '#060608' : '#ffffff';
+    const bgSurface = isDark ? '#12121a' : '#f9fafb';
+    const border = isDark ? '#1a1a24' : '#e5e7eb';
+    const textMuted = isDark ? '#8e93a0' : '#6b7280';
+    const textFrost = isDark ? '#f4f5f8' : '#111827';
+    const accent = isDark ? '#ff6b00' : '#ea580c';
+    const green = isDark ? '#089981' : '#059669';
 
     // Filter valid numbers for dynamic tight scaling
     const validCloses = closePrices.filter(v => typeof v === 'number' && !isNaN(v) && v > 0);
@@ -40,7 +53,6 @@ export class PredictionChartComponent {
     let minPrice = Math.min(...allValidPrices);
     let maxPrice = Math.max(...allValidPrices);
     
-    // Safety fallback
     if (!isFinite(minPrice) || !isFinite(maxPrice) || minPrice === maxPrice) {
       minPrice = 100;
       maxPrice = 200;
@@ -57,9 +69,9 @@ export class PredictionChartComponent {
       type: 'scatter',
       mode: 'lines',
       name: 'Actual Close Price',
-      line: { color: '#2962ff', width: 2 },
+      line: { color: accent, width: 2 },
       fill: 'tozeroy',
-      fillcolor: 'rgba(41, 98, 255, 0.08)'
+      fillcolor: isDark ? 'rgba(255, 107, 0, 0.08)' : 'rgba(234, 88, 12, 0.08)'
     };
 
     // ML Predicted Future Trajectory Trace
@@ -69,30 +81,30 @@ export class PredictionChartComponent {
       type: 'scatter',
       mode: 'lines+markers',
       name: `${modelName} Projected Forecast`,
-      line: { color: '#089981', width: 2.5, dash: 'dot' },
-      marker: { size: 5, color: '#089981' }
+      line: { color: green, width: 2.5, dash: 'dot' },
+      marker: { size: 5, color: green }
     };
 
     const layout = {
-      paper_bgcolor: '#131722',
-      plot_bgcolor: '#131722',
-      font: { color: '#9db2c6', family: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif', size: 11 },
+      paper_bgcolor: bgVoid,
+      plot_bgcolor: bgVoid,
+      font: { color: textMuted, family: 'Inter, -apple-system, sans-serif', size: 11 },
       height: 600,
       margin: { l: 25, r: 65, t: 25, b: 45 },
       showlegend: true,
       legend: {
         x: 0.02,
         y: 0.98,
-        bgcolor: '#1e222d',
-        bordercolor: '#363c4e',
+        bgcolor: isDark ? 'rgba(18, 18, 26, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+        bordercolor: border,
         borderwidth: 1,
-        font: { color: '#f0f3fa', size: 12 }
+        font: { color: textFrost, size: 12 }
       },
       hovermode: 'x unified',
       hoverlabel: {
-        bgcolor: '#1e222d',
-        bordercolor: '#363c4e',
-        font: { color: '#ffffff', size: 11, family: 'JetBrains Mono, monospace' }
+        bgcolor: bgSurface,
+        bordercolor: border,
+        font: { color: textFrost, size: 11, family: 'JetBrains Mono, monospace' }
       },
       xaxis: {
         type: 'date',
@@ -100,34 +112,34 @@ export class PredictionChartComponent {
         rangeslider: {
           visible: true,
           thickness: 0.06,
-          bgcolor: '#181b24',
-          bordercolor: '#2a2e39',
+          bgcolor: bgSurface,
+          bordercolor: border,
           borderwidth: 1,
           yaxis: { rangemode: 'match' }
         },
-        gridcolor: '#1e222d',
-        linecolor: '#2a2e39',
-        tickfont: { color: '#9db2c6', size: 10 },
+        gridcolor: isDark ? '#12121a' : '#f3f4f6',
+        linecolor: border,
+        tickfont: { color: textMuted, size: 10 },
         showspikes: true,
         spikemode: 'across',
         spikethickness: 1,
         spikedash: 'dot',
-        spikecolor: '#787b86'
+        spikecolor: textMuted
       },
       yaxis: {
         side: 'right',
         range: yRange,
         autorange: false,
-        gridcolor: '#1e222d',
-        linecolor: '#2a2e39',
+        gridcolor: isDark ? '#12121a' : '#f3f4f6',
+        linecolor: border,
         tickformat: '.2f',
         tickprefix: '$',
-        tickfont: { color: '#9db2c6', size: 11, family: 'JetBrains Mono, monospace' },
+        tickfont: { color: textMuted, size: 11, family: 'JetBrains Mono, monospace' },
         showspikes: true,
         spikemode: 'across',
         spikethickness: 1,
         spikedash: 'dot',
-        spikecolor: '#787b86'
+        spikecolor: textMuted
       }
     };
 

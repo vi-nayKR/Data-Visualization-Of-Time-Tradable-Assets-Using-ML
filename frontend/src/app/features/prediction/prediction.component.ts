@@ -9,20 +9,20 @@ import { PredictionChartComponent } from './prediction-chart.component';
   standalone: true,
   imports: [CommonModule, PredictionChartComponent],
   template: `
-    <div class="flex flex-col h-full bg-[#131722] text-[#f0f3fa] overflow-hidden">
+    <div class="flex flex-col h-full bg-[var(--color-void)] text-[var(--color-frost)] overflow-hidden transition-colors duration-300">
       
       <!-- TOP MODEL SELECTION RIBBON -->
-      <div class="h-12 bg-[#1e222d] border-b border-[#2a2e39] flex items-center justify-between px-4 text-xs flex-shrink-0">
+      <div class="h-12 bg-[var(--color-surface)] border-b border-[var(--color-border)] flex items-center justify-between px-4 text-xs flex-shrink-0 transition-colors duration-300">
         
         <!-- Left: Strategy Selector Buttons -->
         <div class="flex items-center gap-2 overflow-x-auto">
-          <span class="text-[#9db2c6] font-bold uppercase text-[11px] mr-1 hidden sm:inline tracking-wider">Algorithm:</span>
+          <span class="text-[var(--color-muted)] font-bold uppercase text-[11px] mr-1 hidden sm:inline tracking-wider">Algorithm:</span>
           @for (m of models; track m.key) {
             <button (click)="selectedModel.set(m.key)"
                     [class]="selectedModel() === m.key
-                      ? 'bg-[#2962ff] text-white font-bold shadow-md shadow-[#2962ff]/20'
-                      : 'bg-[#131722] text-[#9db2c6] hover:text-white border border-[#363c4e] hover:bg-[#2a2e39]'"
-                    class="px-3.5 py-1.5 rounded text-xs transition-all whitespace-nowrap font-medium">
+                      ? 'bg-[var(--color-accent)] text-white font-bold shadow-md shadow-[var(--shadow-accent)]'
+                      : 'bg-[var(--color-void)] text-[var(--color-muted)] hover:text-[var(--color-frost)] border border-[var(--color-border)] hover:bg-[var(--color-surface)]'"
+                    class="px-3.5 py-1.5 rounded-lg text-xs transition-all whitespace-nowrap font-medium">
               {{ m.label }}
             </button>
           }
@@ -31,8 +31,8 @@ import { PredictionChartComponent } from './prediction-chart.component';
         <!-- Right: Confidence / R² Score Badge -->
         @if (response()) {
           <div class="flex items-center gap-2">
-            <span class="text-[#9db2c6] text-xs font-semibold">Model Confidence:</span>
-            <span class="font-mono-num font-extrabold text-xs px-2.5 py-1 rounded border"
+            <span class="text-[var(--color-muted)] text-xs font-semibold">Model Confidence:</span>
+            <span class="font-mono-num font-extrabold text-xs px-2.5 py-1 rounded-lg border"
                   [class]="response()!.confidence >= 0 
                     ? 'bg-[#089981]/15 text-[#089981] border-[#089981]/30' 
                     : 'bg-[#f23645]/15 text-[#f23645] border-[#f23645]/30'">
@@ -47,9 +47,9 @@ import { PredictionChartComponent } from './prediction-chart.component';
         
         <!-- Loading State -->
         @if (loading()) {
-          <div class="absolute inset-0 bg-[#131722]/85 backdrop-blur-sm z-40 flex flex-col items-center justify-center gap-3">
-            <div class="w-8 h-8 border-2 border-[#089981] border-t-transparent rounded-full animate-spin"></div>
-            <span class="text-xs font-mono-num text-[#9db2c6]">Fitting regression model & computing 50-day forecast for {{ api.selectedTicker() }}...</span>
+          <div class="absolute inset-0 bg-[var(--color-void)]/85 backdrop-blur-sm z-40 flex flex-col items-center justify-center gap-3">
+            <div class="w-8 h-8 border-2 border-[var(--color-accent)] border-t-transparent rounded-full animate-spin"></div>
+            <span class="text-xs font-mono-num text-[var(--color-muted)]">Fitting regression model & computing 50-day forecast for {{ api.selectedTicker() }}...</span>
           </div>
         }
 
@@ -62,10 +62,10 @@ import { PredictionChartComponent } from './prediction-chart.component';
           </div>
 
           <!-- Bottom Forecast Metrics Banner -->
-          <div class="h-10 bg-[#1e222d] border-t border-[#2a2e39] flex items-center justify-between px-4 text-xs font-mono-num flex-shrink-0">
-            <div class="flex items-center gap-5 text-[#9db2c6]">
-              <span>Active Algorithm: <strong class="text-white">{{ response()!.model }}</strong></span>
-              <span>Projection Horizon: <strong class="text-[#2962ff]">50 Trading Days Ahead</strong></span>
+          <div class="h-10 bg-[var(--color-surface)] border-t border-[var(--color-border)] flex items-center justify-between px-4 text-xs font-mono-num flex-shrink-0 transition-colors duration-300">
+            <div class="flex items-center gap-5 text-[var(--color-muted)]">
+              <span>Active Algorithm: <strong class="text-[var(--color-frost)]">{{ response()!.model }}</strong></span>
+              <span>Projection Horizon: <strong class="text-[var(--color-accent)]">50 Trading Days Ahead</strong></span>
             </div>
             <div class="text-[#089981] font-semibold flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-[#089981]"></span>

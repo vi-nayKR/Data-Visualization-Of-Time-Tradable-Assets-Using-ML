@@ -11,6 +11,9 @@ export class StockApiService {
   private http = inject(HttpClient);
   private baseUrl = environment.apiUrl;
 
+  // Theme state synchronized with Portfolio-Ng
+  isDarkMode = signal<boolean>(true);
+
   selectedTicker = signal<string>('AAPL');
   selectedCompanyName = signal<string>('Apple Inc.');
   companies = signal<Company[]>([]);
@@ -24,6 +27,36 @@ export class StockApiService {
   // Interactive Drawing & Tool Modes
   activeDrawingTool = signal<DrawingTool>('crosshair');
   drawingAction = signal<{ type: 'clear' | 'fibonacci' | 'zoom' | 'measure', timestamp: number } | null>(null);
+
+  constructor() {
+    this.initTheme();
+  }
+
+  private initTheme() {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme');
+      const isLight = saved === 'light';
+      this.isDarkMode.set(!isLight);
+      this.applyTheme(!isLight);
+    }
+  }
+
+  toggleTheme() {
+    const nextDark = !this.isDarkMode();
+    this.isDarkMode.set(nextDark);
+    this.applyTheme(nextDark);
+  }
+
+  private applyTheme(dark: boolean) {
+    if (typeof document === 'undefined') return;
+    if (dark) {
+      document.documentElement.classList.remove('light-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.add('light-mode');
+      localStorage.setItem('theme', 'light');
+    }
+  }
 
   // Computed state
   filteredCompanies = computed(() => {

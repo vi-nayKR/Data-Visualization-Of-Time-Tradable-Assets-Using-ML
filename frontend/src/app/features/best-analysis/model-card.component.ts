@@ -7,9 +7,9 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <div [class]="isWinner() 
-           ? 'bg-[#1e222d] border-[#089981] shadow-xl shadow-[#089981]/10 ring-1 ring-[#089981]/50' 
-           : 'bg-[#181b24] border-[#2a2e39] hover:border-[#363c4e]'"
-         class="relative rounded-lg border p-4 text-center transition-all flex flex-col justify-between">
+           ? 'bg-[var(--color-surface)] border-[#089981] shadow-xl shadow-[#089981]/10 ring-1 ring-[#089981]/50' 
+           : 'bg-[var(--color-abyss)] border-[var(--color-border)] hover:border-[var(--color-border-light)]'"
+         class="relative rounded-xl border p-4 text-center transition-all flex flex-col justify-between">
       
       @if (isWinner()) {
         <span class="absolute -top-2.5 right-3 bg-[#089981] text-white font-bold text-[9px] tracking-wider uppercase px-2 py-0.5 rounded shadow flex items-center gap-1">
@@ -20,23 +20,23 @@ import { CommonModule } from '@angular/common';
         </span>
       }
 
-      <div class="text-xs font-bold text-[#9db2c6] uppercase tracking-wider mb-2 truncate">
+      <div class="text-xs font-bold text-[var(--color-muted)] uppercase tracking-wider mb-2 truncate">
         {{ name() }}
       </div>
 
       <div class="text-2xl font-mono-num font-extrabold my-1"
-           [class]="isWinner() ? 'text-[#089981]' : 'text-white'">
+           [class]="isWinner() ? 'text-[#089981]' : 'text-[var(--color-frost)]'">
         {{ score() <= -900 ? 'N/A' : (score() * 100).toFixed(2) + '%' }}
       </div>
 
-      <div class="w-full bg-[#131722] h-2 rounded-full overflow-hidden mt-2">
+      <div class="w-full bg-[var(--color-void)] h-2 rounded-full overflow-hidden mt-2">
         <div [style.width.%]="score() > 0 ? Math.min(100, score() * 100) : 0"
-             [class]="isWinner() ? 'bg-[#089981]' : 'bg-[#2962ff]'"
+             [class]="isWinner() ? 'bg-[#089981]' : 'bg-[var(--color-accent)]'"
              class="h-full transition-all duration-500 rounded-full">
         </div>
       </div>
       
-      <div class="text-[11px] text-[#9db2c6] font-mono-num mt-2 font-medium">R² Accuracy Metric</div>
+      <div class="text-[11px] text-[var(--color-muted)] font-mono-num mt-2 font-medium">R² Accuracy Metric</div>
     </div>
   `
 })

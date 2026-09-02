@@ -9,7 +9,7 @@ declare const Plotly: any;
   selector: 'app-candlestick-chart',
   standalone: true,
   imports: [CommonModule],
-  template: `<div #chartContainer class="w-full h-[650px] bg-[#131722] overflow-hidden"></div>`
+  template: `<div #chartContainer class="w-full h-[650px] bg-[var(--color-void)] overflow-hidden transition-colors duration-300"></div>`
 })
 export class CandlestickChartComponent {
   api = inject(StockApiService);
@@ -25,7 +25,7 @@ export class CandlestickChartComponent {
   @ViewChild('chartContainer', { static: true }) chartContainer!: ElementRef;
 
   constructor() {
-    // Render chart on data/indicator changes
+    // Render chart on data/indicator/theme changes
     effect(() => {
       const records = this.data();
       const ma = this.maDays();
@@ -34,8 +34,9 @@ export class CandlestickChartComponent {
       const showBB = this.showBB();
       const showRSI = this.showRSI();
       const type = this.chartType();
+      const isDark = this.api.isDarkMode();
       if (records && records.length > 0 && typeof Plotly !== 'undefined') {
-        this.renderChart(records, ma, showMA, showEMA, showBB, showRSI, type);
+        this.renderChart(records, ma, showMA, showEMA, showBB, showRSI, type, isDark);
       }
     });
 
@@ -65,18 +66,19 @@ export class CandlestickChartComponent {
   private applyDrawingTool(tool: string) {
     if (!this.chartContainer?.nativeElement) return;
     const el = this.chartContainer.nativeElement;
+    const accent = this.api.isDarkMode() ? '#ff6b00' : '#ea580c';
 
     if (tool === 'trendline') {
       Plotly.relayout(el, {
         dragmode: 'drawline',
-        'newshape.line.color': '#2962ff',
+        'newshape.line.color': accent,
         'newshape.line.width': 2
       });
     } else if (tool === 'brush') {
       Plotly.relayout(el, {
         dragmode: 'drawrect',
-        'newshape.fillcolor': 'rgba(41, 98, 255, 0.12)',
-        'newshape.line.color': '#2962ff',
+        'newshape.fillcolor': this.api.isDarkMode() ? 'rgba(255, 107, 0, 0.12)' : 'rgba(234, 88, 12, 0.12)',
+        'newshape.line.color': accent,
         'newshape.line.width': 1.5
       });
     } else if (tool === 'measure') {
@@ -104,9 +106,9 @@ export class CandlestickChartComponent {
 
     const fibLevels = [
       { ratio: 0.0, color: '#f23645', name: '0.0% (Low)' },
-      { ratio: 0.236, color: '#ff9800', name: '23.6%' },
+      { ratio: 0.236, color: '#ff9242', name: '23.6%' },
       { ratio: 0.382, color: '#00e5ff', name: '38.2%' },
-      { ratio: 0.5, color: '#2962ff', name: '50.0%' },
+      { ratio: 0.5, color: '#ff6b00', name: '50.0%' },
       { ratio: 0.618, color: '#089981', name: '61.8% (Golden)' },
       { ratio: 0.786, color: '#e040fb', name: '78.6%' },
       { ratio: 1.0, color: '#089981', name: '100.0% (High)' }
@@ -149,7 +151,8 @@ export class CandlestickChartComponent {
     showEMA: boolean,
     showBB: boolean,
     showRSI: boolean,
-    chartType: ChartType
+    chartType: ChartType,
+    isDark: boolean
   ) {
     const dates = records.map(r => r.date);
     const opens = records.map(r => r.open);
@@ -157,6 +160,16 @@ export class CandlestickChartComponent {
     const lows = records.map(r => r.low);
     const closes = records.map(r => r.close);
     const volumes = records.map(r => r.volume);
+
+    // Theme Palette
+    const bgVoid = isDark ? '#060608' : '#ffffff';
+    const bgSurface = isDark ? '#12121a' : '#f9fafb';
+    const border = isDark ? '#1a1a24' : '#e5e7eb';
+    const textMuted = isDark ? '#8e93a0' : '#6b7280';
+    const textFrost = isDark ? '#f4f5f8' : '#111827';
+    const accent = isDark ? '#ff6b00' : '#ea580c';
+    const green = isDark ? '#089981' : '#059669';
+    const red = isDark ? '#f23645' : '#dc2626';
 
     // Calculate dynamic tight price range
     const validLows = lows.filter(v => typeof v === 'number' && !isNaN(v) && v > 0);
@@ -173,7 +186,7 @@ export class CandlestickChartComponent {
     const padding = Math.max(priceDelta * 0.08, 2);
     const yRange = [Math.max(0, Math.floor(minPrice - padding)), Math.ceil(maxPrice + padding)];
 
-    const volumeColors = records.map(r => r.close >= r.open ? 'rgba(8, 153, 129, 0.45)' : 'rgba(242, 54, 69, 0.45)');
+    const volumeColors = records.map(r => r.close >= r.open ? (isDark ? 'rgba(8, 153, 129, 0.45)' : 'rgba(5, 150, 105, 0.35)') : (isDark ? 'rgba(242, 54, 69, 0.45)' : 'rgba(220, 38, 38, 0.35)'));
 
     const traces: any[] = [];
 
@@ -188,8 +201,8 @@ export class CandlestickChartComponent {
         type: 'candlestick',
         name: 'Candles',
         yaxis: 'y',
-        increasing: { line: { color: '#089981', width: 1.2 }, fillcolor: '#089981' },
-        decreasing: { line: { color: '#f23645', width: 1.2 }, fillcolor: '#f23645' }
+        increasing: { line: { color: green, width: 1.2 }, fillcolor: green },
+        decreasing: { line: { color: red, width: 1.2 }, fillcolor: red }
       });
     } else if (chartType === 'line' || chartType === 'area') {
       traces.push({
@@ -199,9 +212,9 @@ export class CandlestickChartComponent {
         mode: 'lines',
         name: 'Close Price',
         yaxis: 'y',
-        line: { color: '#2962ff', width: 2 },
+        line: { color: accent, width: 2 },
         fill: chartType === 'area' ? 'tozeroy' : 'none',
-        fillcolor: 'rgba(41, 98, 255, 0.08)'
+        fillcolor: isDark ? 'rgba(255, 107, 0, 0.08)' : 'rgba(234, 88, 12, 0.08)'
       });
     } else if (chartType === 'bar') {
       traces.push({
@@ -213,8 +226,8 @@ export class CandlestickChartComponent {
         type: 'ohlc',
         name: 'OHLC Bars',
         yaxis: 'y',
-        increasing: { line: { color: '#089981' } },
-        decreasing: { line: { color: '#f23645' } }
+        increasing: { line: { color: green } },
+        decreasing: { line: { color: red } }
       });
     }
 
@@ -227,7 +240,7 @@ export class CandlestickChartComponent {
         mode: 'lines',
         name: 'BB Upper (20,2)',
         yaxis: 'y',
-        line: { color: 'rgba(41, 98, 255, 0.4)', width: 1, dash: 'dot' }
+        line: { color: isDark ? 'rgba(255, 146, 66, 0.4)' : 'rgba(234, 88, 12, 0.4)', width: 1, dash: 'dot' }
       });
       traces.push({
         x: dates,
@@ -237,8 +250,8 @@ export class CandlestickChartComponent {
         name: 'BB Lower (20,2)',
         yaxis: 'y',
         fill: 'tonexty',
-        fillcolor: 'rgba(41, 98, 255, 0.04)',
-        line: { color: 'rgba(41, 98, 255, 0.4)', width: 1, dash: 'dot' }
+        fillcolor: isDark ? 'rgba(255, 107, 0, 0.04)' : 'rgba(234, 88, 12, 0.04)',
+        line: { color: isDark ? 'rgba(255, 146, 66, 0.4)' : 'rgba(234, 88, 12, 0.4)', width: 1, dash: 'dot' }
       });
     }
 
@@ -251,7 +264,7 @@ export class CandlestickChartComponent {
         mode: 'lines',
         name: `SMA ${maDays}`,
         yaxis: 'y',
-        line: { color: '#ff9800', width: 1.8 }
+        line: { color: '#ff9242', width: 1.8 }
       });
     }
 
@@ -292,26 +305,26 @@ export class CandlestickChartComponent {
       });
     }
 
-    // Layout configuration with Horizontal Range Scrollbar
+    // Layout configuration with Portfolio Light/Dark theme reactivity
     const layout: any = {
-      paper_bgcolor: '#131722',
-      plot_bgcolor: '#131722',
-      font: { color: '#9db2c6', family: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif', size: 11 },
+      paper_bgcolor: bgVoid,
+      plot_bgcolor: bgVoid,
+      font: { color: textMuted, family: 'Inter, -apple-system, sans-serif', size: 11 },
       height: 640,
       margin: { l: 20, r: 65, t: 15, b: 45 },
       showlegend: showBB || showEMA,
       legend: {
         x: 0.01,
         y: 0.99,
-        bgcolor: 'rgba(30, 34, 45, 0.8)',
-        bordercolor: '#363c4e',
-        font: { color: '#f0f3fa', size: 10 }
+        bgcolor: isDark ? 'rgba(18, 18, 26, 0.85)' : 'rgba(255, 255, 255, 0.85)',
+        bordercolor: border,
+        font: { color: textFrost, size: 10 }
       },
       hovermode: 'x unified',
       hoverlabel: {
-        bgcolor: '#1e222d',
-        bordercolor: '#363c4e',
-        font: { color: '#ffffff', size: 11, family: 'JetBrains Mono, monospace' }
+        bgcolor: bgSurface,
+        bordercolor: border,
+        font: { color: textFrost, size: 11, family: 'JetBrains Mono, monospace' }
       },
       xaxis: {
         type: 'date',
@@ -319,20 +332,20 @@ export class CandlestickChartComponent {
         rangeslider: {
           visible: true,
           thickness: 0.06,
-          bgcolor: '#181b24',
-          bordercolor: '#2a2e39',
+          bgcolor: bgSurface,
+          bordercolor: border,
           borderwidth: 1,
           yaxis: { rangemode: 'match' }
         },
-        gridcolor: '#1e222d',
+        gridcolor: isDark ? '#12121a' : '#f3f4f6',
         gridwidth: 1,
-        linecolor: '#2a2e39',
-        tickfont: { color: '#9db2c6', size: 10 },
+        linecolor: border,
+        tickfont: { color: textMuted, size: 10 },
         showspikes: true,
         spikemode: 'across',
         spikethickness: 1,
         spikedash: 'dot',
-        spikecolor: '#787b86'
+        spikecolor: textMuted
       },
       yaxis: {
         title: '',
@@ -340,23 +353,23 @@ export class CandlestickChartComponent {
         range: yRange,
         autorange: false,
         domain: showRSI ? [0.38, 1.0] : [0.24, 1.0],
-        gridcolor: '#1e222d',
-        linecolor: '#2a2e39',
+        gridcolor: isDark ? '#12121a' : '#f3f4f6',
+        linecolor: border,
         tickformat: '.2f',
         tickprefix: '$',
-        tickfont: { color: '#9db2c6', size: 11, family: 'JetBrains Mono, monospace' },
+        tickfont: { color: textMuted, size: 11, family: 'JetBrains Mono, monospace' },
         showspikes: true,
         spikemode: 'across',
         spikethickness: 1,
         spikedash: 'dot',
-        spikecolor: '#787b86'
+        spikecolor: textMuted
       },
       yaxis2: {
         title: '',
         side: 'right',
         domain: showRSI ? [0.20, 0.35] : [0.08, 0.22],
-        gridcolor: '#1e222d',
-        linecolor: '#2a2e39',
+        gridcolor: isDark ? '#12121a' : '#f3f4f6',
+        linecolor: border,
         showticklabels: false
       }
     };
@@ -366,8 +379,8 @@ export class CandlestickChartComponent {
         title: 'RSI',
         side: 'right',
         domain: [0.08, 0.18],
-        gridcolor: '#1e222d',
-        linecolor: '#2a2e39',
+        gridcolor: isDark ? '#12121a' : '#f3f4f6',
+        linecolor: border,
         range: [0, 100],
         tickvals: [30, 70],
         tickfont: { color: '#e040fb', size: 9 }

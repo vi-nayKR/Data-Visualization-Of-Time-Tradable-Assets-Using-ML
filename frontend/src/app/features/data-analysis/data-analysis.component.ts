@@ -10,22 +10,22 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
   standalone: true,
   imports: [CommonModule, FormsModule, CandlestickChartComponent],
   template: `
-    <div class="flex flex-col h-full bg-[#131722] text-[#f0f3fa] overflow-hidden">
+    <div class="flex flex-col h-full bg-[var(--color-void)] text-[var(--color-frost)] overflow-hidden transition-colors duration-300">
       
-      <!-- SUB-HEADER: TRADINGVIEW INDICATORS & TOOLBAR -->
-      <div class="h-10 bg-[#1e222d] border-b border-[#2a2e39] flex items-center justify-between px-3 sm:px-4 text-xs flex-shrink-0 gap-2 overflow-x-auto">
+      <!-- SUB-HEADER: INDICATORS & TOOLBAR -->
+      <div class="h-10 bg-[var(--color-surface)] border-b border-[var(--color-border)] flex items-center justify-between px-3 sm:px-4 text-xs flex-shrink-0 gap-2 overflow-x-auto transition-colors duration-300">
         
         <!-- Left: Active Indicators Chips & Controls -->
         <div class="flex items-center gap-1.5 sm:gap-2">
           
           <!-- SMA Indicator Chip -->
-          <div class="flex items-center gap-1.5 bg-[#131722] border border-[#363c4e] rounded px-2.5 py-1">
-            <span class="w-2.5 h-2.5 rounded-full bg-[#ff9800]"></span>
-            <span class="font-bold text-white text-xs">SMA</span>
-            <span class="font-mono-num text-[#9db2c6] text-xs">({{ maDays() }}d)</span>
+          <div class="flex items-center gap-1.5 bg-[var(--color-void)] border border-[var(--color-border)] rounded-lg px-2.5 py-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#ff9242]"></span>
+            <span class="font-bold text-[var(--color-frost)] text-xs">SMA</span>
+            <span class="font-mono-num text-[var(--color-muted)] text-xs">({{ maDays() }}d)</span>
             
             <button (click)="showMA.set(!showMA())"
-                    [class]="showMA() ? 'text-[#089981]' : 'text-[#787b86]'"
+                    [class]="showMA() ? 'text-[#089981]' : 'text-[var(--color-muted)]'"
                     class="hover:opacity-80 ml-0.5 p-0.5" title="Toggle SMA Visibility">
               @if (showMA()) {
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -44,7 +44,7 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
           <!-- SMA Period Settings Modal -->
           <div class="relative">
             <button (click)="showMASettings.set(!showMASettings())"
-                    class="p-1 hover:bg-[#2a2e39] rounded text-[#9db2c6] hover:text-white transition-colors" title="SMA Settings">
+                    class="p-1 hover:bg-[var(--color-void)] rounded-lg text-[var(--color-muted)] hover:text-[var(--color-frost)] transition-colors" title="SMA Settings">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="3"></circle>
                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
@@ -52,58 +52,58 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
             </button>
 
             @if (showMASettings()) {
-              <div class="absolute left-0 top-8 w-64 bg-[#1e222d] border border-[#363c4e] rounded-lg shadow-xl p-3.5 z-50 space-y-2">
+              <div class="absolute left-0 top-8 w-64 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg shadow-xl p-3.5 z-50 space-y-2">
                 <div class="flex items-center justify-between">
-                  <span class="font-bold text-white text-xs">SMA Moving Average</span>
-                  <span class="font-mono-num font-bold text-[#2962ff]">{{ maDays() }} Days</span>
+                  <span class="font-bold text-[var(--color-frost)] text-xs">SMA Moving Average</span>
+                  <span class="font-mono-num font-bold text-[var(--color-accent)]">{{ maDays() }} Days</span>
                 </div>
                 <input type="range" [min]="5" [max]="200" [value]="maDays()"
                        (input)="onMaSliderChange($event)"
-                       class="w-full accent-[#2962ff]">
+                       class="w-full accent-[var(--color-accent)]">
               </div>
             }
           </div>
 
           <!-- EMA Toggle -->
           <button (click)="showEMA.set(!showEMA())"
-                  [class]="showEMA() ? 'bg-[#00e5ff]/20 text-[#00e5ff] border-[#00e5ff]/50' : 'bg-[#131722] text-[#9db2c6] border-[#363c4e] hover:text-white'"
-                  class="flex items-center gap-1.5 border rounded px-2.5 py-1 transition-all">
+                  [class]="showEMA() ? 'bg-[#00e5ff]/20 text-[#00e5ff] border-[#00e5ff]/50' : 'bg-[var(--color-void)] text-[var(--color-muted)] border-[var(--color-border)] hover:text-[var(--color-frost)]'"
+                  class="flex items-center gap-1.5 border rounded-lg px-2.5 py-1 transition-all">
             <span class="w-2 h-2 rounded-full bg-[#00e5ff]"></span>
             <span class="font-bold">EMA (20)</span>
           </button>
 
           <!-- Bollinger Bands Toggle -->
           <button (click)="showBB.set(!showBB())"
-                  [class]="showBB() ? 'bg-[#2962ff]/20 text-[#2962ff] border-[#2962ff]/50' : 'bg-[#131722] text-[#9db2c6] border-[#363c4e] hover:text-white'"
-                  class="flex items-center gap-1.5 border rounded px-2.5 py-1 transition-all">
-            <span class="w-2 h-2 rounded-full bg-[#2962ff]"></span>
+                  [class]="showBB() ? 'bg-[var(--color-accent)]/20 text-[var(--color-accent)] border-[var(--color-accent)]/50' : 'bg-[var(--color-void)] text-[var(--color-muted)] border-[var(--color-border)] hover:text-[var(--color-frost)]'"
+                  class="flex items-center gap-1.5 border rounded-lg px-2.5 py-1 transition-all">
+            <span class="w-2 h-2 rounded-full bg-[var(--color-accent)]"></span>
             <span class="font-bold">BB (20,2)</span>
           </button>
 
           <!-- RSI Oscillator Toggle -->
           <button (click)="showRSI.set(!showRSI())"
-                  [class]="showRSI() ? 'bg-[#e040fb]/20 text-[#e040fb] border-[#e040fb]/50' : 'bg-[#131722] text-[#9db2c6] border-[#363c4e] hover:text-white'"
-                  class="flex items-center gap-1.5 border rounded px-2.5 py-1 transition-all">
+                  [class]="showRSI() ? 'bg-[#e040fb]/20 text-[#e040fb] border-[#e040fb]/50' : 'bg-[var(--color-void)] text-[var(--color-muted)] border-[var(--color-border)] hover:text-[var(--color-frost)]'"
+                  class="flex items-center gap-1.5 border rounded-lg px-2.5 py-1 transition-all">
             <span class="w-2 h-2 rounded-full bg-[#e040fb]"></span>
             <span class="font-bold">RSI (14)</span>
           </button>
         </div>
 
         <!-- Right: View Mode Toggle -->
-        <div class="flex items-center gap-1 bg-[#131722] p-0.5 rounded border border-[#2a2e39] flex-shrink-0">
+        <div class="flex items-center gap-1 bg-[var(--color-void)] p-0.5 rounded-lg border border-[var(--color-border)] flex-shrink-0">
           <button (click)="viewMode.set('chart')"
-                  [class]="viewMode() === 'chart' ? 'bg-[#2962ff] text-white font-bold' : 'text-[#9db2c6] hover:text-white'"
-                  class="px-3 py-1 rounded text-xs transition-all">
+                  [class]="viewMode() === 'chart' ? 'bg-[var(--color-accent)] text-white font-bold shadow' : 'text-[var(--color-muted)] hover:text-[var(--color-frost)]'"
+                  class="px-3 py-1 rounded-md text-xs transition-all">
             Chart View
           </button>
           <button (click)="viewMode.set('financials')"
-                  [class]="viewMode() === 'financials' ? 'bg-[#2962ff] text-white font-bold' : 'text-[#9db2c6] hover:text-white'"
-                  class="px-3 py-1 rounded text-xs transition-all">
+                  [class]="viewMode() === 'financials' ? 'bg-[var(--color-accent)] text-white font-bold shadow' : 'text-[var(--color-muted)] hover:text-[var(--color-frost)]'"
+                  class="px-3 py-1 rounded-md text-xs transition-all">
             Key Fundamentals
           </button>
           <button (click)="viewMode.set('table')"
-                  [class]="viewMode() === 'table' ? 'bg-[#2962ff] text-white font-bold' : 'text-[#9db2c6] hover:text-white'"
-                  class="px-3 py-1 rounded text-xs transition-all">
+                  [class]="viewMode() === 'table' ? 'bg-[var(--color-accent)] text-white font-bold shadow' : 'text-[var(--color-muted)] hover:text-[var(--color-frost)]'"
+                  class="px-3 py-1 rounded-md text-xs transition-all">
             Price History Table
           </button>
         </div>
@@ -114,9 +114,9 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
         
         <!-- Loading Spinner -->
         @if (loading()) {
-          <div class="absolute inset-0 bg-[#131722]/85 backdrop-blur-sm z-40 flex flex-col items-center justify-center gap-3">
-            <div class="w-8 h-8 border-2 border-[#2962ff] border-t-transparent rounded-full animate-spin"></div>
-            <span class="text-xs font-mono-num text-[#9db2c6]">Fetching real-time market data for {{ api.selectedTicker() }}...</span>
+          <div class="absolute inset-0 bg-[var(--color-void)]/85 backdrop-blur-sm z-40 flex flex-col items-center justify-center gap-3">
+            <div class="w-8 h-8 border-2 border-[var(--color-accent)] border-t-transparent rounded-full animate-spin"></div>
+            <span class="text-xs font-mono-num text-[var(--color-muted)]">Fetching real-time market data for {{ api.selectedTicker() }}...</span>
           </div>
         }
 
@@ -134,18 +134,18 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
           </div>
 
           <!-- Bottom Time Range Dock -->
-          <div class="h-9 bg-[#1e222d] border-t border-[#2a2e39] flex items-center justify-between px-4 text-xs flex-shrink-0">
+          <div class="h-9 bg-[var(--color-surface)] border-t border-[var(--color-border)] flex items-center justify-between px-4 text-xs flex-shrink-0 transition-colors duration-300">
             <div class="flex items-center gap-1">
               @for (r of rangeButtons; track r.period) {
                 <button (click)="changeRange(r.timeframe, r.period)"
-                        [class]="api.timeframe() === r.timeframe ? 'bg-[#2a2e39] text-[#2962ff] font-bold' : 'text-[#9db2c6] hover:text-white'"
-                        class="px-2.5 py-0.5 rounded text-xs font-mono-num transition-colors">
+                        [class]="api.timeframe() === r.timeframe ? 'bg-[var(--color-void)] text-[var(--color-accent)] border border-[var(--color-border)] font-bold' : 'text-[var(--color-muted)] hover:text-[var(--color-frost)]'"
+                        class="px-2.5 py-0.5 rounded-md text-xs font-mono-num transition-colors">
                   {{ r.label }}
                 </button>
               }
             </div>
 
-            <div class="flex items-center gap-4 text-xs font-mono-num text-[#9db2c6]">
+            <div class="flex items-center gap-4 text-xs font-mono-num text-[var(--color-muted)]">
               <span>Timezone: UTC+05:30</span>
               <span class="text-[#089981] font-semibold flex items-center gap-1.5">
                 <span class="w-2 h-2 rounded-full bg-[#089981]"></span>
@@ -159,28 +159,28 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
         @else if (viewMode() === 'financials') {
           <div class="flex-1 overflow-y-auto p-6 space-y-6">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-5 space-y-2 shadow">
-                <span class="text-xs text-[#9db2c6] uppercase font-bold tracking-wider">ISIN Code</span>
-                <div class="text-xl font-mono-num font-extrabold text-white">{{ companyInfo()?.isin || 'US0378331005' }}</div>
+              <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-5 space-y-2 shadow">
+                <span class="text-xs text-[var(--color-muted)] uppercase font-bold tracking-wider">ISIN Code</span>
+                <div class="text-xl font-mono-num font-extrabold text-[var(--color-frost)]">{{ companyInfo()?.isin || 'US0378331005' }}</div>
               </div>
-              <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-5 space-y-2 shadow">
-                <span class="text-xs text-[#9db2c6] uppercase font-bold tracking-wider">Market Cap</span>
-                <div class="text-xl font-mono-num font-bold text-[#2962ff]">$3.42 Trillion</div>
+              <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-5 space-y-2 shadow">
+                <span class="text-xs text-[var(--color-muted)] uppercase font-bold tracking-wider">Market Cap</span>
+                <div class="text-xl font-mono-num font-bold text-[var(--color-accent)]">$3.42 Trillion</div>
               </div>
-              <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-5 space-y-2 shadow">
-                <span class="text-xs text-[#9db2c6] uppercase font-bold tracking-wider">Trailing P/E</span>
+              <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-5 space-y-2 shadow">
+                <span class="text-xs text-[var(--color-muted)] uppercase font-bold tracking-wider">Trailing P/E</span>
                 <div class="text-xl font-mono-num font-bold text-[#089981]">34.82</div>
               </div>
-              <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-5 space-y-2 shadow">
-                <span class="text-xs text-[#9db2c6] uppercase font-bold tracking-wider">Dividend Yield</span>
-                <div class="text-xl font-mono-num font-bold text-white">0.52%</div>
+              <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-5 space-y-2 shadow">
+                <span class="text-xs text-[var(--color-muted)] uppercase font-bold tracking-wider">Dividend Yield</span>
+                <div class="text-xl font-mono-num font-bold text-[var(--color-frost)]">0.52%</div>
               </div>
             </div>
 
             <!-- Ownership Details -->
-            <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-6 space-y-4 shadow-xl">
-              <h3 class="text-sm font-bold text-white uppercase tracking-wider">Corporate Governance & Valuation Overview</h3>
-              <p class="text-xs text-[#9db2c6] leading-relaxed">
+            <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-6 space-y-4 shadow-xl">
+              <h3 class="text-sm font-bold text-[var(--color-frost)] uppercase tracking-wider">Corporate Governance & Valuation Overview</h3>
+              <p class="text-xs text-[var(--color-muted)] leading-relaxed">
                 Fundamental ownership metadata, institutional holdings, dividends, and corporate calendar events retrieved in real-time from Yahoo Finance for {{ api.selectedCompanyName() }} ({{ api.selectedTicker() }}).
               </p>
             </div>
@@ -190,9 +190,9 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
         <!-- 3. HISTORICAL DATA TABLE VIEW -->
         @else if (viewMode() === 'table') {
           <div class="flex-1 overflow-y-auto p-5">
-            <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg overflow-hidden shadow-xl">
+            <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl overflow-hidden shadow-xl">
               <table class="w-full text-left text-xs">
-                <thead class="bg-[#131722] text-[#9db2c6] uppercase border-b border-[#2a2e39] sticky top-0 font-bold">
+                <thead class="bg-[var(--color-void)] text-[var(--color-muted)] uppercase border-b border-[var(--color-border)] sticky top-0 font-bold">
                   <tr>
                     <th class="p-3.5">Date</th>
                     <th class="p-3.5">Open Price</th>
@@ -204,16 +204,16 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
                     <th class="p-3.5">RSI (14)</th>
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-[#2a2e39] font-mono-num text-[#f0f3fa]">
+                <tbody class="divide-y divide-[var(--color-border)] font-mono-num text-[var(--color-frost)]">
                   @for (r of records(); track r.date) {
-                    <tr class="hover:bg-[#2a2e39]/60 transition-colors">
-                      <td class="p-3.5 text-[#9db2c6]">{{ r.date }}</td>
+                    <tr class="hover:bg-[var(--color-void)]/60 transition-colors">
+                      <td class="p-3.5 text-[var(--color-muted)]">{{ r.date }}</td>
                       <td class="p-3.5">\${{ r.open }}</td>
                       <td class="p-3.5 text-[#089981] font-semibold">\${{ r.high }}</td>
                       <td class="p-3.5 text-[#f23645] font-semibold">\${{ r.low }}</td>
-                      <td class="p-3.5 font-bold text-white">\${{ r.close }}</td>
-                      <td class="p-3.5 text-[#9db2c6]">{{ r.volume }}M</td>
-                      <td class="p-3.5 text-[#ff9800]">{{ r.ma ? '$' + r.ma : '—' }}</td>
+                      <td class="p-3.5 font-bold text-[var(--color-frost)]">\${{ r.close }}</td>
+                      <td class="p-3.5 text-[var(--color-muted)]">{{ r.volume }}M</td>
+                      <td class="p-3.5 text-[#ff9242]">{{ r.ma ? '$' + r.ma : '—' }}</td>
                       <td class="p-3.5 text-[#e040fb]">{{ r.rsi ? r.rsi : '—' }}</td>
                     </tr>
                   }

@@ -1,63 +1,88 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;700;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --tv-bg-primary: #131722;
-  --tv-bg-secondary: #1e222d;
-  --tv-bg-tertiary: #2a2e39;
-  --tv-bg-hover: #2f3545;
-  --tv-border: #2a2e39;
-  --tv-border-light: #363c4e;
-  
-  /* High Contrast Accessible Colors */
-  --tv-text-primary: #f0f3fa;
-  --tv-text-secondary: #9db2c6;
-  --tv-text-muted: #787b86;
-  --tv-text-bright: #ffffff;
-  
-  --tv-blue: #2962ff;
-  --tv-blue-hover: #1e53e5;
-  --tv-green: #089981;
-  --tv-green-hover: #07806c;
-  --tv-red: #f23645;
-  --tv-red-hover: #d32b38;
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+
+  /* Portfolio Black theme with orange shades (default dark mode) */
+  --color-void: #060608;        /* Absolute black */
+  --color-abyss: #0c0c11;       /* Abyss dark */
+  --color-surface: #12121a;     /* Surface card black */
+  --color-frost: #f4f5f8;       /* Frosty text */
+  --color-muted: #8e93a0;       /* Slate muted text */
+  --color-accent: #ff6b00;      /* Vibrant Orange */
+  --color-accent-rgb: 255, 107, 0;
+  --color-accent-glow: #ff9242; /* Soft Orange glow */
+  --color-border: #1a1a24;      /* Border line */
+  --color-border-light: #262636;
+
+  --color-green: #089981;
+  --color-red: #f23645;
+
+  --gradient-start: #f4f5f8;
+  --gradient-mid: #ff9242;
+  --gradient-end: #ff6b00;
+
+  --shadow-accent: rgba(255, 107, 0, 0.15);
+}
+
+.light-mode {
+  /* Clean light theme with orange accents */
+  --color-void: #f9fafb;        /* Off-white */
+  --color-abyss: #f3f4f6;       /* Very light grey */
+  --color-surface: #ffffff;     /* White card */
+  --color-frost: #111827;       /* Dark slate text */
+  --color-muted: #6b7280;       /* Muted grey text */
+  --color-accent: #ea580c;      /* Orange-600 */
+  --color-accent-rgb: 234, 88, 12;
+  --color-accent-glow: #f97316; /* Orange-500 */
+  --color-border: #e5e7eb;      /* Grey border line */
+  --color-border-light: #d1d5db;
+
+  --color-green: #059669;
+  --color-red: #dc2626;
+
+  --gradient-start: #111827;
+  --gradient-mid: #f97316;
+  --gradient-end: #ea580c;
+
+  --shadow-accent: rgba(234, 88, 12, 0.1);
 }
 
 html, body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Trebuchet MS', Roboto, sans-serif;
-  background-color: #131722;
-  color: #f0f3fa;
+  font-family: var(--font-sans);
+  background-color: var(--color-void);
+  color: var(--color-frost);
   min-height: 100vh;
   overflow-x: hidden;
   user-select: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Monospace with tabular numbers for financial figures */
+/* Monospace with tabular numbers */
 .font-mono-num {
   font-family: 'JetBrains Mono', monospace;
   font-feature-settings: 'tnum' 1, 'zero' 1;
 }
 
-/* TradingView Custom Scrollbars */
+/* Custom Portfolio Scrollbars */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: #131722;
+  background: var(--color-void);
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2e39;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #363c4e;
+  background: var(--color-accent);
+  border-radius: 2px;
 }
 
 /* Vector SVG Icon Helper */
@@ -75,17 +100,37 @@ html, body {
   flex-shrink: 0;
 }
 
-.tv-icon-lg {
-  width: 20px;
-  height: 20px;
+.tv-icon-lg { width: 20px; height: 20px; }
+.tv-icon-sm { width: 14px; height: 14px; }
+
+/* Apple-grade Glassmorphism matching Portfolio-Ng */
+.apple-glass {
+  background: rgba(12, 12, 17, 0.75);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5), inset 0 1px 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.tv-icon-sm {
-  width: 14px;
-  height: 14px;
+.light-mode .apple-glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.06), inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-/* Button Component Styles */
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Navigation tabs matching Portfolio-Ng styling */
 .tv-nav-tab {
   display: inline-flex;
   align-items: center;
@@ -93,38 +138,40 @@ html, body {
   padding: 6px 12px;
   font-size: 13px;
   font-weight: 600;
-  color: #9db2c6;
-  border-radius: 4px;
-  transition: all 0.15s ease-in-out;
+  color: var(--color-muted);
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   white-space: nowrap;
 }
 
 .tv-nav-tab:hover {
-  color: #ffffff;
-  background-color: #1e222d;
+  color: var(--color-frost);
+  background-color: var(--color-surface);
 }
 
 .tv-nav-tab-active {
   color: #ffffff !important;
-  background-color: #2962ff !important;
+  background-color: var(--color-accent) !important;
+  box-shadow: 0 4px 12px var(--shadow-accent);
 }
 
 .tv-timeframe-btn {
   padding: 4px 8px;
   font-size: 12px;
   font-weight: 600;
-  color: #9db2c6;
-  border-radius: 4px;
-  transition: all 0.12s ease;
+  color: var(--color-muted);
+  border-radius: 6px;
+  transition: all 0.15s ease;
 }
 
 .tv-timeframe-btn:hover {
-  color: #ffffff;
-  background-color: #1e222d;
+  color: var(--color-frost);
+  background-color: var(--color-surface);
 }
 
 .tv-timeframe-btn-active {
-  color: #2962ff !important;
-  background-color: #2a2e39 !important;
+  color: var(--color-accent) !important;
+  background-color: var(--color-surface) !important;
+  border: 1px solid var(--color-border-light);
 }
