@@ -26,8 +26,8 @@ import { Timeframe, ChartType } from './core/models/stock.model';
             <span class="font-bold text-sm tracking-wider text-white">TRADEX<span class="text-[#2962ff]">.ML</span></span>
           </div>
 
-          <!-- Symbol Search Selector -->
-          <div class="relative">
+          <!-- Symbol Search Selector with Rich Tooltip -->
+          <div class="relative group">
             <button (click)="toggleSymbolSearch()"
                     class="flex items-center gap-2 bg-[#1e222d] hover:bg-[#2a2e39] border border-[#363c4e] rounded px-3 py-1.5 text-white font-semibold transition-all">
               <svg class="tv-icon tv-icon-sm text-[#9db2c6]" viewBox="0 0 24 24">
@@ -40,6 +40,12 @@ import { Timeframe, ChartType } from './core/models/stock.model';
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </button>
+
+            <!-- Rich Tooltip -->
+            <div class="absolute left-0 top-11 w-56 bg-[#1e222d] border border-[#363c4e] rounded-lg p-2.5 shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+              <div class="font-bold text-white text-xs">Symbol Search (500+ Stocks)</div>
+              <div class="text-[11px] text-[#9db2c6] leading-tight mt-0.5">Click to search and switch equities, ETFs, and index tickers.</div>
+            </div>
 
             <!-- Search Dropdown Modal -->
             @if (showSymbolSearch()) {
@@ -93,51 +99,75 @@ import { Timeframe, ChartType } from './core/models/stock.model';
           }
         </div>
 
-        <!-- Center Section: Timeframes & Chart Type -->
+        <!-- Center Section: Timeframes & Chart Type with Rich Tooltips -->
         <div class="hidden lg:flex items-center gap-1 border-x border-[#2a2e39] px-2">
           @for (tf of timeframes; track tf) {
-            <button (click)="onSelectTimeframe(tf)"
-                    [class]="api.timeframe() === tf ? 'tv-timeframe-btn-active' : ''"
-                    class="tv-timeframe-btn">
-              {{ tf }}
-            </button>
+            <div class="relative group">
+              <button (click)="onSelectTimeframe(tf)"
+                      [class]="api.timeframe() === tf ? 'tv-timeframe-btn-active' : ''"
+                      class="tv-timeframe-btn">
+                {{ tf }}
+              </button>
+              <div class="absolute left-1/2 -translate-x-1/2 top-9 w-32 bg-[#1e222d] border border-[#363c4e] rounded p-2 text-center shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+                <div class="font-bold text-white text-[11px]">{{ tf }} Timeframe</div>
+                <div class="text-[10px] text-[#9db2c6]">Load {{ tf }} historical range</div>
+              </div>
+            </div>
           }
 
           <span class="w-[1px] h-4 bg-[#2a2e39] mx-1"></span>
 
-          <!-- Chart Types Buttons with SVG Icons -->
+          <!-- Chart Types Buttons with Rich Tooltips -->
           <div class="flex items-center gap-1">
             <!-- Candlestick Icon -->
-            <button (click)="api.chartType.set('candlestick')"
-                    [class]="api.chartType() === 'candlestick' ? 'bg-[#2962ff] text-white shadow-md' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
-                    title="Candles" class="p-1.5 rounded transition-all">
-              <svg class="tv-icon tv-icon-sm" viewBox="0 0 24 24">
-                <line x1="9" y1="2" x2="9" y2="22"></line>
-                <rect x="6" y="6" width="6" height="11" rx="1" fill="currentColor"></rect>
-                <line x1="17" y1="4" x2="17" y2="20"></line>
-                <rect x="14" y="8" width="6" height="8" rx="1" fill="currentColor"></rect>
-              </svg>
-            </button>
+            <div class="relative group">
+              <button (click)="api.chartType.set('candlestick')"
+                      [class]="api.chartType() === 'candlestick' ? 'bg-[#2962ff] text-white shadow-md' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                      class="p-1.5 rounded transition-all">
+                <svg class="tv-icon tv-icon-sm" viewBox="0 0 24 24">
+                  <line x1="9" y1="2" x2="9" y2="22"></line>
+                  <rect x="6" y="6" width="6" height="11" rx="1" fill="currentColor"></rect>
+                  <line x1="17" y1="4" x2="17" y2="20"></line>
+                  <rect x="14" y="8" width="6" height="8" rx="1" fill="currentColor"></rect>
+                </svg>
+              </button>
+              <div class="absolute left-1/2 -translate-x-1/2 top-9 w-44 bg-[#1e222d] border border-[#363c4e] rounded-lg p-2 shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+                <div class="font-bold text-white text-xs">Candlestick Chart</div>
+                <div class="text-[10px] text-[#9db2c6]">Green/Red candles with open, high, low, close.</div>
+              </div>
+            </div>
 
             <!-- Line Chart Icon -->
-            <button (click)="api.chartType.set('line')"
-                    [class]="api.chartType() === 'line' ? 'bg-[#2962ff] text-white shadow-md' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
-                    title="Line Chart" class="p-1.5 rounded transition-all">
-              <svg class="tv-icon tv-icon-sm" viewBox="0 0 24 24">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-              </svg>
-            </button>
+            <div class="relative group">
+              <button (click)="api.chartType.set('line')"
+                      [class]="api.chartType() === 'line' ? 'bg-[#2962ff] text-white shadow-md' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                      class="p-1.5 rounded transition-all">
+                <svg class="tv-icon tv-icon-sm" viewBox="0 0 24 24">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+              </button>
+              <div class="absolute left-1/2 -translate-x-1/2 top-9 w-44 bg-[#1e222d] border border-[#363c4e] rounded-lg p-2 shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+                <div class="font-bold text-white text-xs">Line Chart</div>
+                <div class="text-[10px] text-[#9db2c6]">Smooth closing price curve with area fill.</div>
+              </div>
+            </div>
 
             <!-- OHLC Bar Icon -->
-            <button (click)="api.chartType.set('bar')"
-                    [class]="api.chartType() === 'bar' ? 'bg-[#2962ff] text-white shadow-md' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
-                    title="OHLC Bars" class="p-1.5 rounded transition-all">
-              <svg class="tv-icon tv-icon-sm" viewBox="0 0 24 24">
-                <line x1="12" y1="2" x2="12" y2="22"></line>
-                <line x1="12" y1="8" x2="8" y2="8"></line>
-                <line x1="12" y1="16" x2="16" y2="16"></line>
-              </svg>
-            </button>
+            <div class="relative group">
+              <button (click)="api.chartType.set('bar')"
+                      [class]="api.chartType() === 'bar' ? 'bg-[#2962ff] text-white shadow-md' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                      class="p-1.5 rounded transition-all">
+                <svg class="tv-icon tv-icon-sm" viewBox="0 0 24 24">
+                  <line x1="12" y1="2" x2="12" y2="22"></line>
+                  <line x1="12" y1="8" x2="8" y2="8"></line>
+                  <line x1="12" y1="16" x2="16" y2="16"></line>
+                </svg>
+              </button>
+              <div class="absolute left-1/2 -translate-x-1/2 top-9 w-44 bg-[#1e222d] border border-[#363c4e] rounded-lg p-2 shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+                <div class="font-bold text-white text-xs">OHLC Bars</div>
+                <div class="text-[10px] text-[#9db2c6]">Discrete tick bar visualization for price action.</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -156,108 +186,168 @@ import { Timeframe, ChartType } from './core/models/stock.model';
 
           <span class="w-[1px] h-4 bg-[#2a2e39] mx-1"></span>
 
-          <!-- Watchlist Drawer Toggle Button -->
-          <button (click)="showWatchlist.set(!showWatchlist())"
-                  [class]="showWatchlist() ? 'bg-[#2962ff] text-white' : 'bg-[#1e222d] text-[#9db2c6] hover:text-white border-[#363c4e]'"
-                  class="flex items-center gap-1.5 px-3 py-1.5 rounded border text-xs font-semibold transition-all">
-            <svg class="tv-icon tv-icon-sm" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="9" y1="3" x2="9" y2="21"></line>
-            </svg>
-            <span class="hidden sm:inline">Watchlist</span>
-          </button>
+          <!-- Watchlist Drawer Toggle Button with Tooltip -->
+          <div class="relative group">
+            <button (click)="showWatchlist.set(!showWatchlist())"
+                    [class]="showWatchlist() ? 'bg-[#2962ff] text-white' : 'bg-[#1e222d] text-[#9db2c6] hover:text-white border-[#363c4e]'"
+                    class="flex items-center gap-1.5 px-3 py-1.5 rounded border text-xs font-semibold transition-all">
+              <svg class="tv-icon tv-icon-sm" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="9" y1="3" x2="9" y2="21"></line>
+              </svg>
+              <span class="hidden sm:inline">Watchlist</span>
+            </button>
+            <div class="absolute right-0 top-11 w-48 bg-[#1e222d] border border-[#363c4e] rounded-lg p-2 shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+              <div class="font-bold text-white text-xs">Watchlist Drawer</div>
+              <div class="text-[10px] text-[#9db2c6]">Toggle right market panel with 500+ stock quotes.</div>
+            </div>
+          </div>
         </div>
       </header>
 
       <!-- MAIN WORKSPACE: LEFT TOOLBAR + CENTER CONTENT + RIGHT WATCHLIST -->
       <div class="flex flex-1 w-full overflow-hidden relative">
 
-        <!-- FUNCTIONAL LEFT DRAWING TOOLBAR -->
+        <!-- FUNCTIONAL LEFT DRAWING TOOLBAR WITH RICH HOVER TOOLTIPS -->
         <aside class="w-11 bg-[#131722] border-r border-[#2a2e39] flex flex-col items-center py-3 gap-2.5 z-20 flex-shrink-0 text-xs">
           
-          <!-- Crosshair Mode -->
-          <button (click)="api.setTool('crosshair')"
-                  [class]="api.activeDrawingTool() === 'crosshair' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
-                  class="p-2 rounded-lg transition-all" title="Crosshair Mode">
-            <svg class="tv-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="2" x2="12" y2="22"></line>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-            </svg>
-          </button>
+          <!-- 1. Crosshair Mode -->
+          <div class="relative group flex items-center">
+            <button (click)="api.setTool('crosshair')"
+                    [class]="api.activeDrawingTool() === 'crosshair' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                    class="p-2 rounded-lg transition-all">
+              <svg class="tv-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="2" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+              </svg>
+            </button>
+            <!-- Rich Tooltip -->
+            <div class="absolute left-12 top-1/2 -translate-y-1/2 w-52 bg-[#1e222d] border border-[#363c4e] rounded-lg p-2.5 shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+              <div class="font-bold text-white text-xs">Crosshair Cursor</div>
+              <div class="text-[11px] text-[#9db2c6] leading-tight mt-0.5">Inspect exact price, date, and axis spikelines at any coordinate.</div>
+            </div>
+          </div>
 
-          <!-- Interactive Trend Line Drawing Mode -->
-          <button (click)="api.setTool('trendline')"
-                  [class]="api.activeDrawingTool() === 'trendline' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
-                  class="p-2 rounded-lg transition-all" title="Draw Trend Line">
-            <svg class="tv-icon" viewBox="0 0 24 24">
-              <line x1="4" y1="20" x2="20" y2="4"></line>
-              <circle cx="4" cy="20" r="2" fill="currentColor"></circle>
-              <circle cx="20" cy="4" r="2" fill="currentColor"></circle>
-            </svg>
-          </button>
+          <!-- 2. Trend Line Tool -->
+          <div class="relative group flex items-center">
+            <button (click)="api.setTool('trendline')"
+                    [class]="api.activeDrawingTool() === 'trendline' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                    class="p-2 rounded-lg transition-all">
+              <svg class="tv-icon" viewBox="0 0 24 24">
+                <line x1="4" y1="20" x2="20" y2="4"></line>
+                <circle cx="4" cy="20" r="2" fill="currentColor"></circle>
+                <circle cx="20" cy="4" r="2" fill="currentColor"></circle>
+              </svg>
+            </button>
+            <!-- Rich Tooltip -->
+            <div class="absolute left-12 top-1/2 -translate-y-1/2 w-52 bg-[#1e222d] border border-[#363c4e] rounded-lg p-2.5 shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+              <div class="font-bold text-white text-xs">Trend Line Drawing</div>
+              <div class="text-[11px] text-[#9db2c6] leading-tight mt-0.5">Click & drag to draw support, resistance, and channel lines on chart.</div>
+            </div>
+          </div>
 
-          <!-- Fibonacci Retracement Auto-Plot -->
-          <button (click)="api.setTool('fibonacci')"
-                  [class]="api.activeDrawingTool() === 'fibonacci' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
-                  class="p-2 rounded-lg transition-all" title="Plot Fibonacci Retracement Levels">
-            <svg class="tv-icon" viewBox="0 0 24 24">
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-          </button>
+          <!-- 3. Fibonacci Retracement Tool -->
+          <div class="relative group flex items-center">
+            <button (click)="api.setTool('fibonacci')"
+                    [class]="api.activeDrawingTool() === 'fibonacci' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                    class="p-2 rounded-lg transition-all">
+              <svg class="tv-icon" viewBox="0 0 24 24">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+            <!-- Rich Tooltip -->
+            <div class="absolute left-12 top-1/2 -translate-y-1/2 w-56 bg-[#1e222d] border border-[#363c4e] rounded-lg p-2.5 shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+              <div class="font-bold text-white text-xs">Fibonacci Retracement</div>
+              <div class="text-[11px] text-[#9db2c6] leading-tight mt-0.5">Auto-calculates & plots 23.6%, 38.2%, 50%, 61.8% Golden Ratio levels.</div>
+            </div>
+          </div>
 
-          <!-- Brush / Highlight Box Mode -->
-          <button (click)="api.setTool('brush')"
-                  [class]="api.activeDrawingTool() === 'brush' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
-                  class="p-2 rounded-lg transition-all" title="Highlight Area / Brush">
-            <svg class="tv-icon" viewBox="0 0 24 24">
-              <path d="M18.375 2.625a3.875 3.875 0 0 0-5.48 0L3 12.5v5.5h5.5l9.875-9.875a3.875 3.875 0 0 0 0-5.5z"></path>
-            </svg>
-          </button>
+          <!-- 4. Brush / Area Highlight Tool -->
+          <div class="relative group flex items-center">
+            <button (click)="api.setTool('brush')"
+                    [class]="api.activeDrawingTool() === 'brush' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                    class="p-2 rounded-lg transition-all">
+              <svg class="tv-icon" viewBox="0 0 24 24">
+                <path d="M18.375 2.625a3.875 3.875 0 0 0-5.48 0L3 12.5v5.5h5.5l9.875-9.875a3.875 3.875 0 0 0 0-5.5z"></path>
+              </svg>
+            </button>
+            <!-- Rich Tooltip -->
+            <div class="absolute left-12 top-1/2 -translate-y-1/2 w-52 bg-[#1e222d] border border-[#363c4e] rounded-lg p-2.5 shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+              <div class="font-bold text-white text-xs">Area Highlight / Brush</div>
+              <div class="text-[11px] text-[#9db2c6] leading-tight mt-0.5">Draw highlight boxes to mark price consolidation or breakout zones.</div>
+            </div>
+          </div>
 
-          <!-- Quick Jump to ML Target Forecast -->
-          <button (click)="onTargetClick()"
-                  [class]="api.activeDrawingTool() === 'target' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
-                  class="p-2 rounded-lg transition-all" title="Launch ML Forecast Target">
-            <svg class="tv-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"></circle>
-              <circle cx="12" cy="12" r="6"></circle>
-              <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
-            </svg>
-          </button>
+          <!-- 5. ML Target Tool -->
+          <div class="relative group flex items-center">
+            <button (click)="onTargetClick()"
+                    [class]="api.activeDrawingTool() === 'target' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                    class="p-2 rounded-lg transition-all">
+              <svg class="tv-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
+              </svg>
+            </button>
+            <!-- Rich Tooltip -->
+            <div class="absolute left-12 top-1/2 -translate-y-1/2 w-52 bg-[#1e222d] border border-[#363c4e] rounded-lg p-2.5 shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+              <div class="font-bold text-white text-xs">ML Forecasting Target</div>
+              <div class="text-[11px] text-[#9db2c6] leading-tight mt-0.5">Instantly launch forward quantitative machine learning models.</div>
+            </div>
+          </div>
 
-          <!-- Distance / Range Measurement Mode -->
-          <button (click)="api.setTool('measure')"
-                  [class]="api.activeDrawingTool() === 'measure' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
-                  class="p-2 rounded-lg transition-all" title="Measure Distance & Price Delta">
-            <svg class="tv-icon" viewBox="0 0 24 24">
-              <path d="M21.3 8.7 8.7 21.3a1 1 0 0 1-1.4 0l-4.6-4.6a1 1 0 0 1 0-1.4L15.3 2.7a1 1 0 0 1 1.4 0l4.6 4.6a1 1 0 0 1 0 1.4z"></path>
-            </svg>
-          </button>
+          <!-- 6. Distance & Measure Tool -->
+          <div class="relative group flex items-center">
+            <button (click)="api.setTool('measure')"
+                    [class]="api.activeDrawingTool() === 'measure' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                    class="p-2 rounded-lg transition-all">
+              <svg class="tv-icon" viewBox="0 0 24 24">
+                <path d="M21.3 8.7 8.7 21.3a1 1 0 0 1-1.4 0l-4.6-4.6a1 1 0 0 1 0-1.4L15.3 2.7a1 1 0 0 1 1.4 0l4.6 4.6a1 1 0 0 1 0 1.4z"></path>
+              </svg>
+            </button>
+            <!-- Rich Tooltip -->
+            <div class="absolute left-12 top-1/2 -translate-y-1/2 w-52 bg-[#1e222d] border border-[#363c4e] rounded-lg p-2.5 shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+              <div class="font-bold text-white text-xs">Measure Tool</div>
+              <div class="text-[11px] text-[#9db2c6] leading-tight mt-0.5">Select a range to measure price change and percentage delta.</div>
+            </div>
+          </div>
 
           <!-- Bottom Utilities: Zoom In & Clear All Drawings -->
           <div class="mt-auto flex flex-col gap-2">
-            <!-- Zoom 30D -->
-            <button (click)="api.setTool('zoom')"
-                    class="p-2 text-[#9db2c6] hover:text-white hover:bg-[#2a2e39] rounded-lg transition-all" title="Zoom to Recent 30 Days">
-              <svg class="tv-icon" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                <line x1="11" y1="8" x2="11" y2="14"></line>
-                <line x1="8" y1="11" x2="14" y2="11"></line>
-              </svg>
-            </button>
+            <!-- Zoom 30D Tooltip -->
+            <div class="relative group flex items-center">
+              <button (click)="api.setTool('zoom')"
+                      class="p-2 text-[#9db2c6] hover:text-white hover:bg-[#2a2e39] rounded-lg transition-all">
+                <svg class="tv-icon" viewBox="0 0 24 24">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  <line x1="11" y1="8" x2="11" y2="14"></line>
+                  <line x1="8" y1="11" x2="14" y2="11"></line>
+                </svg>
+              </button>
+              <div class="absolute left-12 bottom-0 w-48 bg-[#1e222d] border border-[#363c4e] rounded-lg p-2.5 shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+                <div class="font-bold text-white text-xs">Focus Recent 30 Days</div>
+                <div class="text-[11px] text-[#9db2c6] leading-tight mt-0.5">Quickly zoom in on the latest month of price candles.</div>
+              </div>
+            </div>
             
-            <!-- Clear Drawings -->
-            <button (click)="api.triggerAction('clear')"
-                    class="p-2 text-[#9db2c6] hover:text-[#f23645] hover:bg-[#f23645]/15 rounded-lg transition-all" title="Clear All Lines & Annotations">
-              <svg class="tv-icon" viewBox="0 0 24 24">
-                <polyline points="3 6 5 6 21 6"></polyline>
-                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-              </svg>
-            </button>
+            <!-- Clear Drawings Tooltip -->
+            <div class="relative group flex items-center">
+              <button (click)="api.triggerAction('clear')"
+                      class="p-2 text-[#9db2c6] hover:text-[#f23645] hover:bg-[#f23645]/15 rounded-lg transition-all">
+                <svg class="tv-icon" viewBox="0 0 24 24">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+              </button>
+              <div class="absolute left-12 bottom-0 w-48 bg-[#1e222d] border border-[#363c4e] rounded-lg p-2.5 shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 z-50">
+                <div class="font-bold text-[#f23645] text-xs">Clear All Drawings</div>
+                <div class="text-[11px] text-[#9db2c6] leading-tight mt-0.5">Remove all trendlines, Fibonacci bands, and rectangles.</div>
+              </div>
+            </div>
           </div>
         </aside>
 

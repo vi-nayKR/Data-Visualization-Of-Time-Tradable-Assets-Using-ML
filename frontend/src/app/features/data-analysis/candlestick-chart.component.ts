@@ -292,13 +292,13 @@ export class CandlestickChartComponent {
       });
     }
 
-    // Layout configuration
+    // Layout configuration with Horizontal Range Scrollbar
     const layout: any = {
       paper_bgcolor: '#131722',
       plot_bgcolor: '#131722',
       font: { color: '#9db2c6', family: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif', size: 11 },
       height: 640,
-      margin: { l: 20, r: 65, t: 15, b: 30 },
+      margin: { l: 20, r: 65, t: 15, b: 45 },
       showlegend: showBB || showEMA,
       legend: {
         x: 0.01,
@@ -316,10 +316,17 @@ export class CandlestickChartComponent {
       xaxis: {
         type: 'date',
         range: [dates[0], dates[dates.length - 1]],
+        rangeslider: {
+          visible: true,
+          thickness: 0.06,
+          bgcolor: '#181b24',
+          bordercolor: '#2a2e39',
+          borderwidth: 1,
+          yaxis: { rangemode: 'match' }
+        },
         gridcolor: '#1e222d',
         gridwidth: 1,
         linecolor: '#2a2e39',
-        rangeslider: { visible: false },
         tickfont: { color: '#9db2c6', size: 10 },
         showspikes: true,
         spikemode: 'across',
@@ -332,7 +339,7 @@ export class CandlestickChartComponent {
         side: 'right',
         range: yRange,
         autorange: false,
-        domain: showRSI ? [0.35, 1.0] : [0.22, 1.0],
+        domain: showRSI ? [0.38, 1.0] : [0.24, 1.0],
         gridcolor: '#1e222d',
         linecolor: '#2a2e39',
         tickformat: '.2f',
@@ -347,7 +354,7 @@ export class CandlestickChartComponent {
       yaxis2: {
         title: '',
         side: 'right',
-        domain: showRSI ? [0.18, 0.32] : [0.0, 0.18],
+        domain: showRSI ? [0.20, 0.35] : [0.08, 0.22],
         gridcolor: '#1e222d',
         linecolor: '#2a2e39',
         showticklabels: false
@@ -358,7 +365,7 @@ export class CandlestickChartComponent {
       layout.yaxis3 = {
         title: 'RSI',
         side: 'right',
-        domain: [0.0, 0.15],
+        domain: [0.08, 0.18],
         gridcolor: '#1e222d',
         linecolor: '#2a2e39',
         range: [0, 100],

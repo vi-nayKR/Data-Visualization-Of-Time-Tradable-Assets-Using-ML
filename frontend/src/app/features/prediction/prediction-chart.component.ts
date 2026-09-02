@@ -78,7 +78,7 @@ export class PredictionChartComponent {
       plot_bgcolor: '#131722',
       font: { color: '#9db2c6', family: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif', size: 11 },
       height: 600,
-      margin: { l: 25, r: 65, t: 25, b: 35 },
+      margin: { l: 25, r: 65, t: 25, b: 45 },
       showlegend: true,
       legend: {
         x: 0.02,
@@ -97,6 +97,14 @@ export class PredictionChartComponent {
       xaxis: {
         type: 'date',
         range: [dates[0], dates[dates.length - 1]],
+        rangeslider: {
+          visible: true,
+          thickness: 0.06,
+          bgcolor: '#181b24',
+          bordercolor: '#2a2e39',
+          borderwidth: 1,
+          yaxis: { rangemode: 'match' }
+        },
         gridcolor: '#1e222d',
         linecolor: '#2a2e39',
         tickfont: { color: '#9db2c6', size: 10 },
