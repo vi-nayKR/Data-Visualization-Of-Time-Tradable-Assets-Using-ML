@@ -1,0 +1,14 @@
+[Unit]
+Description=Cloudflare Tunnel Daemon for Stock API
+After=network-online.target stock-api.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=vinay
+ExecStart=/usr/bin/cloudflared tunnel run stock-api-tunnel
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
