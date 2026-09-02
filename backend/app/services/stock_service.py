@@ -3,21 +3,19 @@ import pandas as pd
 import numpy as np
 import time
 from typing import List, Dict, Any, Optional
+from app.core.cache import stock_cache
 
-# In-memory TTL cache
-_CACHE: Dict[str, Dict[str, Any]] = {}
-CACHE_TTL_SECONDS = 60
+# TTL in seconds for OHLCV and indicator cache
+STOCK_CACHE_TTL = 180.0 # 3 minutes
 
 class StockService:
     def get_historical_data(self, ticker: str, period: str = "180d") -> List[Dict[str, Any]]:
-        """Downloads historical OHLCV data with in-memory caching."""
-        cache_key = f"{ticker.upper()}_{period}"
-        now = time.time()
+        """Downloads historical OHLCV data with in-memory TTL caching."""
+        cache_key = f"HIST_{ticker.upper()}_{period}"
         
-        if cache_key in _CACHE:
-            entry = _CACHE[cache_key]
-            if now - entry["timestamp"] < CACHE_TTL_SECONDS:
-                return entry["data"]
+        cached = stock_cache.get(cache_key)
+        if cached is not None:
+            return cached
 
         data = yf.download(tickers=ticker, period=period, interval='1d', auto_adjust=False, progress=False)
         if data is None or data.empty:
@@ -56,11 +54,16 @@ class StockService:
                 "bbMiddle": None
             })
 
-        _CACHE[cache_key] = {"timestamp": now, "data": records}
+        stock_cache.set(cache_key, records, ttl_seconds=STOCK_CACHE_TTL)
         return records
 
     def get_with_technical_indicators(self, ticker: str, ma_days: int = 50, period: str = "180d") -> List[Dict[str, Any]]:
-        """Calculates SMA, EMA, RSI(14), MACD(12,26,9), and Bollinger Bands."""
+        """Calculates SMA, EMA, RSI(14), MACD(12,26,9), and Bollinger Bands with TTL caching."""
+        cache_key = f"TECH_{ticker.upper()}_{ma_days}_{period}"
+        cached = stock_cache.get(cache_key)
+        if cached is not None:
+            return cached
+
         records = [dict(r) for r in self.get_historical_data(ticker, period=period)]
         if not records or len(records) < 5:
             return records
@@ -104,6 +107,7 @@ class StockService:
             records[i]["bbLower"] = round(float(bb_lower[i]), 2) if not np.isnan(bb_lower[i]) else None
             records[i]["bbMiddle"] = round(float(bb_mid[i]), 2) if not np.isnan(bb_mid[i]) else None
 
+        stock_cache.set(cache_key, records, ttl_seconds=STOCK_CACHE_TTL)
         return records
 
     def get_with_moving_average(self, ticker: str, days: int = 50, period: str = "180d") -> List[Dict[str, Any]]:

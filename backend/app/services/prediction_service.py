@@ -9,12 +9,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from app.services.stock_service import StockService
 from app.models.lstm_model import PyTorchLSTM, HAS_LSTM
+from app.core.cache import prediction_cache
 import torch
 import torch.nn as nn
 import torch.optim as optim
 
-_PRED_CACHE: Dict[str, Dict[str, Any]] = {}
-PRED_CACHE_TTL = 90
+PRED_CACHE_TTL = 300.0  # 5 minutes for heavy machine learning predictions
 
 class PredictionService:
     def __init__(self):
@@ -51,12 +51,10 @@ class PredictionService:
         }
 
     def run_prediction(self, ticker: str, model_type: str) -> Dict[str, Any]:
-        cache_key = f"{ticker.upper()}_{model_type.lower()}"
-        now = time.time()
-        if cache_key in _PRED_CACHE:
-            entry = _PRED_CACHE[cache_key]
-            if now - entry["timestamp"] < PRED_CACHE_TTL:
-                return entry["data"]
+        cache_key = f"PRED_{ticker.upper()}_{model_type.lower()}"
+        cached = prediction_cache.get(cache_key)
+        if cached is not None:
+            return cached
 
         data = self._prepare_dataset(ticker)
         if not data:
@@ -127,7 +125,7 @@ class PredictionService:
             "predictions": final_preds
         }
 
-        _PRED_CACHE[cache_key] = {"timestamp": now, "data": result}
+        prediction_cache.set(cache_key, result, ttl_seconds=PRED_CACHE_TTL)
         return result
 
     def _train_lstm(self, scaled_data: np.ndarray, scaler: MinMaxScaler) -> Dict[str, Any]:
@@ -187,12 +185,10 @@ class PredictionService:
         return {"confidence": score, "predictions": preds}
 
     def find_best_model(self, ticker: str) -> Dict[str, Any]:
-        cache_key = f"{ticker.upper()}_best_model"
-        now = time.time()
-        if cache_key in _PRED_CACHE:
-            entry = _PRED_CACHE[cache_key]
-            if now - entry["timestamp"] < PRED_CACHE_TTL:
-                return entry["data"]
+        cache_key = f"BEST_{ticker.upper()}"
+        cached = prediction_cache.get(cache_key)
+        if cached is not None:
+            return cached
 
         models_to_test = ["linear_regression", "tree", "svr", "rbf", "lstm"]
         results = []
@@ -221,5 +217,5 @@ class PredictionService:
             "records": best_res["records"],
             "predictions": best_res["predictions"]
         }
-        _PRED_CACHE[cache_key] = {"timestamp": now, "data": result}
+        prediction_cache.set(cache_key, result, ttl_seconds=PRED_CACHE_TTL)
         return result

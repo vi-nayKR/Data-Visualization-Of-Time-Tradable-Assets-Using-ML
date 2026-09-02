@@ -1,5 +1,5 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Company, OHLCVRecord, PredictionResponse, BestModelResponse, Timeframe, ChartType } from '../models/stock.model';
@@ -23,6 +23,13 @@ export class StockApiService {
   timeframe = signal<Timeframe>('6M');
   chartType = signal<ChartType>('candlestick');
   currentRecords = signal<OHLCVRecord[]>([]);
+
+  // Rate Limiting & Infra Alert signals
+  rateLimitWarning = signal<{ active: boolean; message: string; retryAfter: number }>({
+    active: false,
+    message: '',
+    retryAfter: 0
+  });
 
   // Interactive Drawing & Tool Modes
   activeDrawingTool = signal<DrawingTool>('crosshair');
@@ -105,6 +112,18 @@ export class StockApiService {
     this.drawingAction.set({ type, timestamp: Date.now() });
   }
 
+  private handleHttpError(error: any): void {
+    if (error instanceof HttpErrorResponse && error.status === 429) {
+      const retryAfter = error.error?.retry_after_seconds || 15;
+      const msg = error.error?.message || 'Rate limit reached. Please wait a moment before sending more requests.';
+      this.rateLimitWarning.set({ active: true, message: msg, retryAfter });
+      
+      setTimeout(() => {
+        this.rateLimitWarning.set({ active: false, message: '', retryAfter: 0 });
+      }, retryAfter * 1000);
+    }
+  }
+
   async loadCompanies(): Promise<Company[]> {
     try {
       const data = await firstValueFrom(this.http.get<Company[]>(`${this.baseUrl}/companies`));
@@ -114,7 +133,7 @@ export class StockApiService {
       }
       return data;
     } catch (e) {
-      console.error('Failed to load companies:', e);
+      this.handleHttpError(e);
       return [];
     }
   }
@@ -130,36 +149,61 @@ export class StockApiService {
   }
 
   async getOHLCV(ticker: string, period = '180d'): Promise<OHLCVRecord[]> {
-    const res = await firstValueFrom(
-      this.http.get<OHLCVRecord[]>(`${this.baseUrl}/stocks/${ticker}/ohlcv?period=${period}`)
-    );
-    this.currentRecords.set(res);
-    return res;
+    try {
+      const res = await firstValueFrom(
+        this.http.get<OHLCVRecord[]>(`${this.baseUrl}/stocks/${ticker}/ohlcv?period=${period}`)
+      );
+      this.currentRecords.set(res);
+      return res;
+    } catch (e) {
+      this.handleHttpError(e);
+      return [];
+    }
   }
 
   async getMovingAverage(ticker: string, days = 50, period = '180d'): Promise<OHLCVRecord[]> {
-    const res = await firstValueFrom(
-      this.http.get<OHLCVRecord[]>(`${this.baseUrl}/stocks/${ticker}/moving-average?days=${days}&period=${period}`)
-    );
-    this.currentRecords.set(res);
-    return res;
+    try {
+      const res = await firstValueFrom(
+        this.http.get<OHLCVRecord[]>(`${this.baseUrl}/stocks/${ticker}/moving-average?days=${days}&period=${period}`)
+      );
+      this.currentRecords.set(res);
+      return res;
+    } catch (e) {
+      this.handleHttpError(e);
+      return [];
+    }
   }
 
   async getPrediction(ticker: string, model = 'linear_regression'): Promise<PredictionResponse> {
-    return firstValueFrom(
-      this.http.get<PredictionResponse>(`${this.baseUrl}/predictions/${ticker}/predict?model=${model}`)
-    );
+    try {
+      return await firstValueFrom(
+        this.http.get<PredictionResponse>(`${this.baseUrl}/predictions/${ticker}/predict?model=${model}`)
+      );
+    } catch (e) {
+      this.handleHttpError(e);
+      throw e;
+    }
   }
 
   async getBestModel(ticker: string): Promise<BestModelResponse> {
-    return firstValueFrom(
-      this.http.get<BestModelResponse>(`${this.baseUrl}/predictions/${ticker}/best-model`)
-    );
+    try {
+      return await firstValueFrom(
+        this.http.get<BestModelResponse>(`${this.baseUrl}/predictions/${ticker}/best-model`)
+      );
+    } catch (e) {
+      this.handleHttpError(e);
+      throw e;
+    }
   }
 
   async getCompanyInfo(ticker: string): Promise<any> {
-    return firstValueFrom(
-      this.http.get<any>(`${this.baseUrl}/companies/${ticker}/info`)
-    );
+    try {
+      return await firstValueFrom(
+        this.http.get<any>(`${this.baseUrl}/companies/${ticker}/info`)
+      );
+    } catch (e) {
+      this.handleHttpError(e);
+      return null;
+    }
   }
 }

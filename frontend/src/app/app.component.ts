@@ -14,6 +14,16 @@ import { Timeframe, ChartType } from './core/models/stock.model';
     <div class="flex flex-col h-screen w-screen bg-[var(--color-void)] text-[var(--color-frost)] overflow-hidden font-sans select-none transition-colors duration-300">
       
       <!-- TOP NAVIGATION BAR (RESPONSIVE FOR MOBILE & DESKTOP) -->
+      @if (api.rateLimitWarning().active) {
+        <div class="fixed top-14 left-1/2 -translate-x-1/2 z-50 bg-[#f23645] text-white px-4 py-2 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-semibold animate-bounce border border-white/20">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>{{ api.rateLimitWarning().message }}</span>
+        </div>
+      }
       <header class="h-12 bg-[var(--color-abyss)] border-b border-[var(--color-border)] flex items-center justify-between px-2 sm:px-3 z-30 flex-shrink-0 text-xs gap-1.5 sm:gap-2 transition-colors duration-300">
         
         <!-- Left Section: Brand Logo & Symbol Search -->
