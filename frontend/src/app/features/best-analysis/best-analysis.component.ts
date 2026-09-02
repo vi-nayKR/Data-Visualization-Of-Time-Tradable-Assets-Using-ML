@@ -10,29 +10,41 @@ import { PredictionChartComponent } from '../prediction/prediction-chart.compone
   standalone: true,
   imports: [CommonModule, ModelCardComponent, PredictionChartComponent],
   template: `
-    <div class="flex flex-col h-full bg-[#131722] text-[#d1d4dc] overflow-y-auto">
+    <div class="flex flex-col h-full bg-[#131722] text-[#f0f3fa] overflow-y-auto">
       
       <!-- SUB-HEADER: BENCHMARK TITLE & WINNER SUMMARY -->
       <div class="p-4 border-b border-[#2a2e39] bg-[#1e222d] flex flex-col md:flex-row md:items-center md:justify-between gap-3 flex-shrink-0">
         <div>
           <h1 class="text-base font-bold text-white flex items-center gap-2">
-            <span>🏆 Quantitative Strategy Leaderboard</span>
-            <span class="text-xs font-mono font-normal text-[#787b86]">({{ api.selectedTicker() }})</span>
+            <svg class="w-5 h-5 text-[#ff9800]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+              <path d="M4 22h16"></path>
+              <path d="M10 14.66V17c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-2.34"></path>
+              <path d="M18 14.66V17c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1v-2.34"></path>
+              <path d="M6 2h12v7a6 6 0 0 1-12 0V2z"></path>
+            </svg>
+            <span>Quantitative Strategy Leaderboard</span>
+            <span class="text-xs font-mono-num font-semibold text-[#9db2c6]">({{ api.selectedTicker() }})</span>
           </h1>
-          <p class="text-xs text-[#787b86]">
+          <p class="text-xs text-[#9db2c6] mt-0.5">
             Concurrent multi-algorithm benchmarking across Linear, SVM, Decision Tree, and Deep Neural Networks.
           </p>
         </div>
 
         @if (response()) {
-          <div class="flex items-center gap-3 bg-[#131722] border border-[#089981]/50 rounded-lg px-3 py-1.5">
-            <span class="text-base">🥇</span>
+          <div class="flex items-center gap-3 bg-[#131722] border border-[#089981]/50 rounded-lg px-4 py-2">
+            <div class="w-8 h-8 rounded-full bg-[#089981]/15 flex items-center justify-center text-[#089981]">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
             <div>
-              <div class="text-[10px] uppercase font-bold text-[#787b86]">Best Performer</div>
+              <div class="text-[10px] uppercase font-bold text-[#9db2c6] tracking-wider">Top Algorithm</div>
               <div class="text-xs font-bold text-[#089981]">{{ response()!.winner }}</div>
             </div>
-            <div class="font-mono font-bold text-sm text-white ml-2">
-              {{ (response()!.winnerScore * 100).toFixed(2) }}%
+            <div class="font-mono-num font-extrabold text-sm text-white ml-2">
+              {{ (response()!.winnerScore * 100).toFixed(2) }}% R²
             </div>
           </div>
         }
@@ -45,13 +57,13 @@ import { PredictionChartComponent } from '../prediction/prediction-chart.compone
         @if (loading()) {
           <div class="py-20 flex flex-col items-center justify-center gap-3">
             <div class="w-8 h-8 border-2 border-[#2962ff] border-t-transparent rounded-full animate-spin"></div>
-            <span class="text-xs font-mono text-[#787b86]">Evaluating algorithms in parallel for {{ api.selectedTicker() }}...</span>
+            <span class="text-xs font-mono-num text-[#9db2c6]">Evaluating all 5 machine learning models in parallel for {{ api.selectedTicker() }}...</span>
           </div>
         }
 
         @if (response()) {
           <!-- Strategy Cards Grid -->
-          <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-3.5">
             @for (m of response()!.models; track m.name) {
               <app-model-card [name]="m.name"
                               [score]="m.score"
@@ -61,10 +73,13 @@ import { PredictionChartComponent } from '../prediction/prediction-chart.compone
           </div>
 
           <!-- Winner Model Projection Chart -->
-          <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg overflow-hidden">
-            <div class="p-3 border-b border-[#2a2e39] flex items-center justify-between text-xs">
-              <span class="font-bold text-white">Visual Trajectory: {{ response()!.winner }}</span>
-              <span class="text-[#089981] font-mono font-semibold">● Optimal Model Output</span>
+          <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg overflow-hidden shadow-xl">
+            <div class="p-3.5 border-b border-[#2a2e39] flex items-center justify-between text-xs">
+              <span class="font-bold text-white text-sm">Visual Trajectory: {{ response()!.winner }}</span>
+              <span class="text-[#089981] font-mono-num font-semibold flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-[#089981]"></span>
+                Optimal Model Output
+              </span>
             </div>
             <app-prediction-chart [records]="response()!.records"
                                   [predictions]="response()!.predictions"

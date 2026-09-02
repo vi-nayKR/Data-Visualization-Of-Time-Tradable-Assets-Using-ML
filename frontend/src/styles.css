@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,12 +7,16 @@
   --tv-bg-primary: #131722;
   --tv-bg-secondary: #1e222d;
   --tv-bg-tertiary: #2a2e39;
-  --tv-bg-hover: #2f3241;
+  --tv-bg-hover: #2f3545;
   --tv-border: #2a2e39;
-  --tv-border-light: #363a45;
-  --tv-text-primary: #d1d4dc;
-  --tv-text-secondary: #787b86;
-  --tv-text-hover: #f0f3fa;
+  --tv-border-light: #363c4e;
+  
+  /* High Contrast Accessible Colors */
+  --tv-text-primary: #f0f3fa;
+  --tv-text-secondary: #9db2c6;
+  --tv-text-muted: #787b86;
+  --tv-text-bright: #ffffff;
+  
   --tv-blue: #2962ff;
   --tv-blue-hover: #1e53e5;
   --tv-green: #089981;
@@ -24,12 +28,20 @@
 html, body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Trebuchet MS', Roboto, Ubuntu, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Trebuchet MS', Roboto, sans-serif;
   background-color: #131722;
-  color: #d1d4dc;
+  color: #f0f3fa;
   min-height: 100vh;
   overflow-x: hidden;
   user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Monospace with tabular numbers for financial figures */
+.font-mono-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-feature-settings: 'tnum' 1, 'zero' 1;
 }
 
 /* TradingView Custom Scrollbars */
@@ -45,45 +57,74 @@ html, body {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #363a45;
+  background: #363c4e;
 }
 
-/* TradingView Button Styles */
-.tv-btn {
+/* Vector SVG Icon Helper */
+.tv-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
-  font-weight: 500;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+.tv-icon-lg {
+  width: 20px;
+  height: 20px;
+}
+
+.tv-icon-sm {
+  width: 14px;
+  height: 14px;
+}
+
+/* Button Component Styles */
+.tv-nav-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 6px 12px;
-  border-radius: 4px;
-  color: #d1d4dc;
-  background: transparent;
-  transition: all 0.15s ease;
-  cursor: pointer;
-}
-
-.tv-btn:hover {
-  background: #2a2e39;
-  color: #f0f3fa;
-}
-
-.tv-btn-active {
-  background: rgba(41, 98, 255, 0.15);
-  color: #2962ff;
+  font-size: 13px;
   font-weight: 600;
+  color: #9db2c6;
+  border-radius: 4px;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
-.tv-btn-primary {
-  background: #2962ff;
+.tv-nav-tab:hover {
   color: #ffffff;
+  background-color: #1e222d;
 }
 
-.tv-btn-primary:hover {
-  background: #1e53e5;
+.tv-nav-tab-active {
+  color: #ffffff !important;
+  background-color: #2962ff !important;
 }
 
-/* Smooth transitions */
-* {
-  box-sizing: border-box;
+.tv-timeframe-btn {
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #9db2c6;
+  border-radius: 4px;
+  transition: all 0.12s ease;
+}
+
+.tv-timeframe-btn:hover {
+  color: #ffffff;
+  background-color: #1e222d;
+}
+
+.tv-timeframe-btn-active {
+  color: #2962ff !important;
+  background-color: #2a2e39 !important;
 }

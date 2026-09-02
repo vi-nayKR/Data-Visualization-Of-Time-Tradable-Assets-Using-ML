@@ -8,7 +8,7 @@ declare const Plotly: any;
   selector: 'app-prediction-chart',
   standalone: true,
   imports: [CommonModule],
-  template: `<div #chartContainer class="w-full h-[580px] bg-[#131722] overflow-hidden"></div>`
+  template: `<div #chartContainer class="w-full h-[620px] bg-[#131722] overflow-hidden"></div>`
 })
 export class PredictionChartComponent {
   records = input.required<OHLCVRecord[]>();
@@ -32,53 +32,74 @@ export class PredictionChartComponent {
     const dates = records.map(r => r.date);
     const closePrices = records.map(r => r.close);
 
-    // Actual Historical Prices
+    // Filter valid numbers for dynamic tight scaling
+    const validCloses = closePrices.filter(v => typeof v === 'number' && !isNaN(v) && v > 0);
+    const validPreds = predictions.filter(v => typeof v === 'number' && !isNaN(v as number) && (v as number) > 0) as number[];
+    const allValidPrices = [...validCloses, ...validPreds];
+
+    let minPrice = Math.min(...allValidPrices);
+    let maxPrice = Math.max(...allValidPrices);
+    
+    // Safety fallback
+    if (!isFinite(minPrice) || !isFinite(maxPrice) || minPrice === maxPrice) {
+      minPrice = 100;
+      maxPrice = 200;
+    }
+    
+    const priceDelta = maxPrice - minPrice;
+    const padding = Math.max(priceDelta * 0.08, 2);
+    const yRange = [Math.max(0, Math.floor(minPrice - padding)), Math.ceil(maxPrice + padding)];
+
+    // Actual Historical Prices Trace
     const actualTrace = {
       x: dates,
       y: closePrices,
       type: 'scatter',
       mode: 'lines',
-      name: 'Actual Close',
+      name: 'Actual Close Price',
       line: { color: '#2962ff', width: 2 },
       fill: 'tozeroy',
-      fillcolor: 'rgba(41, 98, 255, 0.05)'
+      fillcolor: 'rgba(41, 98, 255, 0.08)'
     };
 
-    // ML Predicted Future Trajectory
+    // ML Predicted Future Trajectory Trace
     const predTrace = {
       x: dates,
       y: predictions,
       type: 'scatter',
       mode: 'lines+markers',
-      name: `${modelName} Forecast`,
+      name: `${modelName} Projected Forecast`,
       line: { color: '#089981', width: 2.5, dash: 'dot' },
-      marker: { size: 4, color: '#089981' }
+      marker: { size: 5, color: '#089981' }
     };
 
     const layout = {
       paper_bgcolor: '#131722',
       plot_bgcolor: '#131722',
-      font: { color: '#787b86', family: '-apple-system, BlinkMacSystemFont, "Inter", sans-serif', size: 11 },
-      height: 570,
-      margin: { l: 20, r: 60, t: 20, b: 30 },
+      font: { color: '#9db2c6', family: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif', size: 11 },
+      height: 600,
+      margin: { l: 25, r: 65, t: 25, b: 35 },
       showlegend: true,
       legend: {
         x: 0.02,
         y: 0.98,
         bgcolor: '#1e222d',
-        bordercolor: '#363a45',
-        font: { color: '#f0f3fa', size: 11 }
+        bordercolor: '#363c4e',
+        borderwidth: 1,
+        font: { color: '#f0f3fa', size: 12 }
       },
       hovermode: 'x unified',
       hoverlabel: {
         bgcolor: '#1e222d',
-        bordercolor: '#363a45',
-        font: { color: '#f0f3fa', size: 11 }
+        bordercolor: '#363c4e',
+        font: { color: '#ffffff', size: 11, family: 'JetBrains Mono, monospace' }
       },
       xaxis: {
+        type: 'date',
+        range: [dates[0], dates[dates.length - 1]],
         gridcolor: '#1e222d',
         linecolor: '#2a2e39',
-        rangeslider: { visible: false },
+        tickfont: { color: '#9db2c6', size: 10 },
         showspikes: true,
         spikemode: 'across',
         spikethickness: 1,
@@ -87,9 +108,13 @@ export class PredictionChartComponent {
       },
       yaxis: {
         side: 'right',
+        range: yRange,
+        autorange: false,
         gridcolor: '#1e222d',
         linecolor: '#2a2e39',
         tickformat: '.2f',
+        tickprefix: '$',
+        tickfont: { color: '#9db2c6', size: 11, family: 'JetBrains Mono, monospace' },
         showspikes: true,
         spikemode: 'across',
         spikethickness: 1,
