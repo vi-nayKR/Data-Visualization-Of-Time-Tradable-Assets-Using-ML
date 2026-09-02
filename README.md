@@ -95,10 +95,10 @@ data_analysis.py          earlier analysis script
 
 - The API permits all CORS origins; deploy a restricted allow-list before treating it as a production service.
 - Cache entries are process-local, so they do not coordinate across workers or survive a restart.
-- There is no authentication, rate limiting, persistent cache, API-provider fallback, or automated test suite in this repository.
+- There is no authentication, rate limiting, persistent cache, API-provider fallback, or automated endpoint/model test suite. CI currently builds the Angular app and compiles the FastAPI package.
 - Fundamentals shown in the UI include placeholder/static values and need a source-backed API before being described as live financial data.
 - The LSTM is trained on demand and has no persisted artifacts, seed/run tracking, or comparative backtest report.
 
 ## License
 
-Personal portfolio and research project. Do not redistribute or use it to make investment decisions.
+MIT; see [LICENSE](LICENSE). This does not make the project suitable for investment decisions.

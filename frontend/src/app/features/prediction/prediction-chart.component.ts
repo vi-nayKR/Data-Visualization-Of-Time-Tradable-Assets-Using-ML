@@ -9,7 +9,7 @@ declare const Plotly: any;
   selector: 'app-prediction-chart',
   standalone: true,
   imports: [CommonModule],
-  template: `<div #chartContainer class="w-full h-[620px] bg-[var(--color-void)] overflow-hidden transition-colors duration-300"></div>`
+  template: `<div #chartContainer class="w-full h-full min-h-[420px] sm:min-h-[500px] md:min-h-[600px] bg-[var(--color-void)] overflow-hidden transition-colors duration-300"></div>`
 })
 export class PredictionChartComponent {
   api = inject(StockApiService);
@@ -35,6 +35,7 @@ export class PredictionChartComponent {
   private renderChart(records: OHLCVRecord[], predictions: (number | null)[], modelName: string, isDark: boolean) {
     const dates = records.map(r => r.date);
     const closePrices = records.map(r => r.close);
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     // Theme Palette
     const bgVoid = isDark ? '#060608' : '#ffffff';
@@ -68,7 +69,7 @@ export class PredictionChartComponent {
       y: closePrices,
       type: 'scatter',
       mode: 'lines',
-      name: 'Actual Close Price',
+      name: 'Actual Price',
       line: { color: accent, width: 2 },
       fill: 'tozeroy',
       fillcolor: isDark ? 'rgba(255, 107, 0, 0.08)' : 'rgba(234, 88, 12, 0.08)'
@@ -80,17 +81,19 @@ export class PredictionChartComponent {
       y: predictions,
       type: 'scatter',
       mode: 'lines+markers',
-      name: `${modelName} Projected Forecast`,
+      name: `${modelName} Forecast`,
       line: { color: green, width: 2.5, dash: 'dot' },
-      marker: { size: 5, color: green }
+      marker: { size: isMobile ? 3 : 5, color: green }
     };
 
     const layout = {
       paper_bgcolor: bgVoid,
       plot_bgcolor: bgVoid,
-      font: { color: textMuted, family: 'Inter, -apple-system, sans-serif', size: 11 },
-      height: 600,
-      margin: { l: 25, r: 65, t: 25, b: 45 },
+      autosize: true,
+      font: { color: textMuted, family: 'Inter, -apple-system, sans-serif', size: isMobile ? 9 : 11 },
+      margin: isMobile 
+        ? { l: 5, r: 48, t: 15, b: 35 }
+        : { l: 25, r: 65, t: 25, b: 45 },
       showlegend: true,
       legend: {
         x: 0.02,
@@ -98,20 +101,20 @@ export class PredictionChartComponent {
         bgcolor: isDark ? 'rgba(18, 18, 26, 0.9)' : 'rgba(255, 255, 255, 0.9)',
         bordercolor: border,
         borderwidth: 1,
-        font: { color: textFrost, size: 12 }
+        font: { color: textFrost, size: isMobile ? 9 : 11 }
       },
       hovermode: 'x unified',
       hoverlabel: {
         bgcolor: bgSurface,
         bordercolor: border,
-        font: { color: textFrost, size: 11, family: 'JetBrains Mono, monospace' }
+        font: { color: textFrost, size: isMobile ? 9 : 11, family: 'JetBrains Mono, monospace' }
       },
       xaxis: {
         type: 'date',
         range: [dates[0], dates[dates.length - 1]],
         rangeslider: {
           visible: true,
-          thickness: 0.06,
+          thickness: isMobile ? 0.05 : 0.06,
           bgcolor: bgSurface,
           bordercolor: border,
           borderwidth: 1,
@@ -119,7 +122,7 @@ export class PredictionChartComponent {
         },
         gridcolor: isDark ? '#12121a' : '#f3f4f6',
         linecolor: border,
-        tickfont: { color: textMuted, size: 10 },
+        tickfont: { color: textMuted, size: isMobile ? 8 : 10 },
         showspikes: true,
         spikemode: 'across',
         spikethickness: 1,
@@ -134,7 +137,7 @@ export class PredictionChartComponent {
         linecolor: border,
         tickformat: '.2f',
         tickprefix: '$',
-        tickfont: { color: textMuted, size: 11, family: 'JetBrains Mono, monospace' },
+        tickfont: { color: textMuted, size: isMobile ? 9 : 11, family: 'JetBrains Mono, monospace' },
         showspikes: true,
         spikemode: 'across',
         spikethickness: 1,

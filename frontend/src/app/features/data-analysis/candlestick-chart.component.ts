@@ -9,7 +9,7 @@ declare const Plotly: any;
   selector: 'app-candlestick-chart',
   standalone: true,
   imports: [CommonModule],
-  template: `<div #chartContainer class="w-full h-[650px] bg-[var(--color-void)] overflow-hidden transition-colors duration-300"></div>`
+  template: `<div #chartContainer class="w-full h-full min-h-[420px] sm:min-h-[520px] md:min-h-[640px] bg-[var(--color-void)] overflow-hidden transition-colors duration-300"></div>`
 })
 export class CandlestickChartComponent {
   api = inject(StockApiService);
@@ -161,6 +161,8 @@ export class CandlestickChartComponent {
     const closes = records.map(r => r.close);
     const volumes = records.map(r => r.volume);
 
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
     // Theme Palette
     const bgVoid = isDark ? '#060608' : '#ffffff';
     const bgSurface = isDark ? '#12121a' : '#f9fafb';
@@ -309,10 +311,12 @@ export class CandlestickChartComponent {
     const layout: any = {
       paper_bgcolor: bgVoid,
       plot_bgcolor: bgVoid,
-      font: { color: textMuted, family: 'Inter, -apple-system, sans-serif', size: 11 },
-      height: 640,
-      margin: { l: 20, r: 65, t: 15, b: 45 },
-      showlegend: showBB || showEMA,
+      autosize: true,
+      font: { color: textMuted, family: 'Inter, -apple-system, sans-serif', size: isMobile ? 9 : 11 },
+      margin: isMobile 
+        ? { l: 5, r: 48, t: 10, b: 35 }
+        : { l: 20, r: 65, t: 15, b: 45 },
+      showlegend: !isMobile && (showBB || showEMA),
       legend: {
         x: 0.01,
         y: 0.99,
@@ -324,14 +328,14 @@ export class CandlestickChartComponent {
       hoverlabel: {
         bgcolor: bgSurface,
         bordercolor: border,
-        font: { color: textFrost, size: 11, family: 'JetBrains Mono, monospace' }
+        font: { color: textFrost, size: isMobile ? 9 : 11, family: 'JetBrains Mono, monospace' }
       },
       xaxis: {
         type: 'date',
         range: [dates[0], dates[dates.length - 1]],
         rangeslider: {
           visible: true,
-          thickness: 0.06,
+          thickness: isMobile ? 0.05 : 0.06,
           bgcolor: bgSurface,
           bordercolor: border,
           borderwidth: 1,
@@ -340,7 +344,7 @@ export class CandlestickChartComponent {
         gridcolor: isDark ? '#12121a' : '#f3f4f6',
         gridwidth: 1,
         linecolor: border,
-        tickfont: { color: textMuted, size: 10 },
+        tickfont: { color: textMuted, size: isMobile ? 8 : 10 },
         showspikes: true,
         spikemode: 'across',
         spikethickness: 1,
@@ -357,7 +361,7 @@ export class CandlestickChartComponent {
         linecolor: border,
         tickformat: '.2f',
         tickprefix: '$',
-        tickfont: { color: textMuted, size: 11, family: 'JetBrains Mono, monospace' },
+        tickfont: { color: textMuted, size: isMobile ? 9 : 11, family: 'JetBrains Mono, monospace' },
         showspikes: true,
         spikemode: 'across',
         spikethickness: 1,
@@ -383,7 +387,7 @@ export class CandlestickChartComponent {
         linecolor: border,
         range: [0, 100],
         tickvals: [30, 70],
-        tickfont: { color: '#e040fb', size: 9 }
+        tickfont: { color: '#e040fb', size: 8 }
       };
     }
 

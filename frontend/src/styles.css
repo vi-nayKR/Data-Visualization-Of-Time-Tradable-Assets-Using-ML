@@ -59,11 +59,13 @@ html, body {
   background-color: var(--color-void);
   color: var(--color-frost);
   min-height: 100vh;
+  min-height: -webkit-fill-available;
   overflow-x: hidden;
   user-select: none;
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Monospace with tabular numbers */
@@ -83,6 +85,16 @@ html, body {
 ::-webkit-scrollbar-thumb {
   background: var(--color-accent);
   border-radius: 2px;
+}
+
+/* Hide scrollbar utility for mobile horizontal swipes */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Vector SVG Icon Helper */
@@ -134,15 +146,23 @@ html, body {
 .tv-nav-tab {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  font-size: 13px;
+  gap: 4px;
+  padding: 5px 9px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--color-muted);
   border-radius: 8px;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .tv-nav-tab {
+    font-size: 12px;
+    padding: 6px 12px;
+    gap: 6px;
+  }
 }
 
 .tv-nav-tab:hover {
@@ -157,12 +177,20 @@ html, body {
 }
 
 .tv-timeframe-btn {
-  padding: 4px 8px;
-  font-size: 12px;
+  padding: 3px 6px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--color-muted);
   border-radius: 6px;
   transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .tv-timeframe-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
 }
 
 .tv-timeframe-btn:hover {
@@ -174,4 +202,11 @@ html, body {
   color: var(--color-accent) !important;
   background-color: var(--color-surface) !important;
   border: 1px solid var(--color-border-light);
+}
+
+/* Touch targets for mobile */
+@media (max-width: 768px) {
+  button, a {
+    min-height: 32px;
+  }
 }
