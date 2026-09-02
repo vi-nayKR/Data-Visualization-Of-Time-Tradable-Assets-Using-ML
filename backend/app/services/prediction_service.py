@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import time
 from typing import Dict, Any, List, Optional
 from sklearn.svm import SVR
 from sklearn.tree import DecisionTreeRegressor
@@ -11,6 +12,9 @@ from app.models.lstm_model import PyTorchLSTM, HAS_LSTM
 import torch
 import torch.nn as nn
 import torch.optim as optim
+
+_PRED_CACHE: Dict[str, Dict[str, Any]] = {}
+PRED_CACHE_TTL = 90
 
 class PredictionService:
     def __init__(self):
@@ -36,7 +40,6 @@ class PredictionService:
         y = y[valid_mask]
 
         x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.25, random_state=42)
-
         x_future = np.array(df.drop(["Prediction"], axis=1))[:-future_days][-future_days:]
 
         return {
@@ -48,6 +51,13 @@ class PredictionService:
         }
 
     def run_prediction(self, ticker: str, model_type: str) -> Dict[str, Any]:
+        cache_key = f"{ticker.upper()}_{model_type.lower()}"
+        now = time.time()
+        if cache_key in _PRED_CACHE:
+            entry = _PRED_CACHE[cache_key]
+            if now - entry["timestamp"] < PRED_CACHE_TTL:
+                return entry["data"]
+
         data = self._prepare_dataset(ticker)
         if not data:
             return {"error": "Insufficient data"}
@@ -77,16 +87,16 @@ class PredictionService:
             model = SVR(C=1e3, gamma=0.1).fit(x_train, y_train)
             confidence = model.score(x_test, y_test)
             raw_predictions = model.predict(x_future)
-            model_name = "SVR Prediction"
+            model_name = "SVR (Linear)"
 
         elif model_type in ["rbf", "RBF Prediction"]:
             model = SVR(kernel='rbf', C=1000.0, gamma=0.85).fit(x_train, y_train)
             confidence = model.score(x_test, y_test)
             raw_predictions = model.predict(x_future)
-            model_name = "RBF Prediction"
+            model_name = "SVR (RBF Kernel)"
 
         elif model_type in ["lstm", "LSTM"]:
-            model_name = "LSTM Neural Network"
+            model_name = "PyTorch LSTM Neural Network"
             if HAS_LSTM and PyTorchLSTM is not None:
                 res = self._train_lstm(data["scaled_close"], scaler)
                 confidence = res["confidence"]
@@ -109,13 +119,16 @@ class PredictionService:
                 if start_idx + idx < len(final_preds):
                     final_preds[start_idx + idx] = round(float(val), 2)
 
-        return {
+        result = {
             "ticker": ticker,
             "model": model_name,
             "confidence": round(float(confidence), 4),
             "records": records,
             "predictions": final_preds
         }
+
+        _PRED_CACHE[cache_key] = {"timestamp": now, "data": result}
+        return result
 
     def _train_lstm(self, scaled_data: np.ndarray, scaler: MinMaxScaler) -> Dict[str, Any]:
         data = scaled_data.reshape(-1, 1)
@@ -174,6 +187,13 @@ class PredictionService:
         return {"confidence": score, "predictions": preds}
 
     def find_best_model(self, ticker: str) -> Dict[str, Any]:
+        cache_key = f"{ticker.upper()}_best_model"
+        now = time.time()
+        if cache_key in _PRED_CACHE:
+            entry = _PRED_CACHE[cache_key]
+            if now - entry["timestamp"] < PRED_CACHE_TTL:
+                return entry["data"]
+
         models_to_test = ["linear_regression", "tree", "svr", "rbf", "lstm"]
         results = []
 
@@ -193,7 +213,7 @@ class PredictionService:
         if not best_res:
             best_res = self.run_prediction(ticker, "linear_regression")
 
-        return {
+        result = {
             "ticker": ticker,
             "winner": best_res["model"],
             "winnerScore": round(float(best_score), 4),
@@ -201,3 +221,5 @@ class PredictionService:
             "records": best_res["records"],
             "predictions": best_res["predictions"]
         }
+        _PRED_CACHE[cache_key] = {"timestamp": now, "data": result}
+        return result

@@ -14,6 +14,9 @@ export class CandlestickChartComponent {
   data = input.required<OHLCVRecord[]>();
   maDays = input<number>(50);
   showMA = input<boolean>(true);
+  showEMA = input<boolean>(false);
+  showBB = input<boolean>(false);
+  showRSI = input<boolean>(false);
   chartType = input<ChartType>('candlestick');
   
   @ViewChild('chartContainer', { static: true }) chartContainer!: ElementRef;
@@ -22,15 +25,26 @@ export class CandlestickChartComponent {
     effect(() => {
       const records = this.data();
       const ma = this.maDays();
-      const show = this.showMA();
+      const showMA = this.showMA();
+      const showEMA = this.showEMA();
+      const showBB = this.showBB();
+      const showRSI = this.showRSI();
       const type = this.chartType();
       if (records && records.length > 0 && typeof Plotly !== 'undefined') {
-        this.renderChart(records, ma, show, type);
+        this.renderChart(records, ma, showMA, showEMA, showBB, showRSI, type);
       }
     });
   }
 
-  private renderChart(records: OHLCVRecord[], maDays: number, showMA: boolean, chartType: ChartType) {
+  private renderChart(
+    records: OHLCVRecord[],
+    maDays: number,
+    showMA: boolean,
+    showEMA: boolean,
+    showBB: boolean,
+    showRSI: boolean,
+    chartType: ChartType
+  ) {
     const dates = records.map(r => r.date);
     const opens = records.map(r => r.open);
     const highs = records.map(r => r.high);
@@ -53,13 +67,12 @@ export class CandlestickChartComponent {
     const padding = Math.max(priceDelta * 0.08, 2);
     const yRange = [Math.max(0, Math.floor(minPrice - padding)), Math.ceil(maxPrice + padding)];
 
-    // Volume colors: Green if close >= open, Red if close < open
     const volumeColors = records.map(r => r.close >= r.open ? 'rgba(8, 153, 129, 0.45)' : 'rgba(242, 54, 69, 0.45)');
 
     const traces: any[] = [];
 
+    // 1. Primary Price Series
     if (chartType === 'candlestick') {
-      // Main Candlestick Series
       traces.push({
         x: dates,
         open: opens,
@@ -99,7 +112,31 @@ export class CandlestickChartComponent {
       });
     }
 
-    // Moving Average Line Overlay (TradingView Orange Line)
+    // 2. Bollinger Bands
+    if (showBB) {
+      traces.push({
+        x: dates,
+        y: records.map(r => r.bbUpper),
+        type: 'scatter',
+        mode: 'lines',
+        name: 'BB Upper (20,2)',
+        yaxis: 'y',
+        line: { color: 'rgba(41, 98, 255, 0.4)', width: 1, dash: 'dot' }
+      });
+      traces.push({
+        x: dates,
+        y: records.map(r => r.bbLower),
+        type: 'scatter',
+        mode: 'lines',
+        name: 'BB Lower (20,2)',
+        yaxis: 'y',
+        fill: 'tonexty',
+        fillcolor: 'rgba(41, 98, 255, 0.04)',
+        line: { color: 'rgba(41, 98, 255, 0.4)', width: 1, dash: 'dot' }
+      });
+    }
+
+    // 3. Simple Moving Average (SMA)
     if (showMA) {
       traces.push({
         x: dates,
@@ -112,7 +149,20 @@ export class CandlestickChartComponent {
       });
     }
 
-    // Secondary Sub-pane: Volume Histogram Bars
+    // 4. Exponential Moving Average (EMA 20)
+    if (showEMA) {
+      traces.push({
+        x: dates,
+        y: records.map(r => r.ema),
+        type: 'scatter',
+        mode: 'lines',
+        name: 'EMA (20)',
+        yaxis: 'y',
+        line: { color: '#00e5ff', width: 1.6 }
+      });
+    }
+
+    // 5. Volume Subplot
     traces.push({
       x: dates,
       y: volumes,
@@ -123,20 +173,40 @@ export class CandlestickChartComponent {
       hoverinfo: 'x+y'
     });
 
-    const layout = {
+    // 6. RSI Subplot
+    if (showRSI) {
+      traces.push({
+        x: dates,
+        y: records.map(r => r.rsi),
+        type: 'scatter',
+        mode: 'lines',
+        name: 'RSI (14)',
+        yaxis: 'y3',
+        line: { color: '#e040fb', width: 1.5 }
+      });
+    }
+
+    // Layout configuration
+    const layout: any = {
       paper_bgcolor: '#131722',
       plot_bgcolor: '#131722',
       font: { color: '#9db2c6', family: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif', size: 11 },
       height: 640,
       margin: { l: 20, r: 65, t: 15, b: 30 },
-      showlegend: false,
+      showlegend: showBB || showEMA,
+      legend: {
+        x: 0.01,
+        y: 0.99,
+        bgcolor: 'rgba(30, 34, 45, 0.8)',
+        bordercolor: '#363c4e',
+        font: { color: '#f0f3fa', size: 10 }
+      },
       hovermode: 'x unified',
       hoverlabel: {
         bgcolor: '#1e222d',
         bordercolor: '#363c4e',
         font: { color: '#ffffff', size: 11, family: 'JetBrains Mono, monospace' }
       },
-      grid: { rows: 2, columns: 1, roworder: 'top to bottom' },
       xaxis: {
         type: 'date',
         range: [dates[0], dates[dates.length - 1]],
@@ -156,7 +226,7 @@ export class CandlestickChartComponent {
         side: 'right',
         range: yRange,
         autorange: false,
-        domain: [0.22, 1.0],
+        domain: showRSI ? [0.35, 1.0] : [0.22, 1.0],
         gridcolor: '#1e222d',
         linecolor: '#2a2e39',
         tickformat: '.2f',
@@ -171,12 +241,25 @@ export class CandlestickChartComponent {
       yaxis2: {
         title: '',
         side: 'right',
-        domain: [0.0, 0.18],
+        domain: showRSI ? [0.18, 0.32] : [0.0, 0.18],
         gridcolor: '#1e222d',
         linecolor: '#2a2e39',
         showticklabels: false
       }
     };
+
+    if (showRSI) {
+      layout.yaxis3 = {
+        title: 'RSI',
+        side: 'right',
+        domain: [0.0, 0.15],
+        gridcolor: '#1e222d',
+        linecolor: '#2a2e39',
+        range: [0, 100],
+        tickvals: [30, 70],
+        tickfont: { color: '#e040fb', size: 9 }
+      };
+    }
 
     const config = {
       responsive: true,

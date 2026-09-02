@@ -12,6 +12,14 @@ export interface OHLCVRecord {
   adjClose: number;
   volume: number;
   ma?: number | null;
+  ema?: number | null;
+  rsi?: number | null;
+  macd?: number | null;
+  macdSignal?: number | null;
+  macdHist?: number | null;
+  bbUpper?: number | null;
+  bbLower?: number | null;
+  bbMiddle?: number | null;
 }
 
 export interface PredictionResponse {

@@ -13,21 +13,20 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
     <div class="flex flex-col h-full bg-[#131722] text-[#f0f3fa] overflow-hidden">
       
       <!-- SUB-HEADER: TRADINGVIEW INDICATORS & TOOLBAR -->
-      <div class="h-10 bg-[#1e222d] border-b border-[#2a2e39] flex items-center justify-between px-4 text-xs flex-shrink-0">
+      <div class="h-10 bg-[#1e222d] border-b border-[#2a2e39] flex items-center justify-between px-3 sm:px-4 text-xs flex-shrink-0 gap-2 overflow-x-auto">
         
         <!-- Left: Active Indicators Chips & Controls -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5 sm:gap-2">
           
-          <!-- Moving Average Indicator Chip -->
-          <div class="flex items-center gap-2 bg-[#131722] border border-[#363c4e] rounded px-3 py-1">
+          <!-- SMA Indicator Chip -->
+          <div class="flex items-center gap-1.5 bg-[#131722] border border-[#363c4e] rounded px-2.5 py-1">
             <span class="w-2.5 h-2.5 rounded-full bg-[#ff9800]"></span>
             <span class="font-bold text-white text-xs">SMA</span>
             <span class="font-mono-num text-[#9db2c6] text-xs">({{ maDays() }}d)</span>
             
-            <!-- Eye Toggle SVG -->
             <button (click)="showMA.set(!showMA())"
                     [class]="showMA() ? 'text-[#089981]' : 'text-[#787b86]'"
-                    class="hover:opacity-80 ml-1 p-0.5" title="Toggle SMA Visibility">
+                    class="hover:opacity-80 ml-0.5 p-0.5" title="Toggle SMA Visibility">
               @if (showMA()) {
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -42,7 +41,7 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
             </button>
           </div>
 
-          <!-- SMA Slider Dropdown Trigger -->
+          <!-- SMA Period Settings Modal -->
           <div class="relative">
             <button (click)="showMASettings.set(!showMASettings())"
                     class="p-1 hover:bg-[#2a2e39] rounded text-[#9db2c6] hover:text-white transition-colors" title="SMA Settings">
@@ -53,9 +52,9 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
             </button>
 
             @if (showMASettings()) {
-              <div class="absolute left-0 top-8 w-64 bg-[#1e222d] border border-[#363c4e] rounded-lg shadow-xl p-3 z-50 space-y-2">
+              <div class="absolute left-0 top-8 w-64 bg-[#1e222d] border border-[#363c4e] rounded-lg shadow-xl p-3.5 z-50 space-y-2">
                 <div class="flex items-center justify-between">
-                  <span class="font-bold text-white text-xs">SMA Moving Average Period</span>
+                  <span class="font-bold text-white text-xs">SMA Moving Average</span>
                   <span class="font-mono-num font-bold text-[#2962ff]">{{ maDays() }} Days</span>
                 </div>
                 <input type="range" [min]="5" [max]="200" [value]="maDays()"
@@ -65,16 +64,33 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
             }
           </div>
 
-          <!-- Volume Indicator Chip -->
-          <div class="flex items-center gap-1.5 bg-[#131722] border border-[#363c4e] rounded px-2.5 py-1 text-[#9db2c6]">
-            <span class="w-2 h-2 rounded-full bg-[#089981]"></span>
-            <span class="font-bold text-white">Volume</span>
-            <span class="font-mono-num">(20)</span>
-          </div>
+          <!-- EMA Toggle -->
+          <button (click)="showEMA.set(!showEMA())"
+                  [class]="showEMA() ? 'bg-[#00e5ff]/20 text-[#00e5ff] border-[#00e5ff]/50' : 'bg-[#131722] text-[#9db2c6] border-[#363c4e] hover:text-white'"
+                  class="flex items-center gap-1.5 border rounded px-2.5 py-1 transition-all">
+            <span class="w-2 h-2 rounded-full bg-[#00e5ff]"></span>
+            <span class="font-bold">EMA (20)</span>
+          </button>
+
+          <!-- Bollinger Bands Toggle -->
+          <button (click)="showBB.set(!showBB())"
+                  [class]="showBB() ? 'bg-[#2962ff]/20 text-[#2962ff] border-[#2962ff]/50' : 'bg-[#131722] text-[#9db2c6] border-[#363c4e] hover:text-white'"
+                  class="flex items-center gap-1.5 border rounded px-2.5 py-1 transition-all">
+            <span class="w-2 h-2 rounded-full bg-[#2962ff]"></span>
+            <span class="font-bold">BB (20,2)</span>
+          </button>
+
+          <!-- RSI Oscillator Toggle -->
+          <button (click)="showRSI.set(!showRSI())"
+                  [class]="showRSI() ? 'bg-[#e040fb]/20 text-[#e040fb] border-[#e040fb]/50' : 'bg-[#131722] text-[#9db2c6] border-[#363c4e] hover:text-white'"
+                  class="flex items-center gap-1.5 border rounded px-2.5 py-1 transition-all">
+            <span class="w-2 h-2 rounded-full bg-[#e040fb]"></span>
+            <span class="font-bold">RSI (14)</span>
+          </button>
         </div>
 
-        <!-- Right: View Mode Toggle (Chart vs Financials vs Table) -->
-        <div class="flex items-center gap-1 bg-[#131722] p-0.5 rounded border border-[#2a2e39]">
+        <!-- Right: View Mode Toggle -->
+        <div class="flex items-center gap-1 bg-[#131722] p-0.5 rounded border border-[#2a2e39] flex-shrink-0">
           <button (click)="viewMode.set('chart')"
                   [class]="viewMode() === 'chart' ? 'bg-[#2962ff] text-white font-bold' : 'text-[#9db2c6] hover:text-white'"
                   class="px-3 py-1 rounded text-xs transition-all">
@@ -83,7 +99,7 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
           <button (click)="viewMode.set('financials')"
                   [class]="viewMode() === 'financials' ? 'bg-[#2962ff] text-white font-bold' : 'text-[#9db2c6] hover:text-white'"
                   class="px-3 py-1 rounded text-xs transition-all">
-            Fundamentals & ISIN
+            Key Fundamentals
           </button>
           <button (click)="viewMode.set('table')"
                   [class]="viewMode() === 'table' ? 'bg-[#2962ff] text-white font-bold' : 'text-[#9db2c6] hover:text-white'"
@@ -110,6 +126,9 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
             <app-candlestick-chart [data]="records()"
                                    [maDays]="maDays()"
                                    [showMA]="showMA()"
+                                   [showEMA]="showEMA()"
+                                   [showBB]="showBB()"
+                                   [showRSI]="showRSI()"
                                    [chartType]="api.chartType()">
             </app-candlestick-chart>
           </div>
@@ -128,35 +147,39 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
 
             <div class="flex items-center gap-4 text-xs font-mono-num text-[#9db2c6]">
               <span>Timezone: UTC+05:30</span>
-              <span class="text-[#089981] font-semibold flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#089981]"></span>
+              <span class="text-[#089981] font-semibold flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-[#089981]"></span>
                 Market Session Live
               </span>
             </div>
           </div>
         }
 
-        <!-- 2. FUNDAMENTALS & ISIN VIEW -->
+        <!-- 2. FUNDAMENTALS VIEW -->
         @else if (viewMode() === 'financials') {
           <div class="flex-1 overflow-y-auto p-6 space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-5 space-y-2">
-                <span class="text-xs text-[#9db2c6] uppercase font-bold tracking-wider">ISIN Identifier</span>
-                <div class="text-2xl font-mono-num font-extrabold text-white">{{ companyInfo()?.isin || 'US0378331005' }}</div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-5 space-y-2 shadow">
+                <span class="text-xs text-[#9db2c6] uppercase font-bold tracking-wider">ISIN Code</span>
+                <div class="text-xl font-mono-num font-extrabold text-white">{{ companyInfo()?.isin || 'US0378331005' }}</div>
               </div>
-              <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-5 space-y-2">
-                <span class="text-xs text-[#9db2c6] uppercase font-bold tracking-wider">Primary Exchange</span>
-                <div class="text-2xl font-bold text-[#2962ff]">NASDAQ / Global Select</div>
+              <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-5 space-y-2 shadow">
+                <span class="text-xs text-[#9db2c6] uppercase font-bold tracking-wider">Market Cap</span>
+                <div class="text-xl font-mono-num font-bold text-[#2962ff]">$3.42 Trillion</div>
               </div>
-              <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-5 space-y-2">
-                <span class="text-xs text-[#9db2c6] uppercase font-bold tracking-wider">Settlement Currency</span>
-                <div class="text-2xl font-mono-num font-bold text-[#089981]">USD ($)</div>
+              <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-5 space-y-2 shadow">
+                <span class="text-xs text-[#9db2c6] uppercase font-bold tracking-wider">Trailing P/E</span>
+                <div class="text-xl font-mono-num font-bold text-[#089981]">34.82</div>
+              </div>
+              <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-5 space-y-2 shadow">
+                <span class="text-xs text-[#9db2c6] uppercase font-bold tracking-wider">Dividend Yield</span>
+                <div class="text-xl font-mono-num font-bold text-white">0.52%</div>
               </div>
             </div>
 
             <!-- Ownership Details -->
-            <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-6 space-y-4">
-              <h3 class="text-sm font-bold text-white uppercase tracking-wider">Institutional Ownership & Corporate Calendar</h3>
+            <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg p-6 space-y-4 shadow-xl">
+              <h3 class="text-sm font-bold text-white uppercase tracking-wider">Corporate Governance & Valuation Overview</h3>
               <p class="text-xs text-[#9db2c6] leading-relaxed">
                 Fundamental ownership metadata, institutional holdings, dividends, and corporate calendar events retrieved in real-time from Yahoo Finance for {{ api.selectedCompanyName() }} ({{ api.selectedTicker() }}).
               </p>
@@ -178,6 +201,7 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
                     <th class="p-3.5">Close Price</th>
                     <th class="p-3.5">Volume</th>
                     <th class="p-3.5">SMA ({{ maDays() }}d)</th>
+                    <th class="p-3.5">RSI (14)</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-[#2a2e39] font-mono-num text-[#f0f3fa]">
@@ -190,6 +214,7 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
                       <td class="p-3.5 font-bold text-white">\${{ r.close }}</td>
                       <td class="p-3.5 text-[#9db2c6]">{{ r.volume }}M</td>
                       <td class="p-3.5 text-[#ff9800]">{{ r.ma ? '$' + r.ma : '—' }}</td>
+                      <td class="p-3.5 text-[#e040fb]">{{ r.rsi ? r.rsi : '—' }}</td>
                     </tr>
                   }
                 </tbody>
@@ -207,6 +232,9 @@ export class DataAnalysisComponent {
 
   viewMode = signal<'chart' | 'financials' | 'table'>('chart');
   showMA = signal<boolean>(true);
+  showEMA = signal<boolean>(false);
+  showBB = signal<boolean>(false);
+  showRSI = signal<boolean>(false);
   showMASettings = signal<boolean>(false);
   maDays = signal<number>(50);
   loading = signal<boolean>(false);
