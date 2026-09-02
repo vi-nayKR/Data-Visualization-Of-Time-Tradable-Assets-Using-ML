@@ -2,7 +2,7 @@ import { Component, OnInit, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StockApiService } from '../../core/services/stock-api.service';
-import { OHLCVRecord } from '../../core/models/stock.model';
+import { OHLCVRecord, Timeframe } from '../../core/models/stock.model';
 import { CandlestickChartComponent } from './candlestick-chart.component';
 
 @Component({
@@ -29,7 +29,7 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
                     class="hover:opacity-80 ml-0.5 p-0.5" title="Toggle SMA Visibility">
               @if (showMA()) {
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z"></path>
                   <circle cx="12" cy="12" r="3"></circle>
                 </svg>
               } @else {
@@ -137,8 +137,8 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
           <div class="h-9 bg-[#1e222d] border-t border-[#2a2e39] flex items-center justify-between px-4 text-xs flex-shrink-0">
             <div class="flex items-center gap-1">
               @for (r of rangeButtons; track r.period) {
-                <button (click)="changeRange(r.period)"
-                        [class]="currentPeriod === r.period ? 'bg-[#2a2e39] text-[#2962ff] font-bold' : 'text-[#9db2c6] hover:text-white'"
+                <button (click)="changeRange(r.timeframe, r.period)"
+                        [class]="api.timeframe() === r.timeframe ? 'bg-[#2a2e39] text-[#2962ff] font-bold' : 'text-[#9db2c6] hover:text-white'"
                         class="px-2.5 py-0.5 rounded text-xs font-mono-num transition-colors">
                   {{ r.label }}
                 </button>
@@ -240,22 +240,35 @@ export class DataAnalysisComponent {
   loading = signal<boolean>(false);
   records = signal<OHLCVRecord[]>([]);
   companyInfo = signal<any>(null);
-  currentPeriod = '180d';
 
-  rangeButtons = [
-    { label: '1M', period: '30d' },
-    { label: '3M', period: '90d' },
-    { label: '6M', period: '180d' },
-    { label: '1Y', period: '365d' },
-    { label: 'ALL', period: '730d' },
+  rangeButtons: { label: string; period: string; timeframe: Timeframe }[] = [
+    { label: '5D', period: '5d', timeframe: '5D' },
+    { label: '1M', period: '30d', timeframe: '1M' },
+    { label: '3M', period: '90d', timeframe: '3M' },
+    { label: '6M', period: '180d', timeframe: '6M' },
+    { label: '1Y', period: '365d', timeframe: '1Y' },
+    { label: 'ALL', period: '730d', timeframe: 'ALL' },
   ];
 
   constructor() {
     effect(() => {
       const ticker = this.api.selectedTicker();
       const ma = this.maDays();
+      const tf = this.api.timeframe();
+      
+      const periodMap: Record<string, string> = {
+        '1D': '5d',
+        '5D': '5d',
+        '1M': '30d',
+        '3M': '90d',
+        '6M': '180d',
+        '1Y': '365d',
+        'ALL': '730d'
+      };
+      const period = periodMap[tf] || '180d';
+
       if (ticker) {
-        this.fetchData(ticker, ma, this.currentPeriod);
+        this.fetchData(ticker, ma, period);
       }
     });
   }
@@ -265,9 +278,8 @@ export class DataAnalysisComponent {
     this.maDays.set(val);
   }
 
-  changeRange(period: string) {
-    this.currentPeriod = period;
-    this.fetchData(this.api.selectedTicker(), this.maDays(), period);
+  changeRange(tf: Timeframe, period: string) {
+    this.api.timeframe.set(tf);
   }
 
   private async fetchData(ticker: string, ma: number, period: string) {

@@ -1,8 +1,8 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { StockApiService } from './core/services/stock-api.service';
+import { StockApiService, DrawingTool } from './core/services/stock-api.service';
 import { Timeframe, ChartType } from './core/models/stock.model';
 
 @Component({
@@ -96,7 +96,7 @@ import { Timeframe, ChartType } from './core/models/stock.model';
         <!-- Center Section: Timeframes & Chart Type -->
         <div class="hidden lg:flex items-center gap-1 border-x border-[#2a2e39] px-2">
           @for (tf of timeframes; track tf) {
-            <button (click)="api.timeframe.set(tf)"
+            <button (click)="onSelectTimeframe(tf)"
                     [class]="api.timeframe() === tf ? 'tv-timeframe-btn-active' : ''"
                     class="tv-timeframe-btn">
               {{ tf }}
@@ -109,8 +109,8 @@ import { Timeframe, ChartType } from './core/models/stock.model';
           <div class="flex items-center gap-1">
             <!-- Candlestick Icon -->
             <button (click)="api.chartType.set('candlestick')"
-                    [class]="api.chartType() === 'candlestick' ? 'bg-[#2a2e39] text-[#2962ff]' : 'text-[#9db2c6] hover:text-white'"
-                    title="Candles" class="p-1.5 rounded transition-colors">
+                    [class]="api.chartType() === 'candlestick' ? 'bg-[#2962ff] text-white shadow-md' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                    title="Candles" class="p-1.5 rounded transition-all">
               <svg class="tv-icon tv-icon-sm" viewBox="0 0 24 24">
                 <line x1="9" y1="2" x2="9" y2="22"></line>
                 <rect x="6" y="6" width="6" height="11" rx="1" fill="currentColor"></rect>
@@ -121,8 +121,8 @@ import { Timeframe, ChartType } from './core/models/stock.model';
 
             <!-- Line Chart Icon -->
             <button (click)="api.chartType.set('line')"
-                    [class]="api.chartType() === 'line' ? 'bg-[#2a2e39] text-[#2962ff]' : 'text-[#9db2c6] hover:text-white'"
-                    title="Line Chart" class="p-1.5 rounded transition-colors">
+                    [class]="api.chartType() === 'line' ? 'bg-[#2962ff] text-white shadow-md' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                    title="Line Chart" class="p-1.5 rounded transition-all">
               <svg class="tv-icon tv-icon-sm" viewBox="0 0 24 24">
                 <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
               </svg>
@@ -130,8 +130,8 @@ import { Timeframe, ChartType } from './core/models/stock.model';
 
             <!-- OHLC Bar Icon -->
             <button (click)="api.chartType.set('bar')"
-                    [class]="api.chartType() === 'bar' ? 'bg-[#2a2e39] text-[#2962ff]' : 'text-[#9db2c6] hover:text-white'"
-                    title="OHLC Bars" class="p-1.5 rounded transition-colors">
+                    [class]="api.chartType() === 'bar' ? 'bg-[#2962ff] text-white shadow-md' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                    title="OHLC Bars" class="p-1.5 rounded transition-all">
               <svg class="tv-icon tv-icon-sm" viewBox="0 0 24 24">
                 <line x1="12" y1="2" x2="12" y2="22"></line>
                 <line x1="12" y1="8" x2="8" y2="8"></line>
@@ -172,10 +172,13 @@ import { Timeframe, ChartType } from './core/models/stock.model';
       <!-- MAIN WORKSPACE: LEFT TOOLBAR + CENTER CONTENT + RIGHT WATCHLIST -->
       <div class="flex flex-1 w-full overflow-hidden relative">
 
-        <!-- LEFT DRAWING DOCK WITH VECTOR SVG ICONS -->
-        <aside class="w-11 bg-[#131722] border-r border-[#2a2e39] flex flex-col items-center py-3 gap-3 z-20 flex-shrink-0 text-xs">
-          <!-- Crosshair -->
-          <button class="p-1.5 text-[#9db2c6] hover:text-white hover:bg-[#2a2e39] rounded transition-all" title="Crosshair">
+        <!-- FUNCTIONAL LEFT DRAWING TOOLBAR -->
+        <aside class="w-11 bg-[#131722] border-r border-[#2a2e39] flex flex-col items-center py-3 gap-2.5 z-20 flex-shrink-0 text-xs">
+          
+          <!-- Crosshair Mode -->
+          <button (click)="api.setTool('crosshair')"
+                  [class]="api.activeDrawingTool() === 'crosshair' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                  class="p-2 rounded-lg transition-all" title="Crosshair Mode">
             <svg class="tv-icon" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="10"></circle>
               <line x1="12" y1="2" x2="12" y2="22"></line>
@@ -183,8 +186,10 @@ import { Timeframe, ChartType } from './core/models/stock.model';
             </svg>
           </button>
 
-          <!-- Trend Line -->
-          <button class="p-1.5 text-[#9db2c6] hover:text-white hover:bg-[#2a2e39] rounded transition-all" title="Trend Line">
+          <!-- Interactive Trend Line Drawing Mode -->
+          <button (click)="api.setTool('trendline')"
+                  [class]="api.activeDrawingTool() === 'trendline' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                  class="p-2 rounded-lg transition-all" title="Draw Trend Line">
             <svg class="tv-icon" viewBox="0 0 24 24">
               <line x1="4" y1="20" x2="20" y2="4"></line>
               <circle cx="4" cy="20" r="2" fill="currentColor"></circle>
@@ -192,8 +197,10 @@ import { Timeframe, ChartType } from './core/models/stock.model';
             </svg>
           </button>
 
-          <!-- Fibonacci / Grid -->
-          <button class="p-1.5 text-[#9db2c6] hover:text-white hover:bg-[#2a2e39] rounded transition-all" title="Fibonacci Retracement">
+          <!-- Fibonacci Retracement Auto-Plot -->
+          <button (click)="api.setTool('fibonacci')"
+                  [class]="api.activeDrawingTool() === 'fibonacci' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                  class="p-2 rounded-lg transition-all" title="Plot Fibonacci Retracement Levels">
             <svg class="tv-icon" viewBox="0 0 24 24">
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -201,15 +208,19 @@ import { Timeframe, ChartType } from './core/models/stock.model';
             </svg>
           </button>
 
-          <!-- Brush -->
-          <button class="p-1.5 text-[#9db2c6] hover:text-white hover:bg-[#2a2e39] rounded transition-all" title="Brush">
+          <!-- Brush / Highlight Box Mode -->
+          <button (click)="api.setTool('brush')"
+                  [class]="api.activeDrawingTool() === 'brush' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                  class="p-2 rounded-lg transition-all" title="Highlight Area / Brush">
             <svg class="tv-icon" viewBox="0 0 24 24">
               <path d="M18.375 2.625a3.875 3.875 0 0 0-5.48 0L3 12.5v5.5h5.5l9.875-9.875a3.875 3.875 0 0 0 0-5.5z"></path>
             </svg>
           </button>
 
-          <!-- Target / ML Forecast -->
-          <button class="p-1.5 text-[#2962ff] bg-[#2962ff]/15 rounded transition-all" title="ML Target Tool">
+          <!-- Quick Jump to ML Target Forecast -->
+          <button (click)="onTargetClick()"
+                  [class]="api.activeDrawingTool() === 'target' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                  class="p-2 rounded-lg transition-all" title="Launch ML Forecast Target">
             <svg class="tv-icon" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="10"></circle>
               <circle cx="12" cy="12" r="6"></circle>
@@ -217,16 +228,20 @@ import { Timeframe, ChartType } from './core/models/stock.model';
             </svg>
           </button>
 
-          <!-- Measure / Ruler -->
-          <button class="p-1.5 text-[#9db2c6] hover:text-white hover:bg-[#2a2e39] rounded transition-all" title="Measure">
+          <!-- Distance / Range Measurement Mode -->
+          <button (click)="api.setTool('measure')"
+                  [class]="api.activeDrawingTool() === 'measure' ? 'bg-[#2962ff] text-white shadow-lg' : 'text-[#9db2c6] hover:text-white hover:bg-[#2a2e39]'"
+                  class="p-2 rounded-lg transition-all" title="Measure Distance & Price Delta">
             <svg class="tv-icon" viewBox="0 0 24 24">
               <path d="M21.3 8.7 8.7 21.3a1 1 0 0 1-1.4 0l-4.6-4.6a1 1 0 0 1 0-1.4L15.3 2.7a1 1 0 0 1 1.4 0l4.6 4.6a1 1 0 0 1 0 1.4z"></path>
             </svg>
           </button>
 
+          <!-- Bottom Utilities: Zoom In & Clear All Drawings -->
           <div class="mt-auto flex flex-col gap-2">
-            <!-- Zoom -->
-            <button class="p-1.5 text-[#9db2c6] hover:text-white hover:bg-[#2a2e39] rounded transition-all" title="Zoom">
+            <!-- Zoom 30D -->
+            <button (click)="api.setTool('zoom')"
+                    class="p-2 text-[#9db2c6] hover:text-white hover:bg-[#2a2e39] rounded-lg transition-all" title="Zoom to Recent 30 Days">
               <svg class="tv-icon" viewBox="0 0 24 24">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -234,8 +249,10 @@ import { Timeframe, ChartType } from './core/models/stock.model';
                 <line x1="8" y1="11" x2="14" y2="11"></line>
               </svg>
             </button>
-            <!-- Trash / Clear -->
-            <button class="p-1.5 text-[#9db2c6] hover:text-[#f23645] hover:bg-[#2a2e39] rounded transition-all" title="Clear">
+            
+            <!-- Clear Drawings -->
+            <button (click)="api.triggerAction('clear')"
+                    class="p-2 text-[#9db2c6] hover:text-[#f23645] hover:bg-[#f23645]/15 rounded-lg transition-all" title="Clear All Lines & Annotations">
               <svg class="tv-icon" viewBox="0 0 24 24">
                 <polyline points="3 6 5 6 21 6"></polyline>
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -333,6 +350,7 @@ import { Timeframe, ChartType } from './core/models/stock.model';
 })
 export class AppComponent implements OnInit {
   api = inject(StockApiService);
+  router = inject(Router);
 
   showWatchlist = signal<boolean>(true);
   showSymbolSearch = signal<boolean>(false);
@@ -357,5 +375,14 @@ export class AppComponent implements OnInit {
   onSelectCompany(ticker: string, name: string) {
     this.api.selectCompany(ticker, name);
     this.showSymbolSearch.set(false);
+  }
+
+  onSelectTimeframe(tf: Timeframe) {
+    this.api.timeframe.set(tf);
+  }
+
+  onTargetClick() {
+    this.api.setTool('target');
+    this.router.navigate(['/prediction']);
   }
 }

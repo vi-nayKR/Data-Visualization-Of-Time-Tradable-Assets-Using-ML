@@ -4,6 +4,8 @@ import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Company, OHLCVRecord, PredictionResponse, BestModelResponse, Timeframe, ChartType } from '../models/stock.model';
 
+export type DrawingTool = 'crosshair' | 'trendline' | 'fibonacci' | 'brush' | 'target' | 'measure' | 'zoom' | 'none';
+
 @Injectable({ providedIn: 'root' })
 export class StockApiService {
   private http = inject(HttpClient);
@@ -18,6 +20,10 @@ export class StockApiService {
   timeframe = signal<Timeframe>('6M');
   chartType = signal<ChartType>('candlestick');
   currentRecords = signal<OHLCVRecord[]>([]);
+
+  // Interactive Drawing & Tool Modes
+  activeDrawingTool = signal<DrawingTool>('crosshair');
+  drawingAction = signal<{ type: 'clear' | 'fibonacci' | 'zoom' | 'measure', timestamp: number } | null>(null);
 
   // Computed state
   filteredCompanies = computed(() => {
@@ -50,6 +56,21 @@ export class StockApiService {
       isPositive: diff >= 0
     };
   });
+
+  setTool(tool: DrawingTool) {
+    this.activeDrawingTool.set(tool);
+    if (tool === 'fibonacci') {
+      this.triggerAction('fibonacci');
+    } else if (tool === 'zoom') {
+      this.triggerAction('zoom');
+    } else if (tool === 'measure') {
+      this.triggerAction('measure');
+    }
+  }
+
+  triggerAction(type: 'clear' | 'fibonacci' | 'zoom' | 'measure') {
+    this.drawingAction.set({ type, timestamp: Date.now() });
+  }
 
   async loadCompanies(): Promise<Company[]> {
     try {

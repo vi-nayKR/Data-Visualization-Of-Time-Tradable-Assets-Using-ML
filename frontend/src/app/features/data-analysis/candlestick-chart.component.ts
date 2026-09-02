@@ -1,6 +1,7 @@
-import { Component, ElementRef, ViewChild, input, effect } from '@angular/core';
+import { Component, ElementRef, ViewChild, input, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OHLCVRecord, ChartType } from '../../core/models/stock.model';
+import { StockApiService } from '../../core/services/stock-api.service';
 
 declare const Plotly: any;
 
@@ -11,6 +12,8 @@ declare const Plotly: any;
   template: `<div #chartContainer class="w-full h-[650px] bg-[#131722] overflow-hidden"></div>`
 })
 export class CandlestickChartComponent {
+  api = inject(StockApiService);
+
   data = input.required<OHLCVRecord[]>();
   maDays = input<number>(50);
   showMA = input<boolean>(true);
@@ -22,6 +25,7 @@ export class CandlestickChartComponent {
   @ViewChild('chartContainer', { static: true }) chartContainer!: ElementRef;
 
   constructor() {
+    // Render chart on data/indicator changes
     effect(() => {
       const records = this.data();
       const ma = this.maDays();
@@ -33,6 +37,108 @@ export class CandlestickChartComponent {
       if (records && records.length > 0 && typeof Plotly !== 'undefined') {
         this.renderChart(records, ma, showMA, showEMA, showBB, showRSI, type);
       }
+    });
+
+    // Handle Active Tool changes (Trendline, Brush, Measure, Crosshair)
+    effect(() => {
+      const tool = this.api.activeDrawingTool();
+      if (typeof Plotly !== 'undefined' && this.chartContainer?.nativeElement) {
+        this.applyDrawingTool(tool);
+      }
+    });
+
+    // Handle One-Shot Drawing Actions (Clear, Fibonacci, Zoom)
+    effect(() => {
+      const action = this.api.drawingAction();
+      if (action && typeof Plotly !== 'undefined' && this.chartContainer?.nativeElement) {
+        if (action.type === 'clear') {
+          Plotly.relayout(this.chartContainer.nativeElement, { shapes: [] });
+        } else if (action.type === 'fibonacci') {
+          this.applyFibonacci();
+        } else if (action.type === 'zoom') {
+          this.applyZoomIn();
+        }
+      }
+    });
+  }
+
+  private applyDrawingTool(tool: string) {
+    if (!this.chartContainer?.nativeElement) return;
+    const el = this.chartContainer.nativeElement;
+
+    if (tool === 'trendline') {
+      Plotly.relayout(el, {
+        dragmode: 'drawline',
+        'newshape.line.color': '#2962ff',
+        'newshape.line.width': 2
+      });
+    } else if (tool === 'brush') {
+      Plotly.relayout(el, {
+        dragmode: 'drawrect',
+        'newshape.fillcolor': 'rgba(41, 98, 255, 0.12)',
+        'newshape.line.color': '#2962ff',
+        'newshape.line.width': 1.5
+      });
+    } else if (tool === 'measure') {
+      Plotly.relayout(el, { dragmode: 'select' });
+    } else if (tool === 'crosshair') {
+      Plotly.relayout(el, {
+        dragmode: 'zoom',
+        'xaxis.showspikes': true,
+        'yaxis.showspikes': true
+      });
+    } else {
+      Plotly.relayout(el, { dragmode: 'zoom' });
+    }
+  }
+
+  private applyFibonacci() {
+    const records = this.data();
+    if (!records || records.length === 0 || !this.chartContainer?.nativeElement) return;
+
+    const highs = records.map(r => r.high);
+    const lows = records.map(r => r.low);
+    const maxHigh = Math.max(...highs);
+    const minLow = Math.min(...lows);
+    const diff = maxHigh - minLow;
+
+    const fibLevels = [
+      { ratio: 0.0, color: '#f23645', name: '0.0% (Low)' },
+      { ratio: 0.236, color: '#ff9800', name: '23.6%' },
+      { ratio: 0.382, color: '#00e5ff', name: '38.2%' },
+      { ratio: 0.5, color: '#2962ff', name: '50.0%' },
+      { ratio: 0.618, color: '#089981', name: '61.8% (Golden)' },
+      { ratio: 0.786, color: '#e040fb', name: '78.6%' },
+      { ratio: 1.0, color: '#089981', name: '100.0% (High)' }
+    ];
+
+    const shapes = fibLevels.map(fib => {
+      const yVal = minLow + (diff * fib.ratio);
+      return {
+        type: 'line',
+        xref: 'paper',
+        x0: 0,
+        x1: 1,
+        yref: 'y',
+        y0: yVal,
+        y1: yVal,
+        line: {
+          color: fib.color,
+          width: fib.ratio === 0.618 || fib.ratio === 0.5 ? 2 : 1,
+          dash: 'dashdot'
+        }
+      };
+    });
+
+    Plotly.relayout(this.chartContainer.nativeElement, { shapes });
+  }
+
+  private applyZoomIn() {
+    const records = this.data();
+    if (!records || records.length < 30 || !this.chartContainer?.nativeElement) return;
+    const last30 = records.slice(records.length - 30);
+    Plotly.relayout(this.chartContainer.nativeElement, {
+      'xaxis.range': [last30[0].date, last30[last30.length - 1].date]
     });
   }
 
