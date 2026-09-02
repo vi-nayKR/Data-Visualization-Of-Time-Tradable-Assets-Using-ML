@@ -23,7 +23,14 @@ import { Timeframe, ChartType } from './core/models/stock.model';
               <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
               <polyline points="16 7 22 7 22 13"></polyline>
             </svg>
-            <span class="font-bold text-sm tracking-wider font-display">TRADEX<span class="text-[var(--color-accent)]">.ML</span></span>
+            <div class="flex flex-col">
+              <span class="font-extrabold text-xs sm:text-sm tracking-wider font-display leading-tight">
+                DATA VIZ<span class="text-[var(--color-accent)]">.ML</span>
+              </span>
+              <span class="text-[9px] text-[var(--color-muted)] tracking-tight hidden md:inline leading-none font-medium">
+                Time-Tradable Assets
+              </span>
+            </div>
           </div>
 
           <!-- Symbol Search Selector with Rich Tooltip -->
