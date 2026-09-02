@@ -35,3 +35,6 @@ export interface BestModelResponse {
   records: OHLCVRecord[];
   predictions: (number | null)[];
 }
+
+export type Timeframe = '1D' | '5D' | '1M' | '3M' | '6M' | '1Y' | 'ALL';
+export type ChartType = 'candlestick' | 'line' | 'bar' | 'area';

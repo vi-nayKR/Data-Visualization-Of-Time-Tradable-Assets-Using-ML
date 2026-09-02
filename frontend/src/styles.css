@@ -1,29 +1,89 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --tv-bg-primary: #131722;
+  --tv-bg-secondary: #1e222d;
+  --tv-bg-tertiary: #2a2e39;
+  --tv-bg-hover: #2f3241;
+  --tv-border: #2a2e39;
+  --tv-border-light: #363a45;
+  --tv-text-primary: #d1d4dc;
+  --tv-text-secondary: #787b86;
+  --tv-text-hover: #f0f3fa;
+  --tv-blue: #2962ff;
+  --tv-blue-hover: #1e53e5;
+  --tv-green: #089981;
+  --tv-green-hover: #07806c;
+  --tv-red: #f23645;
+  --tv-red-hover: #d32b38;
+}
+
 html, body {
   margin: 0;
   padding: 0;
-  font-family: 'Outfit', sans-serif;
-  background-color: #0f172a;
-  color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Trebuchet MS', Roboto, Ubuntu, sans-serif;
+  background-color: #131722;
+  color: #d1d4dc;
   min-height: 100vh;
+  overflow-x: hidden;
+  user-select: none;
 }
 
-/* Custom scrollbar */
+/* TradingView Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #131722;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
+  background: #2a2e39;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #363a45;
+}
+
+/* TradingView Button Styles */
+.tv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 4px;
+  color: #d1d4dc;
+  background: transparent;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.tv-btn:hover {
+  background: #2a2e39;
+  color: #f0f3fa;
+}
+
+.tv-btn-active {
+  background: rgba(41, 98, 255, 0.15);
+  color: #2962ff;
+  font-weight: 600;
+}
+
+.tv-btn-primary {
+  background: #2962ff;
+  color: #ffffff;
+}
+
+.tv-btn-primary:hover {
+  background: #1e53e5;
+}
+
+/* Smooth transitions */
+* {
+  box-sizing: border-box;
 }

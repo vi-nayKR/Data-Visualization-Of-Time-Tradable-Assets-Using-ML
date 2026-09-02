@@ -10,27 +10,48 @@ import { PredictionChartComponent } from '../prediction/prediction-chart.compone
   standalone: true,
   imports: [CommonModule, ModelCardComponent, PredictionChartComponent],
   template: `
-    <div class="space-y-8">
-      <div class="border-b border-slate-800 pb-5">
-        <h1 class="text-3xl font-extrabold bg-gradient-to-r from-amber-400 via-sky-400 to-purple-400 bg-clip-text text-transparent">
-          🏆 Best Model Selector
-        </h1>
-        <p class="text-slate-400 text-sm mt-1">
-          Evaluates Linear Regression, Decision Tree, SVR, RBF, and LSTM to select the top predictor for {{ api.selectedCompanyName() }} ({{ api.selectedTicker() }})
-        </p>
+    <div class="flex flex-col h-full bg-[#131722] text-[#d1d4dc] overflow-y-auto">
+      
+      <!-- SUB-HEADER: BENCHMARK TITLE & WINNER SUMMARY -->
+      <div class="p-4 border-b border-[#2a2e39] bg-[#1e222d] flex flex-col md:flex-row md:items-center md:justify-between gap-3 flex-shrink-0">
+        <div>
+          <h1 class="text-base font-bold text-white flex items-center gap-2">
+            <span>🏆 Quantitative Strategy Leaderboard</span>
+            <span class="text-xs font-mono font-normal text-[#787b86]">({{ api.selectedTicker() }})</span>
+          </h1>
+          <p class="text-xs text-[#787b86]">
+            Concurrent multi-algorithm benchmarking across Linear, SVM, Decision Tree, and Deep Neural Networks.
+          </p>
+        </div>
+
+        @if (response()) {
+          <div class="flex items-center gap-3 bg-[#131722] border border-[#089981]/50 rounded-lg px-3 py-1.5">
+            <span class="text-base">🥇</span>
+            <div>
+              <div class="text-[10px] uppercase font-bold text-[#787b86]">Best Performer</div>
+              <div class="text-xs font-bold text-[#089981]">{{ response()!.winner }}</div>
+            </div>
+            <div class="font-mono font-bold text-sm text-white ml-2">
+              {{ (response()!.winnerScore * 100).toFixed(2) }}%
+            </div>
+          </div>
+        }
       </div>
 
-      <!-- Loading State -->
-      @if (loading()) {
-        <div class="flex flex-col items-center justify-center py-20 text-slate-400">
-          <div class="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-          <p>Benchmarking all 5 Machine Learning models...</p>
-        </div>
-      } @else if (response()) {
-        <!-- Model Grid Comparison -->
-        <div class="space-y-4">
-          <h2 class="text-lg font-bold text-slate-200">📊 Benchmark Results</h2>
-          <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <!-- MAIN BENCHMARK BODY -->
+      <div class="p-6 space-y-6 flex-1">
+        
+        <!-- Loading State -->
+        @if (loading()) {
+          <div class="py-20 flex flex-col items-center justify-center gap-3">
+            <div class="w-8 h-8 border-2 border-[#2962ff] border-t-transparent rounded-full animate-spin"></div>
+            <span class="text-xs font-mono text-[#787b86]">Evaluating algorithms in parallel for {{ api.selectedTicker() }}...</span>
+          </div>
+        }
+
+        @if (response()) {
+          <!-- Strategy Cards Grid -->
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
             @for (m of response()!.models; track m.name) {
               <app-model-card [name]="m.name"
                               [score]="m.score"
@@ -38,28 +59,21 @@ import { PredictionChartComponent } from '../prediction/prediction-chart.compone
               </app-model-card>
             }
           </div>
-        </div>
 
-        <!-- Winner Alert Banner -->
-        <div class="bg-gradient-to-r from-green-950/80 via-emerald-950/80 to-slate-900 border border-green-500/80 rounded-2xl p-5 flex items-center gap-4">
-          <div class="text-3xl">🏆</div>
-          <div>
-            <h3 class="text-lg font-bold text-green-300">
-              Winner: {{ response()!.winner }}
-            </h3>
-            <p class="text-slate-300 text-sm">
-              Achieved the highest accuracy score of
-              <strong class="text-green-400 font-mono">{{ (response()!.winnerScore * 100).toFixed(2) }}% R²</strong> for {{ api.selectedTicker() }}.
-            </p>
+          <!-- Winner Model Projection Chart -->
+          <div class="bg-[#1e222d] border border-[#2a2e39] rounded-lg overflow-hidden">
+            <div class="p-3 border-b border-[#2a2e39] flex items-center justify-between text-xs">
+              <span class="font-bold text-white">Visual Trajectory: {{ response()!.winner }}</span>
+              <span class="text-[#089981] font-mono font-semibold">● Optimal Model Output</span>
+            </div>
+            <app-prediction-chart [records]="response()!.records"
+                                  [predictions]="response()!.predictions"
+                                  [modelName]="response()!.winner">
+            </app-prediction-chart>
           </div>
-        </div>
+        }
 
-        <!-- Winner Prediction Chart -->
-        <app-prediction-chart [records]="response()!.records"
-                              [predictions]="response()!.predictions"
-                              [modelName]="response()!.winner">
-        </app-prediction-chart>
-      }
+      </div>
     </div>
   `
 })
