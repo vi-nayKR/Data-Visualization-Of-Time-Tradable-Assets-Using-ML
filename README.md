@@ -79,7 +79,7 @@ npm run build
 
 > I built a split Angular and FastAPI market-data terminal: Angular holds terminal state and renders Plotly charts, while FastAPI retrieves OHLCV data, computes indicators, and exposes several small forecasting-model implementations. I used short TTL caches because interactive selection changes can otherwise repeat external data requests and model work. I’m explicit that the current forecasting path is a learning demonstration, not a trading signal: it needs time-series backtesting and baselines before any predictive-performance claim.
 
-For deeper preparation and the precise claim boundaries, see [the project story bank](../Resume/Guide/03_PROJECT_STORY_BANK.md#data-visualization-of-time-tradable-assets-using-ml) and [the interview guide](../Resume/Guide/02_INTERVIEW_PREPARATION.md#data-visualization-of-time-tradable-assets-using-ml).
+The model and data boundaries above are the public project summary; interview notes are kept outside this repository.
 
 ## Repository layout
 
