@@ -87,8 +87,6 @@ The model and data boundaries above are the public project summary; interview no
 frontend/                 Angular 22 application
 backend/app/              FastAPI routes, services, schemas, and LSTM model
 deploy/                   systemd, Nginx, tunnel, and deployment assets
-Untitled.ipynb            exploratory notebook
-data_analysis.py          earlier analysis script
 ```
 
 ## Current limitations and next work
