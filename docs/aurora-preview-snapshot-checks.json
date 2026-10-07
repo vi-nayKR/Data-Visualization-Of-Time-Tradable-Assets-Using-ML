@@ -1,0 +1,242 @@
+[
+  {
+    "width": 1920,
+    "height": 1080,
+    "route": "/",
+    "layout": {
+      "width": 1920,
+      "scrollWidth": 1920,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 1920,
+    "height": 1080,
+    "route": "/analysis",
+    "layout": {
+      "width": 1920,
+      "scrollWidth": 1920,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 1920,
+    "height": 1080,
+    "route": "/prediction",
+    "layout": {
+      "width": 1920,
+      "scrollWidth": 1920,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 1920,
+    "height": 1080,
+    "route": "/best-analysis",
+    "layout": {
+      "width": 1920,
+      "scrollWidth": 1920,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 1366,
+    "height": 768,
+    "route": "/",
+    "layout": {
+      "width": 1366,
+      "scrollWidth": 1366,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 1366,
+    "height": 768,
+    "route": "/analysis",
+    "layout": {
+      "width": 1366,
+      "scrollWidth": 1366,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 1366,
+    "height": 768,
+    "route": "/prediction",
+    "layout": {
+      "width": 1366,
+      "scrollWidth": 1366,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 1366,
+    "height": 768,
+    "route": "/best-analysis",
+    "layout": {
+      "width": 1366,
+      "scrollWidth": 1366,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "route": "/",
+    "layout": {
+      "width": 768,
+      "scrollWidth": 768,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "route": "/analysis",
+    "layout": {
+      "width": 768,
+      "scrollWidth": 768,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "route": "/prediction",
+    "layout": {
+      "width": 768,
+      "scrollWidth": 768,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "route": "/best-analysis",
+    "layout": {
+      "width": 768,
+      "scrollWidth": 768,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "route": "/",
+    "layout": {
+      "width": 390,
+      "scrollWidth": 390,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "route": "/analysis",
+    "layout": {
+      "width": 390,
+      "scrollWidth": 390,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "route": "/prediction",
+    "layout": {
+      "width": 390,
+      "scrollWidth": 390,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "route": "/best-analysis",
+    "layout": {
+      "width": 390,
+      "scrollWidth": 390,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 360,
+    "height": 740,
+    "route": "/",
+    "layout": {
+      "width": 360,
+      "scrollWidth": 360,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 360,
+    "height": 740,
+    "route": "/analysis",
+    "layout": {
+      "width": 360,
+      "scrollWidth": 360,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 360,
+    "height": 740,
+    "route": "/prediction",
+    "layout": {
+      "width": 360,
+      "scrollWidth": 360,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  },
+  {
+    "width": 360,
+    "height": 740,
+    "route": "/best-analysis",
+    "layout": {
+      "width": 360,
+      "scrollWidth": 360,
+      "background": "rgb(13, 17, 23)"
+    },
+    "source": "Snapshot",
+    "errors": []
+  }
+]

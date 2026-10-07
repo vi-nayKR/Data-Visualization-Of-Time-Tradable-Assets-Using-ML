@@ -39,11 +39,6 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d"
       },
       {
-        "type": "info",
-        "text": "Autofocus processing was blocked because a document already has a focused element.",
-        "url": "http://127.0.0.1:4200/prediction"
-      },
-      {
         "type": "error",
         "text": "Failed to load resource: net::ERR_FAILED",
         "url": "https://stock-api.medhainnovation.com/api/predictions/RELIANCE.NS/predict?model=linear_regression&horizon=5"
@@ -67,51 +62,65 @@
     "network": [
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/prediction"
+        "url": "http://127.0.0.1:4201/prediction"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/prediction",
+        "url": "http://127.0.0.1:4201/prediction",
         "status": 200
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js"
+        "url": "http://127.0.0.1:4201/fonts/inter.woff2"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js"
+        "url": "http://127.0.0.1:4201/fonts/space-grotesk.woff2"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/main-7SZGXN3S.js"
+        "url": "http://127.0.0.1:4201/chunk-USgBHqPl.js"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css"
+        "url": "http://127.0.0.1:4201/chunk-CkgKHFqf.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/main-IKDHGOXN.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/styles-Q5EYZXY6.css"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js",
+        "url": "http://127.0.0.1:4201/chunk-USgBHqPl.js",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css",
-        "status": 200
-      },
-      {
-        "event": "request",
-        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
-      },
-      {
-        "event": "response",
-        "url": "http://127.0.0.1:4200/main-7SZGXN3S.js",
+        "url": "http://127.0.0.1:4201/styles-Q5EYZXY6.css",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js",
+        "url": "http://127.0.0.1:4201/main-IKDHGOXN.js",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/fonts/inter.woff2",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-CkgKHFqf.js",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/fonts/space-grotesk.woff2",
         "status": 200
       },
       {
@@ -124,11 +133,15 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/chunk-5i4s04Cs.js"
+        "url": "http://127.0.0.1:4201/chunk-CBk3SVk0.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/fonts/jetbrains-mono.woff2"
       },
       {
         "event": "response",
-        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "url": "http://127.0.0.1:4201/fonts/jetbrains-mono.woff2",
         "status": 200
       },
       {
@@ -143,38 +156,38 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/companies-us.json"
+        "url": "http://127.0.0.1:4201/data/companies-us.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/chunk-5i4s04Cs.js",
+        "url": "http://127.0.0.1:4201/chunk-CBk3SVk0.js",
         "status": 200
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/models/status.json"
+        "url": "http://127.0.0.1:4201/data/models/status.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/chunk-BusjyDmF.js"
+        "url": "http://127.0.0.1:4201/chunk-BKHwul8g.js"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/companies-us.json",
-        "status": 200
-      },
-      {
-        "event": "request",
-        "url": "http://127.0.0.1:4200/data/manifest.json"
-      },
-      {
-        "event": "response",
-        "url": "http://127.0.0.1:4200/data/models/status.json",
+        "url": "http://127.0.0.1:4201/data/companies-us.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/chunk-BusjyDmF.js",
+        "url": "http://127.0.0.1:4201/data/models/status.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/data/manifest.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-BKHwul8g.js",
         "status": 200
       },
       {
@@ -187,12 +200,8 @@
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/manifest.json",
+        "url": "http://127.0.0.1:4201/data/manifest.json",
         "status": 200
-      },
-      {
-        "event": "request",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2"
       },
       {
         "event": "failure",
@@ -206,34 +215,25 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json"
+        "url": "http://127.0.0.1:4201/data/predictions/AAPL/predict/linear_regression/h5.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/AAPL/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/predictions/AAPL/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json",
-        "status": 200
-      },
-      {
-        "event": "response",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2",
+        "url": "http://127.0.0.1:4201/data/stocks/AAPL/ohlcv.json",
         "status": 200
       },
       {
         "event": "request",
         "url": "https://stock-api.medhainnovation.com/api/companies/?market=in"
-      },
-      {
-        "event": "request",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2"
       },
       {
         "event": "failure",
@@ -242,11 +242,11 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/companies-in.json"
+        "url": "http://127.0.0.1:4201/data/companies-in.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/companies-in.json",
+        "url": "http://127.0.0.1:4201/data/companies-in.json",
         "status": 200
       },
       {
@@ -258,14 +258,13 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d"
       },
       {
-        "event": "response",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2",
-        "status": 200
-      },
-      {
         "event": "failure",
         "url": "https://stock-api.medhainnovation.com/api/predictions/ADANIENT.NS/predict?model=linear_regression&horizon=5",
         "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json"
       },
       {
         "event": "failure",
@@ -274,20 +273,16 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json"
-      },
-      {
-        "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/ADANIENT.NS/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json",
+        "url": "http://127.0.0.1:4201/data/stocks/ADANIENT.NS/ohlcv.json",
         "status": 200
       },
       {
@@ -310,20 +305,47 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json"
+        "url": "http://127.0.0.1:4201/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/RELIANCE.NS/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/RELIANCE.NS/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/RELIANCE.NS/ohlcv.json",
+        "url": "http://127.0.0.1:4201/data/stocks/RELIANCE.NS/ohlcv.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-DgUGf6NV.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-DgUGf6NV.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-C6YhSPVZ.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-C6YhSPVZ.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-Dts0gU-l.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-Dts0gU-l.js",
         "status": 200
       },
       {
@@ -346,29 +368,29 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/M%26M.NS/predict/linear_regression/h5.json"
+        "url": "http://127.0.0.1:4201/data/predictions/M%26M.NS/predict/linear_regression/h5.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/M%26M.NS/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/M%26M.NS/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/M%26M.NS/ohlcv.json",
+        "url": "http://127.0.0.1:4201/data/stocks/M%26M.NS/ohlcv.json",
         "status": 200
       }
     ],
     "selections": [
       {
         "ticker": "RELIANCE.NS",
-        "domBefore": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nADANIENT.NS\nAdani Enterprises Ltd.\nRELIANCE.NSReliance Industries Ltd.\nSTOCK\n₹2743\n▼\n-106.9\n(-3.75%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nADANIENT.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\nForecast ₹2,765.13 · band ₹2,620.02 – ₹3,039.50\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2600\n₹2700\n₹2800\n₹2900\n₹3000\n₹3100\n₹3200\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0275 / 0.0357\nPrice MAE\t₹82.46\nPrice MAPE\t2.78%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t7.39%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n51\nSYMBOL\nLAST / CHG\nRELIANCE.NS\nReliance Industries Ltd.\nINR\nNot available\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL",
+        "domBefore": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nADANIENT.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nAdani Enterprises Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹2,765.13\n₹1,260.72\n\nBand ₹2,620.02 to ₹3,039.50\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\nLoading chart…\n\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0275 / 0.0357\nPrice MAE\t₹82.46\nPrice MAPE\t2.78%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t7.39%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "response": {
-          "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
+          "url": "http://127.0.0.1:4201/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
           "ticker": "RELIANCE.NS",
           "forecast": {
             "price": 1209.227721279062,
@@ -383,14 +405,14 @@
             "origin_price": 1207.699951171875
           }
         },
-        "domAfter": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nRELIANCE.NS\nReliance Industries Ltd.\n₹1207.7\n▼\n-10.3\n(-0.85%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nRELIANCE.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM\n\nForecast ₹1,209.23 · band ₹1,158.10 – ₹1,251.75\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹1150\n₹1200\n₹1250\n₹1300\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n51\nSYMBOL\nLAST / CHG\nRELIANCE.NS\nReliance Industries Ltd.\nINR\nNot available\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL",
+        "domAfter": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nRELIANCE.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nReliance Industries Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹1,209.23\n₹1,209.23\n\nBand ₹1,158.10 to ₹1,251.75\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹1160\n₹1180\n₹1200\n₹1220\n₹1240\n₹1260\n₹1280\n₹1300\n₹1320\n₹1340\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "chartRendered": true
       },
       {
         "ticker": "M&M.NS",
-        "domBefore": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nRELIANCE.NS\nReliance Industries Ltd.\nM&M.NSMahindra & Mahindra Ltd.\nSTOCK\n₹1207.7\n▼\n-10.3\n(-0.85%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nRELIANCE.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM\n\nForecast ₹1,209.23 · band ₹1,158.10 – ₹1,251.75\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹1150\n₹1200\n₹1250\n₹1300\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n51\nSYMBOL\nLAST / CHG\nM&M.NS\nMahindra & Mahindra Ltd.\nINR\nNot available\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL",
+        "domBefore": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nRELIANCE.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nReliance Industries Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹1,209.23\n₹1,209.23\n\nBand ₹1,158.10 to ₹1,251.75\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹1160\n₹1180\n₹1200\n₹1220\n₹1240\n₹1260\n₹1280\n₹1300\n₹1320\n₹1340\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "response": {
-          "url": "http://127.0.0.1:4200/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
+          "url": "http://127.0.0.1:4201/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
           "ticker": "M&M.NS",
           "forecast": {
             "price": 2846.7497365812897,
@@ -405,11 +427,11 @@
             "origin_price": 2800
           }
         },
-        "domAfter": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nM&M.NS\nMahindra & Mahindra Ltd.\n₹2800\n▼\n-55\n(-1.93%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nM&M.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM\n\nForecast ₹2,846.75 · band ₹2,689.85 – ₹2,932.55\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2800\n₹3000\n₹3200\n₹3400\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n51\nSYMBOL\nLAST / CHG\nM&M.NS\nMahindra & Mahindra Ltd.\nINR\nNot available\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL",
+        "domAfter": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nM&M.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nMahindra & Mahindra Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹2,846.75\n₹2,834.28\n\nBand ₹2,689.85 to ₹2,932.55\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2700\n₹2800\n₹2900\n₹3000\n₹3100\n₹3200\n₹3300\n₹3400\n₹3500\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "chartRendered": true
       }
     ],
-    "finalDOM": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nM&M.NS\nMahindra & Mahindra Ltd.\n₹2800\n▼\n-55\n(-1.93%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nM&M.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM\n\nForecast ₹2,846.75 · band ₹2,689.85 – ₹2,932.55\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2800\n₹3000\n₹3200\n₹3400\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n51\nSYMBOL\nLAST / CHG\nM&M.NS\nMahindra & Mahindra Ltd.\nINR\nNot available\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL"
+    "finalDOM": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nM&M.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nMahindra & Mahindra Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹2,846.75\n₹2,846.75\n\nBand ₹2,689.85 to ₹2,932.55\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2700\n₹2800\n₹2900\n₹3000\n₹3100\n₹3200\n₹3300\n₹3400\n₹3500\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice"
   },
   {
     "width": 1366,
@@ -451,11 +473,6 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d"
       },
       {
-        "type": "info",
-        "text": "Autofocus processing was blocked because a document already has a focused element.",
-        "url": "http://127.0.0.1:4200/prediction"
-      },
-      {
         "type": "error",
         "text": "Failed to load resource: net::ERR_FAILED",
         "url": "https://stock-api.medhainnovation.com/api/predictions/RELIANCE.NS/predict?model=linear_regression&horizon=5"
@@ -479,56 +496,60 @@
     "network": [
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/prediction"
+        "url": "http://127.0.0.1:4201/prediction"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/prediction",
+        "url": "http://127.0.0.1:4201/prediction",
         "status": 200
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js"
+        "url": "http://127.0.0.1:4201/fonts/inter.woff2"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js"
+        "url": "http://127.0.0.1:4201/fonts/space-grotesk.woff2"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/main-7SZGXN3S.js"
+        "url": "http://127.0.0.1:4201/chunk-USgBHqPl.js"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css"
+        "url": "http://127.0.0.1:4201/chunk-CkgKHFqf.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/main-IKDHGOXN.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/styles-Q5EYZXY6.css"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js",
+        "url": "http://127.0.0.1:4201/chunk-USgBHqPl.js",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css",
+        "url": "http://127.0.0.1:4201/styles-Q5EYZXY6.css",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/main-7SZGXN3S.js",
-        "status": 200
-      },
-      {
-        "event": "request",
-        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
-      },
-      {
-        "event": "response",
-        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js",
+        "url": "http://127.0.0.1:4201/main-IKDHGOXN.js",
         "status": 200
       },
       {
         "event": "response",
-        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "url": "http://127.0.0.1:4201/fonts/inter.woff2",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-CkgKHFqf.js",
         "status": 200
       },
       {
@@ -541,7 +562,21 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/chunk-5i4s04Cs.js"
+        "url": "http://127.0.0.1:4201/chunk-CBk3SVk0.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/fonts/space-grotesk.woff2",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/fonts/jetbrains-mono.woff2"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/fonts/jetbrains-mono.woff2",
+        "status": 200
       },
       {
         "event": "failure",
@@ -554,35 +589,35 @@
         "error": "net::ERR_FAILED"
       },
       {
-        "event": "request",
-        "url": "http://127.0.0.1:4200/data/companies-us.json"
-      },
-      {
         "event": "response",
-        "url": "http://127.0.0.1:4200/chunk-5i4s04Cs.js",
+        "url": "http://127.0.0.1:4201/chunk-CBk3SVk0.js",
         "status": 200
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/models/status.json"
+        "url": "http://127.0.0.1:4201/data/companies-us.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/chunk-BusjyDmF.js"
+        "url": "http://127.0.0.1:4201/data/models/status.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-BKHwul8g.js"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/models/status.json",
+        "url": "http://127.0.0.1:4201/chunk-BKHwul8g.js",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/chunk-BusjyDmF.js",
+        "url": "http://127.0.0.1:4201/data/models/status.json",
         "status": 200
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/manifest.json"
+        "url": "http://127.0.0.1:4201/data/manifest.json"
       },
       {
         "event": "request",
@@ -593,12 +628,8 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d"
       },
       {
-        "event": "request",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2"
-      },
-      {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/manifest.json",
+        "url": "http://127.0.0.1:4201/data/manifest.json",
         "status": 200
       },
       {
@@ -613,34 +644,25 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json"
+        "url": "http://127.0.0.1:4201/data/predictions/AAPL/predict/linear_regression/h5.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/AAPL/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/predictions/AAPL/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json",
-        "status": 200
-      },
-      {
-        "event": "response",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2",
+        "url": "http://127.0.0.1:4201/data/stocks/AAPL/ohlcv.json",
         "status": 200
       },
       {
         "event": "request",
         "url": "https://stock-api.medhainnovation.com/api/companies/?market=in"
-      },
-      {
-        "event": "request",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2"
       },
       {
         "event": "failure",
@@ -649,11 +671,11 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/companies-in.json"
+        "url": "http://127.0.0.1:4201/data/companies-in.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/companies-in.json",
+        "url": "http://127.0.0.1:4201/data/companies-in.json",
         "status": 200
       },
       {
@@ -670,36 +692,31 @@
         "error": "net::ERR_FAILED"
       },
       {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json"
+      },
+      {
         "event": "failure",
         "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d",
         "error": "net::ERR_FAILED"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json"
-      },
-      {
-        "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/ADANIENT.NS/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2",
+        "url": "http://127.0.0.1:4201/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/stocks/ADANIENT.NS/ohlcv.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json",
-        "status": 200
-      },
-      {
-        "event": "response",
-        "url": "http://127.0.0.1:4200/data/companies-us.json",
+        "url": "http://127.0.0.1:4201/data/companies-us.json",
         "status": 200
       },
       {
@@ -722,20 +739,47 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json"
+        "url": "http://127.0.0.1:4201/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/RELIANCE.NS/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/RELIANCE.NS/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/RELIANCE.NS/ohlcv.json",
+        "url": "http://127.0.0.1:4201/data/stocks/RELIANCE.NS/ohlcv.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-DgUGf6NV.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-DgUGf6NV.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-C6YhSPVZ.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-C6YhSPVZ.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-Dts0gU-l.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-Dts0gU-l.js",
         "status": 200
       },
       {
@@ -758,29 +802,29 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/M%26M.NS/predict/linear_regression/h5.json"
+        "url": "http://127.0.0.1:4201/data/predictions/M%26M.NS/predict/linear_regression/h5.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/M%26M.NS/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/M%26M.NS/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/M%26M.NS/ohlcv.json",
+        "url": "http://127.0.0.1:4201/data/stocks/M%26M.NS/ohlcv.json",
         "status": 200
       }
     ],
     "selections": [
       {
         "ticker": "RELIANCE.NS",
-        "domBefore": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nADANIENT.NS\nAdani Enterprises Ltd.\nRELIANCE.NSReliance Industries Ltd.\nSTOCK\n₹2743\n▼\n-106.9\n(-3.75%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nADANIENT.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\nForecast ₹2,765.13 · band ₹2,620.02 – ₹3,039.50\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2600\n₹2700\n₹2800\n₹2900\n₹3000\n₹3100\n₹3200\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0275 / 0.0357\nPrice MAE\t₹82.46\nPrice MAPE\t2.78%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t7.39%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n51\nSYMBOL\nLAST / CHG\nRELIANCE.NS\nReliance Industries Ltd.\nINR\nNot available\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL",
+        "domBefore": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nADANIENT.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nAdani Enterprises Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹2,765.13\n₹2,765.13\n\nBand ₹2,620.02 to ₹3,039.50\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\nLoading chart…\n\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0275 / 0.0357\nPrice MAE\t₹82.46\nPrice MAPE\t2.78%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t7.39%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "response": {
-          "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
+          "url": "http://127.0.0.1:4201/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
           "ticker": "RELIANCE.NS",
           "forecast": {
             "price": 1209.227721279062,
@@ -795,14 +839,14 @@
             "origin_price": 1207.699951171875
           }
         },
-        "domAfter": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nRELIANCE.NS\nReliance Industries Ltd.\n₹1207.7\n▼\n-10.3\n(-0.85%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nRELIANCE.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM\n\nForecast ₹1,209.23 · band ₹1,158.10 – ₹1,251.75\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹1150\n₹1200\n₹1250\n₹1300\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n51\nSYMBOL\nLAST / CHG\nRELIANCE.NS\nReliance Industries Ltd.\nINR\nNot available\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL",
+        "domAfter": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nRELIANCE.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nReliance Industries Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹1,209.23\n₹1,209.23\n\nBand ₹1,158.10 to ₹1,251.75\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹1160\n₹1180\n₹1200\n₹1220\n₹1240\n₹1260\n₹1280\n₹1300\n₹1320\n₹1340\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "chartRendered": true
       },
       {
         "ticker": "M&M.NS",
-        "domBefore": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nRELIANCE.NS\nReliance Industries Ltd.\nM&M.NSMahindra & Mahindra Ltd.\nSTOCK\n₹1207.7\n▼\n-10.3\n(-0.85%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nRELIANCE.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM\n\nForecast ₹1,209.23 · band ₹1,158.10 – ₹1,251.75\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹1150\n₹1200\n₹1250\n₹1300\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n51\nSYMBOL\nLAST / CHG\nM&M.NS\nMahindra & Mahindra Ltd.\nINR\nNot available\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL",
+        "domBefore": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nRELIANCE.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nReliance Industries Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹1,209.23\n₹1,209.23\n\nBand ₹1,158.10 to ₹1,251.75\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹1160\n₹1180\n₹1200\n₹1220\n₹1240\n₹1260\n₹1280\n₹1300\n₹1320\n₹1340\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "response": {
-          "url": "http://127.0.0.1:4200/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
+          "url": "http://127.0.0.1:4201/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
           "ticker": "M&M.NS",
           "forecast": {
             "price": 2846.7497365812897,
@@ -817,11 +861,11 @@
             "origin_price": 2800
           }
         },
-        "domAfter": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nM&M.NS\nMahindra & Mahindra Ltd.\n₹2800\n▼\n-55\n(-1.93%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nM&M.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM\n\nForecast ₹2,846.75 · band ₹2,689.85 – ₹2,932.55\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2800\n₹3000\n₹3200\n₹3400\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n51\nSYMBOL\nLAST / CHG\nM&M.NS\nMahindra & Mahindra Ltd.\nINR\nNot available\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL",
+        "domAfter": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nM&M.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nMahindra & Mahindra Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹2,846.75\n₹2,683.14\n\nBand ₹2,689.85 to ₹2,932.55\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2700\n₹2800\n₹2900\n₹3000\n₹3100\n₹3200\n₹3300\n₹3400\n₹3500\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "chartRendered": true
       }
     ],
-    "finalDOM": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nM&M.NS\nMahindra & Mahindra Ltd.\n₹2800\n▼\n-55\n(-1.93%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nM&M.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM\n\nForecast ₹2,846.75 · band ₹2,689.85 – ₹2,932.55\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2800\n₹3000\n₹3200\n₹3400\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n51\nSYMBOL\nLAST / CHG\nM&M.NS\nMahindra & Mahindra Ltd.\nINR\nNot available\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL"
+    "finalDOM": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nM&M.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nMahindra & Mahindra Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹2,846.75\n₹2,846.75\n\nBand ₹2,689.85 to ₹2,932.55\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2700\n₹2800\n₹2900\n₹3000\n₹3100\n₹3200\n₹3300\n₹3400\n₹3500\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice"
   },
   {
     "width": 390,
@@ -863,11 +907,6 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d"
       },
       {
-        "type": "info",
-        "text": "Autofocus processing was blocked because a document already has a focused element.",
-        "url": "http://127.0.0.1:4200/prediction"
-      },
-      {
         "type": "error",
         "text": "Failed to load resource: net::ERR_FAILED",
         "url": "https://stock-api.medhainnovation.com/api/predictions/RELIANCE.NS/predict?model=linear_regression&horizon=5"
@@ -891,51 +930,65 @@
     "network": [
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/prediction"
+        "url": "http://127.0.0.1:4201/prediction"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/prediction",
+        "url": "http://127.0.0.1:4201/prediction",
         "status": 200
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js"
+        "url": "http://127.0.0.1:4201/fonts/inter.woff2"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js"
+        "url": "http://127.0.0.1:4201/fonts/space-grotesk.woff2"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/main-7SZGXN3S.js"
+        "url": "http://127.0.0.1:4201/chunk-USgBHqPl.js"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css"
+        "url": "http://127.0.0.1:4201/chunk-CkgKHFqf.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/main-IKDHGOXN.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/styles-Q5EYZXY6.css"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js",
+        "url": "http://127.0.0.1:4201/chunk-USgBHqPl.js",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css",
+        "url": "http://127.0.0.1:4201/styles-Q5EYZXY6.css",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/main-7SZGXN3S.js",
+        "url": "http://127.0.0.1:4201/main-IKDHGOXN.js",
         "status": 200
       },
       {
-        "event": "request",
-        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
+        "event": "response",
+        "url": "http://127.0.0.1:4201/fonts/inter.woff2",
+        "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js",
+        "url": "http://127.0.0.1:4201/fonts/space-grotesk.woff2",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-CkgKHFqf.js",
         "status": 200
       },
       {
@@ -948,11 +1001,15 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/chunk-5i4s04Cs.js"
+        "url": "http://127.0.0.1:4201/chunk-CBk3SVk0.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/fonts/jetbrains-mono.woff2"
       },
       {
         "event": "response",
-        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "url": "http://127.0.0.1:4201/fonts/jetbrains-mono.woff2",
         "status": 200
       },
       {
@@ -967,38 +1024,38 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/companies-us.json"
+        "url": "http://127.0.0.1:4201/data/companies-us.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/chunk-5i4s04Cs.js",
+        "url": "http://127.0.0.1:4201/chunk-CBk3SVk0.js",
         "status": 200
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/models/status.json"
+        "url": "http://127.0.0.1:4201/data/models/status.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/chunk-BusjyDmF.js"
+        "url": "http://127.0.0.1:4201/chunk-BKHwul8g.js"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/companies-us.json",
-        "status": 200
-      },
-      {
-        "event": "response",
-        "url": "http://127.0.0.1:4200/data/models/status.json",
+        "url": "http://127.0.0.1:4201/data/companies-us.json",
         "status": 200
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/manifest.json"
+        "url": "http://127.0.0.1:4201/data/manifest.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/chunk-BusjyDmF.js",
+        "url": "http://127.0.0.1:4201/data/models/status.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-BKHwul8g.js",
         "status": 200
       },
       {
@@ -1011,12 +1068,8 @@
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/manifest.json",
+        "url": "http://127.0.0.1:4201/data/manifest.json",
         "status": 200
-      },
-      {
-        "event": "request",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2"
       },
       {
         "event": "failure",
@@ -1030,34 +1083,25 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json"
+        "url": "http://127.0.0.1:4201/data/predictions/AAPL/predict/linear_regression/h5.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/AAPL/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/predictions/AAPL/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json",
-        "status": 200
-      },
-      {
-        "event": "response",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2",
+        "url": "http://127.0.0.1:4201/data/stocks/AAPL/ohlcv.json",
         "status": 200
       },
       {
         "event": "request",
         "url": "https://stock-api.medhainnovation.com/api/companies/?market=in"
-      },
-      {
-        "event": "request",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2"
       },
       {
         "event": "failure",
@@ -1066,11 +1110,11 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/companies-in.json"
+        "url": "http://127.0.0.1:4201/data/companies-in.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/companies-in.json",
+        "url": "http://127.0.0.1:4201/data/companies-in.json",
         "status": 200
       },
       {
@@ -1093,25 +1137,20 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json"
+        "url": "http://127.0.0.1:4201/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/ADANIENT.NS/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json",
-        "status": 200
-      },
-      {
-        "event": "response",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2",
+        "url": "http://127.0.0.1:4201/data/stocks/ADANIENT.NS/ohlcv.json",
         "status": 200
       },
       {
@@ -1134,20 +1173,47 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json"
+        "url": "http://127.0.0.1:4201/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/RELIANCE.NS/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/RELIANCE.NS/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/RELIANCE.NS/ohlcv.json",
+        "url": "http://127.0.0.1:4201/data/stocks/RELIANCE.NS/ohlcv.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-DgUGf6NV.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-DgUGf6NV.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-C6YhSPVZ.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-C6YhSPVZ.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-Dts0gU-l.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-Dts0gU-l.js",
         "status": 200
       },
       {
@@ -1164,40 +1230,35 @@
         "error": "net::ERR_FAILED"
       },
       {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/data/predictions/M%26M.NS/predict/linear_regression/h5.json"
+      },
+      {
         "event": "failure",
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
         "error": "net::ERR_FAILED"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/M%26M.NS/predict/linear_regression/h5.json"
-      },
-      {
-        "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/M%26M.NS/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/M%26M.NS/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/M%26M.NS/ohlcv.json",
+        "url": "http://127.0.0.1:4201/data/stocks/M%26M.NS/ohlcv.json",
         "status": 200
-      },
-      {
-        "event": "failure",
-        "url": "http://127.0.0.1:4200/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
-        "error": "net::ERR_ABORTED"
       }
     ],
     "selections": [
       {
         "ticker": "RELIANCE.NS",
-        "domBefore": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nADANIENT.NS\nSelect Market Asset\n✕\nRELIANCE.NSReliance Industries Ltd.\nSTOCK\n₹2743\n▼\n-106.9\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nADANIENT.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\nForecast ₹2,765.13 · band ₹2,620.02 – ₹3,039.50\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2600\n₹2700\n₹2800\n₹2900\n₹3000\n₹3100\n₹3200\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0275 / 0.0357\nPrice MAE\t₹82.46\nPrice MAPE\t2.78%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t7.39%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.",
+        "domBefore": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nADANIENT.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nAdani Enterprises Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹2,765.13\n₹289.62\n\nBand ₹2,620.02 to ₹3,039.50\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\nLoading chart…\n\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0275 / 0.0357\nPrice MAE\t₹82.46\nPrice MAPE\t2.78%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t7.39%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "response": {
-          "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
+          "url": "http://127.0.0.1:4201/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
           "ticker": "RELIANCE.NS",
           "forecast": {
             "price": 1209.227721279062,
@@ -1212,14 +1273,14 @@
             "origin_price": 1207.699951171875
           }
         },
-        "domAfter": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nRELIANCE.NS\n₹1207.7\n▼\n-10.3\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nRELIANCE.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM\n\nForecast ₹1,209.23 · band ₹1,158.10 – ₹1,251.75\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹1150\n₹1200\n₹1250\n₹1300\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.",
+        "domAfter": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nRELIANCE.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nReliance Industries Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹1,209.23\n₹1,209.23\n\nBand ₹1,158.10 to ₹1,251.75\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n+5 trading days\n₹1150\n₹1200\n₹1250\n₹1300\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "chartRendered": true
       },
       {
         "ticker": "M&M.NS",
-        "domBefore": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nRELIANCE.NS\nSelect Market Asset\n✕\nM&M.NSMahindra & Mahindra Ltd.\nSTOCK\n₹1207.7\n▼\n-10.3\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nRELIANCE.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM\n\nForecast ₹1,209.23 · band ₹1,158.10 – ₹1,251.75\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹1150\n₹1200\n₹1250\n₹1300\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.",
+        "domBefore": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nRELIANCE.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nReliance Industries Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹1,209.23\n₹1,209.23\n\nBand ₹1,158.10 to ₹1,251.75\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n+5 trading days\n₹1150\n₹1200\n₹1250\n₹1300\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "response": {
-          "url": "http://127.0.0.1:4200/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
+          "url": "http://127.0.0.1:4201/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
           "ticker": "M&M.NS",
           "forecast": {
             "price": 2846.7497365812897,
@@ -1234,11 +1295,11 @@
             "origin_price": 2800
           }
         },
-        "domAfter": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nM&M.NS\n₹2800\n▼\n-55\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nM&M.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM\n\nForecast ₹2,846.75 · band ₹2,689.85 – ₹2,932.55\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2800\n₹3000\n₹3200\n₹3400\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.",
+        "domAfter": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nM&M.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nMahindra & Mahindra Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹2,846.75\n₹2,224.84\n\nBand ₹2,689.85 to ₹2,932.55\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n+5 trading days\n₹2800\n₹3000\n₹3200\n₹3400\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "chartRendered": true
       }
     ],
-    "finalDOM": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nM&M.NS\n₹2800\n▼\n-55\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nM&M.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM\n\nForecast ₹2,846.75 · band ₹2,689.85 – ₹2,932.55\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2800\n₹3000\n₹3200\n₹3400\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline."
+    "finalDOM": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nM&M.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nMahindra & Mahindra Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹2,846.75\n₹2,845.70\n\nBand ₹2,689.85 to ₹2,932.55\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n+5 trading days\n₹2800\n₹3000\n₹3200\n₹3400\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice"
   },
   {
     "width": 390,
@@ -1280,11 +1341,6 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d"
       },
       {
-        "type": "info",
-        "text": "Autofocus processing was blocked because a document already has a focused element.",
-        "url": "http://127.0.0.1:4200/prediction"
-      },
-      {
         "type": "error",
         "text": "Failed to load resource: net::ERR_FAILED",
         "url": "https://stock-api.medhainnovation.com/api/predictions/RELIANCE.NS/predict?model=linear_regression&horizon=5"
@@ -1308,51 +1364,65 @@
     "network": [
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/prediction"
+        "url": "http://127.0.0.1:4201/prediction"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/prediction",
+        "url": "http://127.0.0.1:4201/prediction",
         "status": 200
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js"
+        "url": "http://127.0.0.1:4201/fonts/inter.woff2"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js"
+        "url": "http://127.0.0.1:4201/fonts/space-grotesk.woff2"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/main-7SZGXN3S.js"
+        "url": "http://127.0.0.1:4201/chunk-USgBHqPl.js"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css"
+        "url": "http://127.0.0.1:4201/chunk-CkgKHFqf.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/main-IKDHGOXN.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/styles-Q5EYZXY6.css"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js",
+        "url": "http://127.0.0.1:4201/chunk-USgBHqPl.js",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css",
+        "url": "http://127.0.0.1:4201/styles-Q5EYZXY6.css",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/main-7SZGXN3S.js",
+        "url": "http://127.0.0.1:4201/main-IKDHGOXN.js",
         "status": 200
       },
       {
-        "event": "request",
-        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
+        "event": "response",
+        "url": "http://127.0.0.1:4201/fonts/inter.woff2",
+        "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js",
+        "url": "http://127.0.0.1:4201/fonts/space-grotesk.woff2",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-CkgKHFqf.js",
         "status": 200
       },
       {
@@ -1365,11 +1435,15 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/chunk-5i4s04Cs.js"
+        "url": "http://127.0.0.1:4201/chunk-CBk3SVk0.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/fonts/jetbrains-mono.woff2"
       },
       {
         "event": "response",
-        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "url": "http://127.0.0.1:4201/fonts/jetbrains-mono.woff2",
         "status": 200
       },
       {
@@ -1384,30 +1458,34 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/companies-us.json"
-      },
-      {
-        "event": "request",
-        "url": "http://127.0.0.1:4200/data/models/status.json"
+        "url": "http://127.0.0.1:4201/data/companies-us.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/chunk-5i4s04Cs.js",
+        "url": "http://127.0.0.1:4201/chunk-CBk3SVk0.js",
         "status": 200
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/chunk-BusjyDmF.js"
+        "url": "http://127.0.0.1:4201/data/models/status.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-BKHwul8g.js"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/chunk-BusjyDmF.js",
+        "url": "http://127.0.0.1:4201/chunk-BKHwul8g.js",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/models/status.json",
+        "url": "http://127.0.0.1:4201/data/models/status.json",
         "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/data/manifest.json"
       },
       {
         "event": "request",
@@ -1418,21 +1496,14 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d"
       },
       {
-        "event": "request",
-        "url": "http://127.0.0.1:4200/data/manifest.json"
+        "event": "response",
+        "url": "http://127.0.0.1:4201/data/manifest.json",
+        "status": 200
       },
       {
         "event": "failure",
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
         "error": "net::ERR_FAILED"
-      },
-      {
-        "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json"
-      },
-      {
-        "event": "request",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2"
       },
       {
         "event": "failure",
@@ -1441,35 +1512,25 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/predictions/AAPL/predict/linear_regression/h5.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/data/stocks/AAPL/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/manifest.json",
+        "url": "http://127.0.0.1:4201/data/predictions/AAPL/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json",
-        "status": 200
-      },
-      {
-        "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json",
-        "status": 200
-      },
-      {
-        "event": "response",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2",
+        "url": "http://127.0.0.1:4201/data/stocks/AAPL/ohlcv.json",
         "status": 200
       },
       {
         "event": "request",
         "url": "https://stock-api.medhainnovation.com/api/companies/?market=in"
-      },
-      {
-        "event": "request",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2"
       },
       {
         "event": "failure",
@@ -1478,11 +1539,11 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/companies-in.json"
+        "url": "http://127.0.0.1:4201/data/companies-in.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/companies-in.json",
+        "url": "http://127.0.0.1:4201/data/companies-in.json",
         "status": 200
       },
       {
@@ -1505,30 +1566,25 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json"
+        "url": "http://127.0.0.1:4201/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/ADANIENT.NS/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2",
+        "url": "http://127.0.0.1:4201/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/stocks/ADANIENT.NS/ohlcv.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json",
-        "status": 200
-      },
-      {
-        "event": "response",
-        "url": "http://127.0.0.1:4200/data/companies-us.json",
+        "url": "http://127.0.0.1:4201/data/companies-us.json",
         "status": 200
       },
       {
@@ -1551,20 +1607,47 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json"
+        "url": "http://127.0.0.1:4201/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/RELIANCE.NS/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/RELIANCE.NS/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/RELIANCE.NS/ohlcv.json",
+        "url": "http://127.0.0.1:4201/data/stocks/RELIANCE.NS/ohlcv.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-DgUGf6NV.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-DgUGf6NV.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-C6YhSPVZ.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-C6YhSPVZ.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4201/chunk-Dts0gU-l.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4201/chunk-Dts0gU-l.js",
         "status": 200
       },
       {
@@ -1587,29 +1670,29 @@
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/predictions/M%26M.NS/predict/linear_regression/h5.json"
+        "url": "http://127.0.0.1:4201/data/predictions/M%26M.NS/predict/linear_regression/h5.json"
       },
       {
         "event": "request",
-        "url": "http://127.0.0.1:4200/data/stocks/M%26M.NS/ohlcv.json"
+        "url": "http://127.0.0.1:4201/data/stocks/M%26M.NS/ohlcv.json"
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
+        "url": "http://127.0.0.1:4201/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
         "status": 200
       },
       {
         "event": "response",
-        "url": "http://127.0.0.1:4200/data/stocks/M%26M.NS/ohlcv.json",
+        "url": "http://127.0.0.1:4201/data/stocks/M%26M.NS/ohlcv.json",
         "status": 200
       }
     ],
     "selections": [
       {
         "ticker": "RELIANCE.NS",
-        "domBefore": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nADANIENT.NS\nSelect Market Asset\n✕\nRELIANCE.NSReliance Industries Ltd.\nSTOCK\n₹2743\n▼\n-106.9\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nADANIENT.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\nForecast ₹2,765.13 · band ₹2,620.02 – ₹3,039.50\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2600\n₹2700\n₹2800\n₹2900\n₹3000\n₹3100\n₹3200\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0275 / 0.0357\nPrice MAE\t₹82.46\nPrice MAPE\t2.78%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t7.39%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.",
+        "domBefore": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nADANIENT.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nAdani Enterprises Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹2,765.13\n₹2,765.13\n\nBand ₹2,620.02 to ₹3,039.50\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\nLoading chart…\n\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0275 / 0.0357\nPrice MAE\t₹82.46\nPrice MAPE\t2.78%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t7.39%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "response": {
-          "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
+          "url": "http://127.0.0.1:4201/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
           "ticker": "RELIANCE.NS",
           "forecast": {
             "price": 1209.227721279062,
@@ -1624,14 +1707,14 @@
             "origin_price": 1207.699951171875
           }
         },
-        "domAfter": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nRELIANCE.NS\n₹1207.7\n▼\n-10.3\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nRELIANCE.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM\n\nForecast ₹1,209.23 · band ₹1,158.10 – ₹1,251.75\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹1150\n₹1200\n₹1250\n₹1300\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.",
+        "domAfter": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nRELIANCE.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nReliance Industries Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹1,209.23\n₹1,209.23\n\nBand ₹1,158.10 to ₹1,251.75\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n+5 trading days\n₹1150\n₹1200\n₹1250\n₹1300\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "chartRendered": true
       },
       {
         "ticker": "M&M.NS",
-        "domBefore": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nRELIANCE.NS\nSelect Market Asset\n✕\nM&M.NSMahindra & Mahindra Ltd.\nSTOCK\n₹1207.7\n▼\n-10.3\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nRELIANCE.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM\n\nForecast ₹1,209.23 · band ₹1,158.10 – ₹1,251.75\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹1150\n₹1200\n₹1250\n₹1300\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.",
+        "domBefore": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nRELIANCE.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nReliance Industries Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹1,209.23\n₹1,209.23\n\nBand ₹1,158.10 to ₹1,251.75\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n+5 trading days\n₹1150\n₹1200\n₹1250\n₹1300\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "response": {
-          "url": "http://127.0.0.1:4200/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
+          "url": "http://127.0.0.1:4201/data/predictions/M%26M.NS/predict/linear_regression/h5.json",
           "ticker": "M&M.NS",
           "forecast": {
             "price": 2846.7497365812897,
@@ -1646,10 +1729,10 @@
             "origin_price": 2800
           }
         },
-        "domAfter": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nM&M.NS\n₹2800\n▼\n-55\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nM&M.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM\n\nForecast ₹2,846.75 · band ₹2,689.85 – ₹2,932.55\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2800\n₹3000\n₹3200\n₹3400\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.",
+        "domAfter": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nM&M.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nMahindra & Mahindra Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹2,846.75\n₹2,045.11\n\nBand ₹2,689.85 to ₹2,932.55\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n+5 trading days\n₹2800\n₹3000\n₹3200\n₹3400\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice",
         "chartRendered": true
       }
     ],
-    "finalDOM": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nM&M.NS\n₹2800\n▼\n-55\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nM&M.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM\n\nForecast ₹2,846.75 · band ₹2,689.85 – ₹2,932.55\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2800\n₹3000\n₹3200\n₹3400\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline."
+    "finalDOM": "Skip to content\nASSET LAB\nIEEE RESEARCH / 2023\nOverview\nAnalysis\nPrediction\nBest model\nMarket\nIndia (NSE)\nUnited States\nSearch asset\nSnapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\n// FORECAST EXPERIMENT\n\nM&M.NS forecasts\n\nForward log-return forecasts with a validation residual band and an honest naive baseline.\n\nSnapshot · 2026-10-07\nNot financial advice\nViewing a saved research snapshot. Live data will resume when the API is available.\nPrediction model\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\nForecast horizon\n1 trading day\n5 trading days\nMahindra & Mahindra Ltd.\n\nHistorical close, forecast band and baseline\n\nINR\n\n// 5 TRADING DAYS\n\n₹2,846.75\n₹2,841.19\n\nBand ₹2,689.85 to ₹2,932.55\n\nThe band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.\n\nSaved snapshot: 5-trading-day forecasts only.\n\n2026-07-16\n2026-08-26\n+5 trading days\n₹2800\n₹3000\n₹3200\n₹3400\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\n\nData as of 2026-10-07 · trained 10/7/26, 3:44 PM. The naive line keeps the last price unchanged.\n\n// MODEL RESULTS\n\nHeld-out evaluation\n\nPositive skill beats the naive baseline.\n\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0314 / 0.0373\nPrice MAE\t₹100.19\nPrice MAPE\t3.18%\nDirectional accuracy · 95% CI\t40.0% (28.6%–52.6%)\nSkill vs naive\t-17.80%\nData Visualization of Time-Tradable Assets Using ML\nResearch demonstration · Not financial advice"
   }
 ]
