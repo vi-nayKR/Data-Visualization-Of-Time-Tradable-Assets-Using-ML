@@ -12,6 +12,7 @@ const api = 'https://stock-api.medhainnovation.com/';
   fs.mkdirSync('docs/screenshots-v2', {recursive:true});
   try {
     for (const viewport of [{width:1366,height:768},{width:390,height:844}]) {
+      if(process.env.STOCK_TEST_WIDTH && viewport.width!==Number(process.env.STOCK_TEST_WIDTH))continue;
       const page = await browser.newPage({viewport});
       const errors=[], missing=[], network=[], snapshots=[], failed=[];
       page.on('pageerror', error=>errors.push(error.message));
@@ -68,6 +69,7 @@ const api = 'https://stock-api.medhainnovation.com/';
           await page.getByRole('link',{name:'ML Forecasts',exact:true}).click();
           await Promise.all([page.waitForResponse(response=>response.url().includes('horizon=1')&&response.status()===200),page.getByRole('button',{name:'1 trading day',exact:true}).click()]);
           await page.waitForLoadState('networkidle');
+          await page.waitForFunction(()=>[...document.querySelectorAll('.js-plotly-plot')].some(el=>el.layout?.xaxis?.ticktext?.includes('+1 trading days')));
           assert.match(await page.locator('.js-plotly-plot').first().evaluate(el=>JSON.stringify(el.layout.xaxis.ticktext)),/1 trading days/);
           await page.getByRole('button',{name:'5 trading days',exact:true}).click();
           await page.waitForLoadState('networkidle');
@@ -90,5 +92,8 @@ const api = 'https://stock-api.medhainnovation.com/';
       assert.deepEqual(failed,[],'Failed requests');
       await page.close();
     }
-  } finally {await browser.close();}
+  } finally {
+    for(const context of browser.contexts())for(const page of context.pages())await page.unrouteAll({behavior:'ignoreErrors'});
+    await browser.close();
+  }
 })().catch(error=>{console.error(error);process.exitCode=1;});
