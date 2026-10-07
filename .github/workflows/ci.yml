@@ -55,6 +55,9 @@ jobs:
         working-directory: backend
         run: python -m compileall app/
 
+      - name: Reject shadowed backend imports
+        run: python scripts/check_backend_shadowing.py
+
       - name: Leakage, metrics, sanity and determinism tests
         working-directory: backend
         run: python -m pytest tests -q

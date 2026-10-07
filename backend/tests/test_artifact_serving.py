@@ -119,3 +119,32 @@ def test_ampersand_symbol_artifact_and_encoded_routes(tmp_path, monkeypatch):
         status, data = asyncio.run(asgi_request(app, f"/api/predictions/{encoded}/{route}", "horizon=5"))
         assert status == 200
         assert data["ticker"] == ticker
+
+
+def test_stock_routes_read_temp_disk_cache(tmp_path, monkeypatch):
+    import pandas as pd
+    from fastapi import FastAPI
+    from app.routers import stocks
+    from app.services import market_data
+    from app.core.cache import stock_cache
+
+    raw = tmp_path / "raw"
+    raw.mkdir()
+    monkeypatch.setattr(market_data, "symbol_path", lambda symbol: symbol_path(symbol, raw))
+    stock_cache.clear()
+    app = FastAPI()
+    app.include_router(stocks.router, prefix="/api/stocks")
+    bars = pd.DataFrame({"Open":100., "High":102., "Low":99., "Close":101., "Volume":1000000},
+                        index=pd.bdate_range("2026-01-01", periods=80))
+    for ticker in ("RELIANCE.NS", "M&M.NS", "AAPL"):
+        bars.to_csv(symbol_path(ticker, raw), index_label="Date")
+        for route in ("ohlcv", "moving-average"):
+            path = f"/api/stocks/{quote(ticker, safe='')}/{route}"
+            for _ in range(2):  # Exercise the disk reader and the in-memory hit.
+                status, records = asyncio.run(asgi_request(app, path))
+                assert status == 200
+                assert len(records) == 80
+                assert records[-1]["close"] == 101
+                if route == "moving-average":
+                    assert records[-1]["ma"] == 101
+    stock_cache.clear()

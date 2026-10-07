@@ -14,9 +14,9 @@ class StockService:
         """Downloads historical OHLCV data with in-memory TTL caching."""
         cache_key = f"HIST_{ticker.upper()}_{period}"
         
-        cached = stock_cache.get(cache_key)
-        if cached is not None:
-            return cached
+        cached_records = stock_cache.get(cache_key)
+        if cached_records is not None:
+            return cached_records
 
         try:
             data = cached(ticker)
@@ -72,9 +72,9 @@ class StockService:
     def get_with_technical_indicators(self, ticker: str, ma_days: int = 50, period: str = "180d") -> List[Dict[str, Any]]:
         """Calculates SMA, EMA, RSI(14), MACD(12,26,9), and Bollinger Bands with TTL caching."""
         cache_key = f"TECH_{ticker.upper()}_{ma_days}_{period}"
-        cached = stock_cache.get(cache_key)
-        if cached is not None:
-            return cached
+        cached_records = stock_cache.get(cache_key)
+        if cached_records is not None:
+            return cached_records
 
         records = [dict(r) for r in self.get_historical_data(ticker, period=period)]
         if not records or len(records) < 5:
