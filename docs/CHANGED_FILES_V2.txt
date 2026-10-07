@@ -27,6 +27,8 @@ deploy/medha-storage/stock-api-train.timer
 deploy/medha-storage/update.sh
 docs/CHANGED_FILES_V2.txt
 docs/EVALUATION.md
+docs/external-endpoint-checks.txt
+docs/leaderboard-timing-evidence.json
 docs/screenshots-v2/live-in-analysis-1366.png
 docs/screenshots-v2/live-in-analysis-390.png
 docs/screenshots-v2/live-in-best-analysis-1366.png
@@ -810,6 +812,7 @@ frontend/src/app/shared/metrics-table.component.ts
 scripts/check_api_v2.py
 scripts/check_backend_shadowing.py
 scripts/check_browser_v2.cjs
+scripts/check_leaderboard_timing.cjs
 scripts/check_predictions.py
 scripts/check_snapshot.py
 scripts/export_snapshot.py

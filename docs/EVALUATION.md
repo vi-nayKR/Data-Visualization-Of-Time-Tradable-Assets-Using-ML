@@ -47,7 +47,7 @@ horizon targets limits interpretation of these intervals.
 | India (NSE) | 51 | 0.00% | 4/51 (7.8%) | 20.9% (14.3%-27.8%) |
 | United States | 7 | -3.44% | 0/7 (0.0%) | 24.8% (7.4%-40.2%) |
 
-Artifacts were trained on 2026-10-07 from commit 67a9517. India data is dated 2026-10-07 and US data 2026-10-06. After an initial rollback for a stock-data reader bug, the corrected API was redeployed; these offline evaluation artifacts were unchanged.
+Artifacts were trained on 2026-10-07 from commit 67a9517. India data is dated 2026-10-07 and US data 2026-10-06. After approved stock-reader and test-readiness corrections, the API was redeployed; these offline evaluation artifacts were unchanged.
 
 ## Serving and operations
 

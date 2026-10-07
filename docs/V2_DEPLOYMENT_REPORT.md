@@ -1,6 +1,6 @@
-# V2 rollout stopped: live leaderboard verification failed
+# V2 rollout stopped: live fallback ticker selection failed
 
-Branch: feat/india-honest-forecasting, created from origin/main in a separate worktree. Attempted backend deployed commit: 7d76d4897fba7a693474c71a818822aa2675f552; restored to cb81aececbf7fb2feaa75cb034ea33bb52769987 after live verification failed. Artifact training commit: 67a9517712587f949c646f38be50da3bc9345615. The Aurora worktree remains untouched at 8f1e21d2e9ecfb965473213d1f3377e3f8aae2d2.
+Branch: feat/india-honest-forecasting, created from origin/main in a separate worktree. Attempted backend commit: c368c57 (backend code unchanged from the corrected stock reader). Restored to cb81aececbf7fb2feaa75cb034ea33bb52769987 after the service-down fallback verification failed. Artifact training commit: 67a9517712587f949c646f38be50da3bc9345615. The Aurora worktree remains untouched at 8f1e21d2e9ecfb965473213d1f3377e3f8aae2d2.
 
 ## Honest h=5 results
 
@@ -18,9 +18,9 @@ See EVALUATION.md for the methodology, Wilson intervals per ticker, descriptive 
 - Both horizons completed for India 51/51 and US 7/7: 58/58, zero failures.
 - Training duration: 1057.55 seconds (17m 38s). Peak: 369897472 bytes (352.8 MiB), below 1200M. CPU-only, two PyTorch threads; training CPUQuota150%, Nice10, timeout45min.
 - Observed training MemAvailable remained approximately 2.42 GiB. Linux MemFree was approximately 604 MiB because of reclaimable cache; the 1 GiB headroom is available memory, not entirely unused RAM. Swap usage was zero.
-- API post-smoke peak: 213348352 bytes (203.5 MiB); available memory 2955 MiB. API retains MemoryMax1500M and CPUQuota200%.
+- API peak observed after the local real-data browser checks: 221708288 bytes (211.4 MiB); available memory 2967 MiB. API retains MemoryMax1500M and CPUQuota200%.
 - Cloudflared measured 28147712 bytes (26.8 MiB), retaining its existing 256M limit.
-- Cached origin predict p95: 2.06 ms (nine samples in the full smoke). A prior 18-sample origin check measured 1.99 ms. These exclude Internet latency; no claim that public end-to-end RTT is below 100 ms.
+- Cached origin predict p95 after the final backend restart: 2.17 ms (nine samples in the full smoke). A prior 18-sample origin check measured 1.99 ms. These exclude Internet latency; no claim that public end-to-end RTT is below 100 ms.
 - Nightly timer: 03:00 Asia/Kolkata, persistent. Forecasts serve artifacts only and reload atomic replacements without an API restart, using inode, nanosecond mtime and size for artifacts and status index.
 
 ## Frontend and verification
@@ -35,9 +35,9 @@ The minimal v2 UI adds India/US controls, native INR/USD currency, h=1/5, empiri
 - External Python urllib receives 403, with server: cloudflare and cf-ray: a46ce616c926ace6-MRS. Curl and browser verification are used with user approval; Cloudflare WAF/bot/security settings were not changed. Bot protection is suspected, not proven by these headers alone.
 - Snapshot: 701 JSON files, 4841054 bytes (4.84 MB), 58 tickers, all eight models, h=5 only. Catalog matches the dropdown exactly. Local coverage and offline browser checks passed for both markets at 1366x768 and 390x844, including M&M encoded fetches and h=1 switching honestly to h=5.
 - Local browser checks using real API responses passed desktop and mobile, with charts, bands, naive traces, metrics, INR symbol, live badges, zero console errors and zero failed requests. Screenshots are in screenshots-v2/.
-- Live Worker browser checks passed desktop India analysis and prediction, then failed the leaderboard assertion for baseline names (naive, drift, sma). This is a failed verification, not proof of its root cause: the check may have read a loading/transitional page. No further retry was performed under the standing stop rule.
-- The actual service-down fallback proof remains pending; only local API-aborted snapshot checks completed.
-- Worker was rolled back to 86fe882b-273e-440c-bf9b-111f47690ddb; backend was also restored to the matching prior API commit. Cloudflared and API are active. Training timer is disabled by rollback; completed v2 artifacts remain. No PR opened because required gates did not pass.
+- Live Worker checks passed every India/US analysis, prediction and best-analysis flow at 1366x768 and 390x844, including eight leaderboard rows, all baselines and one/five-day forecasts, with zero console errors, zero 404s and zero failed requests.
+- Actual service-down check: stock-api was stopped with a 600-second detached recovery safeguard; public health returned the expected 502 while cloudflared stayed active. The browser timed out selecting M&M.NS from the India dropdown before completing the flows. The cause is unconfirmed. A finally block restarted the API successfully and stopped the recovery timer. Read-only evidence before rollback showed the live /data/companies-in.json returns 200 with 51 companies, including M&M.NS in INR. This is a failed live fallback gate; local API-aborted fallback tests had passed, but do not replace this gate.
+- Under the stop rule, Worker and backend were both rolled back to the previous matching pair. API and cloudflared are active; API health is 200. Training timer is disabled by backend rollback, completed v2 artifacts remain. PR is not opened because the actual service-down gate is incomplete.
 
 ## Worker deployment and rollback
 
@@ -45,9 +45,9 @@ Wrangler whoami confirmed medhainnovation2026@gmail.com, account a5f4a72257a6964
 
 Live URL: https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev
 
-Attempted version: 34295967-3f5c-42a8-a0da-5676febbc4f8 (rolled back after verification failure)
+Attempted version: 0ca83239-6eb4-4e7d-9573-a52ee54f6cd0, rolled back after the actual fallback gate failed. Earlier attempt 34295967-3f5c-42a8-a0da-5676febbc4f8 was rolled back after the premature leaderboard assertion.
 
-Previous version: 86fe882b-273e-440c-bf9b-111f47690ddb
+Restored/rollback version: 86fe882b-273e-440c-bf9b-111f47690ddb
 
 From frontend/, rollback:
 
@@ -80,6 +80,14 @@ Initial training failed only on the strict validator rejecting M&M.NS (57/58, 10
 Runner corrections: used cd /opt/stock-api/app before stockapi pytest; ran private-artifact reporting as stockapi; used owner git commands for verification. Scripts were saved UTF-8 without BOM and LF, transferred with scp and checked with file and bash -n before execution. No script text was piped through PowerShell into SSH. Browser cleanup drains test routes; horizon checks wait for Plotly updates. Automatic review rejected the recursive-delete snapshot replacement command with blocked-by-policy; the old data directory was moved to a temporary backup and the verified snapshot copied into place instead.
 
 Cloudflared config hash stayed ba3147bbbdb0af5b73af0a3833e17dc945ccdc02c86150556a4311fdffbcde5d. No firewall, sshd, tunnel rules, WAF or bot settings were changed.
+
+## Confirmed test readiness defect
+
+The original gate accepted any initialized Plotly chart and read the entire body. After clicking Strategy Leaderboard, a lazy-route transition could leave the previous prediction component visible. A deterministic local reproduction held lazy-module evaluation until explicitly released, with unchanged real snapshot response JSON. At the old assertion the URL was /prediction and the DOM heading was Forward log-return forecast; after release the DOM was Validation leaderboard with all eight entries. The response and snapshots for RELIANCE.NS, M&M.NS and AAPL contain naive, drift and sma. No backend/export data bug was found.
+
+Evidence: leaderboard-timing-evidence.json contains the response JSON, snapshot names and before/after DOM text. Run scripts/check_leaderboard_timing.cjs after building and starting the local preview to reproduce the old gate failure and prove the new row-based gate succeeds. The ordinary, undelayed local attempts did not reproduce; the controlled lazy-module delay demonstrates the specific readiness flaw instead of claiming an observed data loss.
+
+The corrected runner scopes readiness to the selected component, waits for the leaderboard's naive row, then asserts exactly eight leaderboard rows and exactly one each of naive/drift/sma. Prediction controls and chart waits are scoped to a loaded prediction page, and horizon=1 waits specifically for a predict response. No fixed sleep is used for row/chart readiness; the existing 65-second pauses only pace markets under the unchanged API rate limiter. The stale 50-day header is now bound to the existing h=1/5 signal, and a malformed percentile label was corrected; prediction data and contracts are unchanged.
 
 ## Skills
 
