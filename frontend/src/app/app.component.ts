@@ -377,8 +377,8 @@ import { Timeframe, ChartType } from './core/models/stock.model';
                     <div class="text-[11px] text-[var(--color-muted)] truncate max-w-[140px]">{{ c.name }}</div>
                   </div>
                   <div class="text-right font-mono-num">
-                    <span class="text-xs font-bold text-[var(--color-frost)]">USD</span>
-                    <div class="text-[11px] text-[#089981] font-semibold">+0.50%</div>
+                    <span class="text-xs font-bold text-[var(--color-frost)]">{{c.currency}}</span>
+                    <div class="text-[11px] text-[#089981] font-semibold">Not available</div>
                   </div>
                 </div>
               }
@@ -388,15 +388,15 @@ import { Timeframe, ChartType } from './core/models/stock.model';
             <div class="p-3.5 border-t border-[var(--color-border)] bg-[var(--color-void)] space-y-2.5">
               <div class="text-xs font-bold text-[var(--color-muted)] uppercase tracking-wider flex items-center justify-between">
                 <span>Technical Rating</span>
-                <span class="text-[#089981] font-bold font-mono">STRONG BUY</span>
+                <span class="text-[#089981] font-bold font-mono">NO SIGNAL</span>
               </div>
               <div class="flex items-center justify-between text-xs text-[var(--color-muted)]">
                 <span>Oscillators (12):</span>
-                <span class="text-[#089981] font-bold font-mono">BUY</span>
+                <span class="text-[#089981] font-bold font-mono">NO SIGNAL</span>
               </div>
               <div class="flex items-center justify-between text-xs text-[var(--color-muted)]">
                 <span>Moving Averages (18):</span>
-                <span class="text-[#089981] font-bold font-mono">STRONG BUY</span>
+                <span class="text-[#089981] font-bold font-mono">NO SIGNAL</span>
               </div>
               <div class="w-full bg-[var(--color-border)] h-1.5 rounded-full overflow-hidden flex">
                 <div class="bg-[#f23645] w-[15%]"></div>
