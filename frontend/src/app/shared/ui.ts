@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Directive, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, effect, input, signal } from '@angular/core';
 @Directive({ selector: '[uiButton]', host: { class: 'ui-button' } })
 export class UiButton {}
 @Directive({ selector: '[uiCard]', host: { class: 'ui-card' } })
@@ -20,4 +20,17 @@ export class UiPageHeader {
   label = input('// RESEARCH TERMINAL'); title = input.required<string>();
   description = input.required<string>(); source = input('Live');
 }
-export const UI = [UiButton, UiCard, UiBadge, UiSegmented, UiSelect, UiSkeleton, UiPageHeader];
+@Component({selector:'ui-count-up',changeDetection:ChangeDetectionStrategy.OnPush,
+  template:`<span [attr.aria-label]="format(value())"><span aria-hidden="true">{{format(displayed())}}</span></span>`})
+export class UiCountUp {
+  value=input.required<number>(); currency=input(''); displayed=signal(0);
+  constructor(){effect(cleanup=>{
+    const target=this.value();
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){this.displayed.set(target);return;}
+    const start=performance.now();let frame=0;
+    const tick=(now:number)=>{const progress=Math.min((now-start)/220,1);this.displayed.set(target*(1-Math.pow(1-progress,3)));if(progress<1)frame=requestAnimationFrame(tick);};
+    frame=requestAnimationFrame(tick);cleanup(()=>cancelAnimationFrame(frame));
+  });}
+  format(value:number){return new Intl.NumberFormat('en',{style:this.currency()?'currency':'decimal',currency:this.currency()||undefined,minimumFractionDigits:2,maximumFractionDigits:2}).format(value);}
+}
+export const UI = [UiButton, UiCard, UiBadge, UiSegmented, UiSelect, UiSkeleton, UiPageHeader, UiCountUp];
