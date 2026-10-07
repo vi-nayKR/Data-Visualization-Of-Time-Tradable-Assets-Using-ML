@@ -10,8 +10,12 @@ from app.services.market_data import symbol_path
 MODEL_DIR = Path(os.getenv("STOCK_MODEL_DIR", "/var/lib/stock-api/models"))
 
 @lru_cache(maxsize=256)
-def read_artifact(path, modified_ns):
+def read_artifact(path, identity):
     return json.loads(Path(path).read_text())
+
+def read_current(path):
+    stat = path.stat()
+    return read_artifact(str(path), (stat.st_ino, stat.st_mtime_ns, stat.st_size))
 
 class PredictionService:
     def artifact(self, ticker, horizon=5):
@@ -21,7 +25,7 @@ class PredictionService:
             raise FileNotFoundError("not trained yet")
         symbol_path(ticker)  # Validate before using an untrusted path segment.
         path = MODEL_DIR / ticker / f"h{horizon}.json"
-        return read_artifact(str(path), path.stat().st_mtime_ns)
+        return read_current(path)
 
     def run_prediction(self, ticker, model_type="linear_regression", horizon=5):
         artifact = self.artifact(ticker, horizon)
@@ -40,4 +44,4 @@ class PredictionService:
                 "winner_beats_naive": (winner["metrics"]["skill_vs_naive"] or 0) > 0}
 
     def status(self):
-        return json.loads((MODEL_DIR / "index.json").read_text())
+        return read_current(MODEL_DIR / "index.json")

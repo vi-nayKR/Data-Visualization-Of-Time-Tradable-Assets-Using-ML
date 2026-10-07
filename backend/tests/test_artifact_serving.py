@@ -1,4 +1,5 @@
 import json
+import os
 import asyncio
 from pathlib import Path
 from urllib.parse import quote, unquote
@@ -46,6 +47,27 @@ def test_only_artifacts_and_atomic_replacement(tmp_path, monkeypatch):
     with pytest.raises(FileNotFoundError):
         service.run_prediction("../AAPL")
     assert "app.ml.evaluate" not in Path(prediction_service.__file__).read_text()
+
+
+@pytest.mark.parametrize("status", [False, True])
+def test_atomic_replacement_with_identical_size_and_mtime(tmp_path, monkeypatch, status):
+    monkeypatch.setattr(prediction_service, "MODEL_DIR", tmp_path)
+    service = prediction_service.PredictionService()
+    path = tmp_path / "index.json" if status else tmp_path / "AAPL" / "h5.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text('{"price":100}')
+    read = service.status if status else lambda: service.artifact("AAPL")
+    assert read()["price"] == 100
+    original = path.stat()
+    temporary = path.with_suffix(".tmp")
+    temporary.write_text('{"price":200}')
+    os.utime(temporary, ns=(original.st_atime_ns, original.st_mtime_ns))
+    temporary.replace(path)
+    replaced = path.stat()
+    assert replaced.st_size == original.st_size
+    assert replaced.st_mtime_ns == original.st_mtime_ns
+    assert replaced.st_ino != original.st_ino
+    assert read()["price"] == 200
 
 
 def test_query_horizon_parsing(monkeypatch):
