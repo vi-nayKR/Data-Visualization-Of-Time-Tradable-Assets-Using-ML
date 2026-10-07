@@ -28,3 +28,39 @@ def test_only_artifacts_and_atomic_replacement(tmp_path, monkeypatch):
     with pytest.raises(FileNotFoundError):
         service.run_prediction("../AAPL")
     assert "app.ml.evaluate" not in Path(prediction_service.__file__).read_text()
+
+
+def test_query_horizon_parsing(monkeypatch):
+    import asyncio
+    from fastapi import FastAPI
+    from app.routers import predictions
+    app = FastAPI()
+    app.include_router(predictions.router)
+
+    def response(ticker, *args):
+        horizon = args[-1]
+        if horizon not in (1, 5):
+            raise ValueError("horizon must be 1 or 5")
+        return {"horizon": horizon}
+    monkeypatch.setattr(predictions.prediction_service, "run_prediction", response)
+    monkeypatch.setattr(predictions.prediction_service, "find_best_model", response)
+
+    async def request(path, query):
+        messages = []
+        async def receive():
+            return {"type": "http.request", "body": b"", "more_body": False}
+        async def send(message):
+            messages.append(message)
+        await app({"type":"http", "asgi":{"version":"3.0"}, "http_version":"1.1",
+                   "method":"GET", "scheme":"http", "path":path, "raw_path":path.encode(),
+                   "query_string":query.encode(), "root_path":"", "headers":[],
+                   "client":("127.0.0.1",1), "server":("localhost",80)}, receive, send)
+        return messages[0]["status"], json.loads(messages[1]["body"])
+
+    for route in ("predict", "best-model"):
+        for value in (1, 5):
+            status, data = asyncio.run(request(f"/AAPL/{route}", f"horizon={value}"))
+            assert status == 200
+            assert data["horizon"] == value
+        assert asyncio.run(request(f"/AAPL/{route}", "horizon=2"))[0] == 400
+        assert asyncio.run(request(f"/AAPL/{route}", "horizon=invalid"))[0] == 422

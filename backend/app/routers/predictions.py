@@ -1,4 +1,3 @@
-from typing import Literal
 from fastapi import APIRouter, Query, HTTPException
 from app.services.prediction_service import PredictionService
 
@@ -14,9 +13,9 @@ def serve(function, *args):
         raise HTTPException(status_code=400, detail=str(error))
 
 @router.get("/{ticker}/predict")
-def predict(ticker: str, model: str = Query("linear_regression"), horizon: Literal[1,5] = 5):
+def predict(ticker: str, model: str = Query("linear_regression"), horizon: int = Query(5, description="1 or 5 trading days")):
     return serve(prediction_service.run_prediction, ticker, model, horizon)
 
 @router.get("/{ticker}/best-model")
-def best_model(ticker: str, horizon: Literal[1,5] = 5):
+def best_model(ticker: str, horizon: int = Query(5, description="1 or 5 trading days")):
     return serve(prediction_service.find_best_model, ticker, horizon)
