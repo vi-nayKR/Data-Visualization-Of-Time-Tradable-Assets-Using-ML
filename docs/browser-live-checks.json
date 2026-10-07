@@ -29,8 +29,10 @@
       "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/predict?model=linear_regression&horizon=5",
       "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
       "https://stock-api.medhainnovation.com/api/companies/?market=us",
+      "https://stock-api.medhainnovation.com/api/models/status",
       "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
       "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
+      "https://stock-api.medhainnovation.com/api/companies/?market=us",
       "https://stock-api.medhainnovation.com/api/stocks/AAPL/moving-average?days=50&period=180d",
       "https://stock-api.medhainnovation.com/api/companies/AAPL/info",
       "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
@@ -51,7 +53,7 @@
         "url": "https://stock-api.medhainnovation.com/api/companies/?market=us",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd486387b406b-MRS",
+          "cf-ray": "a46e19a3bd59e15a-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -61,17 +63,7 @@
         "url": "https://stock-api.medhainnovation.com/api/models/status",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd486387c406b-MRS",
-          "cf-mitigated": null,
-          "server": "cloudflare",
-          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
-        }
-      },
-      {
-        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
-        "status": 200,
-        "headers": {
-          "cf-ray": "a46dd486e9ed406b-MRS",
+          "cf-ray": "a46e19a3bd58e15a-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -81,7 +73,17 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd486e9eb406b-MRS",
+          "cf-ray": "a46e19a61f1de15a-MRS",
+          "cf-mitigated": null,
+          "server": "cloudflare",
+          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+        }
+      },
+      {
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
+        "status": 200,
+        "headers": {
+          "cf-ray": "a46e19a61f1ee15a-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -91,7 +93,7 @@
         "url": "https://stock-api.medhainnovation.com/api/companies/?market=in",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd62b3be1406b-MRS",
+          "cf-ray": "a46e1b4baeb3558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -101,7 +103,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/ADANIENT.NS/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd62eac21e1f4-MRS",
+          "cf-ray": "a46e1b4ec820558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -111,7 +113,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd62eac22e1f4-MRS",
+          "cf-ray": "a46e1b4ec822558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -121,7 +123,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd6310dd0e1f4-MRS",
+          "cf-ray": "a46e1b50a928558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -131,7 +133,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd6310dd1e1f4-MRS",
+          "cf-ray": "a46e1b509926558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -141,7 +143,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/moving-average?days=50&period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd632aeaee1f4-MRS",
+          "cf-ray": "a46e1b52ba78558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -151,7 +153,7 @@
         "url": "https://stock-api.medhainnovation.com/api/companies/M%26M.NS/info",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd634e826e1f4-MRS",
+          "cf-ray": "a46e1b54dbb4558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -161,7 +163,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd64c8e7de1f4-MRS",
+          "cf-ray": "a46e1b6be8f7558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -171,7 +173,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd64c8e7ee1f4-MRS",
+          "cf-ray": "a46e1b6be8f1558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -181,7 +183,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd651e9bce1f4-MRS",
+          "cf-ray": "a46e1b70dbf0558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -191,7 +193,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/best-model?horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd651e9bbe1f4-MRS",
+          "cf-ray": "a46e1b70dbed558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -201,7 +203,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd656acb3e1f4-MRS",
+          "cf-ray": "a46e1b75be78558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -211,7 +213,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd656acb2e1f4-MRS",
+          "cf-ray": "a46e1b75be77558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -221,7 +223,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd65d7936e1f4-MRS",
+          "cf-ray": "a46e1b783fec558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -231,7 +233,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/predict?model=linear_regression&horizon=1",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd65d9955e1f4-MRS",
+          "cf-ray": "a46e1b783feb558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -241,7 +243,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd6628c26e1f4-MRS",
+          "cf-ray": "a46e1b7af9b4558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -251,7 +253,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd6628c27e1f4-MRS",
+          "cf-ray": "a46e1b7af9b3558e-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -261,7 +263,17 @@
         "url": "https://stock-api.medhainnovation.com/api/companies/?market=us",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd7fcdff2406b-MRS",
+          "cf-ray": "a46e1c6018d5e16b-MRS",
+          "cf-mitigated": null,
+          "server": "cloudflare",
+          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+        }
+      },
+      {
+        "url": "https://stock-api.medhainnovation.com/api/models/status",
+        "status": 200,
+        "headers": {
+          "cf-ray": "a46e1c6018d6e16b-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -271,7 +283,27 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd800a871b618-MRS",
+          "cf-ray": "a46e1c6189cee16b-MRS",
+          "cf-mitigated": null,
+          "server": "cloudflare",
+          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+        }
+      },
+      {
+        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
+        "status": 200,
+        "headers": {
+          "cf-ray": "a46e1c6189cde16b-MRS",
+          "cf-mitigated": null,
+          "server": "cloudflare",
+          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+        }
+      },
+      {
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=us",
+        "status": 200,
+        "headers": {
+          "cf-ray": "a46e1d139987e16b-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -281,17 +313,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/moving-average?days=50&period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd802d989b618-MRS",
-          "cf-mitigated": null,
-          "server": "cloudflare",
-          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
-        }
-      },
-      {
-        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
-        "status": 200,
-        "headers": {
-          "cf-ray": "a46dd800a873b618-MRS",
+          "cf-ray": "a46e1d14ea45e16b-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -301,7 +323,7 @@
         "url": "https://stock-api.medhainnovation.com/api/companies/AAPL/info",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd8054ae1b618-MRS",
+          "cf-ray": "a46e1d171b5ee16b-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -311,7 +333,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd8160c0fb618-MRS",
+          "cf-ray": "a46e1d296f71e16b-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -321,7 +343,17 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd8160c0eb618-MRS",
+          "cf-ray": "a46e1d296f6fe16b-MRS",
+          "cf-mitigated": null,
+          "server": "cloudflare",
+          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+        }
+      },
+      {
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
+        "status": 200,
+        "headers": {
+          "cf-ray": "a46e1d2e9aeee16b-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -331,7 +363,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/best-model?horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd81aaf0ab618-MRS",
+          "cf-ray": "a46e1d2e9aece16b-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -341,17 +373,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd81aaf09b618-MRS",
-          "cf-mitigated": null,
-          "server": "cloudflare",
-          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
-        }
-      },
-      {
-        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
-        "status": 200,
-        "headers": {
-          "cf-ray": "a46dd8228b37b618-MRS",
+          "cf-ray": "a46e1d363fc1e16b-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -361,7 +383,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd8228b36b618-MRS",
+          "cf-ray": "a46e1d363fc0e16b-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -371,7 +393,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=1",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd827fd87b618-MRS",
+          "cf-ray": "a46e1d3909afe16b-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -381,17 +403,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd827fd88b618-MRS",
-          "cf-mitigated": null,
-          "server": "cloudflare",
-          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
-        }
-      },
-      {
-        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
-        "status": 200,
-        "headers": {
-          "cf-ray": "a46dd82acef6b618-MRS",
+          "cf-ray": "a46e1d3909b0e16b-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -401,7 +413,17 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd82abef5b618-MRS",
+          "cf-ray": "a46e1d3c0b6fe16b-MRS",
+          "cf-mitigated": null,
+          "server": "cloudflare",
+          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+        }
+      },
+      {
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
+        "status": 200,
+        "headers": {
+          "cf-ray": "a46e1d3c0b70e16b-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -462,7 +484,7 @@
         "url": "https://stock-api.medhainnovation.com/api/companies/?market=us",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd836d8efe19c-MRS",
+          "cf-ray": "a46e1d469b4c6488-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -472,17 +494,7 @@
         "url": "https://stock-api.medhainnovation.com/api/models/status",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd836c8ede19c-MRS",
-          "cf-mitigated": null,
-          "server": "cloudflare",
-          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
-        }
-      },
-      {
-        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
-        "status": 200,
-        "headers": {
-          "cf-ray": "a46dd83739d7e19c-MRS",
+          "cf-ray": "a46e1d469b4b6488-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -492,7 +504,17 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd83739d3e19c-MRS",
+          "cf-ray": "a46e1d47cbc76488-MRS",
+          "cf-mitigated": null,
+          "server": "cloudflare",
+          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+        }
+      },
+      {
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
+        "status": 200,
+        "headers": {
+          "cf-ray": "a46e1d47cbc86488-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -502,7 +524,7 @@
         "url": "https://stock-api.medhainnovation.com/api/companies/?market=in",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd9d4ad99e19c-MRS",
+          "cf-ray": "a46e1ee66912e6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -512,7 +534,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd9d7faca83cc-MRS",
+          "cf-ray": "a46e1ee96b7ee6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -522,7 +544,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/ADANIENT.NS/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd9d7fac983cc-MRS",
+          "cf-ray": "a46e1ee96b7de6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -532,7 +554,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd9da1c6383cc-MRS",
+          "cf-ray": "a46e1eeabca7e6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -542,7 +564,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd9da1c6283cc-MRS",
+          "cf-ray": "a46e1eeabca2e6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -552,7 +574,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/moving-average?days=50&period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd9db6d5f83cc-MRS",
+          "cf-ray": "a46e1eed8f07e6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -562,17 +584,7 @@
         "url": "https://stock-api.medhainnovation.com/api/companies/M%26M.NS/info",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd9de1faf83cc-MRS",
-          "cf-mitigated": null,
-          "server": "cloudflare",
-          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
-        }
-      },
-      {
-        "url": "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/predict?model=linear_regression&horizon=5",
-        "status": 200,
-        "headers": {
-          "cf-ray": "a46dd9f6587d83cc-MRS",
+          "cf-ray": "a46e1eef584be6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -582,7 +594,27 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd9f6588083cc-MRS",
+          "cf-ray": "a46e1f061ffae6f0-MRS",
+          "cf-mitigated": null,
+          "server": "cloudflare",
+          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+        }
+      },
+      {
+        "url": "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/predict?model=linear_regression&horizon=5",
+        "status": 200,
+        "headers": {
+          "cf-ray": "a46e1f062ffbe6f0-MRS",
+          "cf-mitigated": null,
+          "server": "cloudflare",
+          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+        }
+      },
+      {
+        "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
+        "status": 200,
+        "headers": {
+          "cf-ray": "a46e1f0babf9e6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -592,7 +624,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/best-model?horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd9fbdb8a83cc-MRS",
+          "cf-ray": "a46e1f0babf8e6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -602,7 +634,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dd9fbdb9483cc-MRS",
+          "cf-ray": "a46e1f100f60e6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -612,7 +644,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dda006ee683cc-MRS",
+          "cf-ray": "a46e1f0fff57e6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -622,17 +654,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dda006ee783cc-MRS",
-          "cf-mitigated": null,
-          "server": "cloudflare",
-          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
-        }
-      },
-      {
-        "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
-        "status": 200,
-        "headers": {
-          "cf-ray": "a46dda078c6c83cc-MRS",
+          "cf-ray": "a46e1f126929e6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -642,7 +664,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/predict?model=linear_regression&horizon=1",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dda07ac8c83cc-MRS",
+          "cf-ray": "a46e1f12692ae6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -652,7 +674,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/M%26M.NS/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dda0c78fa83cc-MRS",
+          "cf-ray": "a46e1f150b4ae6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -662,7 +684,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/M%26M.NS/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46dda0c991983cc-MRS",
+          "cf-ray": "a46e1f150b45e6f0-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -672,7 +694,7 @@
         "url": "https://stock-api.medhainnovation.com/api/companies/?market=us",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddba66e32e19c-MRS",
+          "cf-ray": "a46e20b0ab4ce1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -682,7 +704,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddba9acea1856-MRS",
+          "cf-ray": "a46e20b3bd2ce1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -692,7 +714,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddba9aceb1856-MRS",
+          "cf-ray": "a46e20b3bd2de1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -702,7 +724,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/moving-average?days=50&period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddbac3d541856-MRS",
+          "cf-ray": "a46e20b72831e1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -712,7 +734,7 @@
         "url": "https://stock-api.medhainnovation.com/api/companies/AAPL/info",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddbae6de81856-MRS",
+          "cf-ray": "a46e20b9095ce1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -722,7 +744,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddbb91f521856-MRS",
+          "cf-ray": "a46e20c37830e1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -732,7 +754,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddbb90f501856-MRS",
+          "cf-ray": "a46e20c3782ee1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -742,7 +764,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddbbd4fee1856-MRS",
+          "cf-ray": "a46e20c68a8ee1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -752,7 +774,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/best-model?horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddbbd4fed1856-MRS",
+          "cf-ray": "a46e20c68a8fe1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -762,7 +784,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddbc448de1856-MRS",
+          "cf-ray": "a46e20d0595de1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -772,7 +794,17 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddbc448dd1856-MRS",
+          "cf-ray": "a46e20d0595ae1aa-MRS",
+          "cf-mitigated": null,
+          "server": "cloudflare",
+          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+        }
+      },
+      {
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
+        "status": 200,
+        "headers": {
+          "cf-ray": "a46e20d2aad8e1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -782,7 +814,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=1",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddbc9b9731856-MRS",
+          "cf-ray": "a46e20d2aad6e1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -792,7 +824,7 @@
         "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddbc9b9741856-MRS",
+          "cf-ray": "a46e20d50c6ee1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
@@ -802,17 +834,7 @@
         "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
         "status": 200,
         "headers": {
-          "cf-ray": "a46ddbcc69f51856-MRS",
-          "cf-mitigated": null,
-          "server": "cloudflare",
-          "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
-        }
-      },
-      {
-        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
-        "status": 200,
-        "headers": {
-          "cf-ray": "a46ddbcc69f61856-MRS",
+          "cf-ray": "a46e20d50c6be1aa-MRS",
           "cf-mitigated": null,
           "server": "cloudflare",
           "access-control-allow-origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
