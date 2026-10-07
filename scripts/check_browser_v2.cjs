@@ -13,7 +13,7 @@ const api = 'https://stock-api.medhainnovation.com/';
   try {
     for (const viewport of [{width:1366,height:768},{width:390,height:844}]) {
       const page = await browser.newPage({viewport});
-      const errors=[], missing=[], network=[], snapshots=[];
+      const errors=[], missing=[], network=[], snapshots=[], failed=[];
       page.on('pageerror', error=>errors.push(error.message));
       page.on('console', message=>{
         if(message.type()!=='error')return;
@@ -21,6 +21,8 @@ const api = 'https://stock-api.medhainnovation.com/';
         if(!expected)errors.push(message.text());
       });
       page.on('response', response=>{if(response.status()===404)missing.push(response.url());});
+      page.on('requestfailed', request=>{if(!fallback)failed.push(`${request.url()}: ${request.failure()?.errorText}`);});
+      page.on('response', response=>{if(!fallback && response.status()>=400)failed.push(`${response.status()} ${response.url()}`);});
       page.on('request', request=>{
         if(request.url().startsWith(api))network.push(request.url());
         if(request.url().includes('/data/'))snapshots.push(request.url());
@@ -79,6 +81,7 @@ const api = 'https://stock-api.medhainnovation.com/';
       }
       assert.deepEqual(errors,[],'Console errors');
       assert.deepEqual(missing,[],'404 responses');
+      assert.deepEqual(failed,[],'Failed requests');
       await page.close();
     }
   } finally {await browser.close();}
