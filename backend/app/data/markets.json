@@ -1,0 +1,14 @@
+[
+  {
+    "id": "in",
+    "label": "India (NSE)",
+    "currency": "INR",
+    "tz": "Asia/Kolkata"
+  },
+  {
+    "id": "us",
+    "label": "United States",
+    "currency": "USD",
+    "tz": "America/New_York"
+  }
+]
