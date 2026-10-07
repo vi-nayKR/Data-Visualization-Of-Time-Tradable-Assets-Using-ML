@@ -20,18 +20,20 @@ import pathlib, sys
 text = pathlib.Path(sys.argv[1]).read_text()
 catchall = '  - service: http_status:404'
 assert text.count(catchall) == 1, 'Expected exactly one catch-all'
-pathlib.Path(sys.argv[2]).write_text(text.replace(catchall, '  - hostname: stock-api.medhainnovation.com\n    service: http://localhost:8100\n' + catchall))
+pathlib.Path(sys.argv[2]).write_text(text.replace(catchall, '  - hostname: stock-api.medhainnovation.com\n    service: http://127.0.0.1:8100\n' + catchall))
 PY
 cloudflared --config "$candidate" tunnel ingress validate
-cloudflared --config "$candidate" tunnel ingress rule https://stock-api.medhainnovation.com | grep -A1 'hostname: stock-api.medhainnovation.com' | grep -q 'service: http://localhost:8100'
+cloudflared --config "$candidate" tunnel ingress rule https://stock-api.medhainnovation.com | grep -A1 'hostname: stock-api.medhainnovation.com' | grep -q 'service: http://127.0.0.1:8100'
 # DNS is already managed in the Cloudflare dashboard; no origin certificate needed.
 install -m 600 /opt/stock-api/app/deploy/medha-storage/rollback.sh /var/lib/stock-api-deploy/rollback.sh
 # Restore the tunnel even if its SSH route becomes unreachable. Cancel after external checks.
-systemd-run --on-active=180 --unit=stock-api-tunnel-rollback /bin/bash /var/lib/stock-api-deploy/rollback.sh "$backup"
+rollback_unit="stock-api-tunnel-rollback-$(date +%s)"
+printf '%s\n' "$rollback_unit.timer" > /var/lib/stock-api-deploy/rollback-timer
+systemd-run --on-active=180 --unit="$rollback_unit" /bin/bash /var/lib/stock-api-deploy/rollback.sh "$backup"
 cat "$candidate" > "$config"
 if ! cloudflared tunnel ingress validate; then
   cp -a "$backup" "$config"
-  systemctl stop stock-api-tunnel-rollback.timer
+  systemctl stop "$rollback_unit.timer"
   exit 1
 fi
 systemd-run --on-active=3 --unit="cf-restart-$(date +%s)" systemctl restart cloudflared
