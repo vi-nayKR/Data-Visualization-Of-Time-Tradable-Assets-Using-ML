@@ -2,6 +2,7 @@ import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom, timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { tickerResourcePath } from './ticker-path';
 import { ModelStatus, Company, OHLCVRecord, PredictionResponse, BestModelResponse, Timeframe, ChartType } from '../models/stock.model';
 
 export type DrawingTool = 'crosshair' | 'trendline' | 'fibonacci' | 'brush' | 'target' | 'measure' | 'zoom' | 'none';
@@ -156,8 +157,10 @@ export class StockApiService {
   }
 
   async loadCompanies(): Promise<Company[]> {
+    const market = this.market();
     try {
-      const data = await this.request<Company[]>(`companies/?market=${this.market()}`, `companies-${this.market()}`, 'companies');
+      const data = await this.request<Company[]>(`companies/?market=${market}`, `companies-${market}`, 'companies');
+      if (market !== this.market()) return [];
       this.companies.set(data);
       if (data.length > 0 && !data.some(c => c.ticker === this.selectedTicker())) {
         this.selectCompany(data[0].ticker, data[0].name);
@@ -188,7 +191,8 @@ export class StockApiService {
 
   async getOHLCV(ticker: string, period = '180d'): Promise<OHLCVRecord[]> {
     try {
-      const res = await this.request<OHLCVRecord[]>(`stocks/${encodeURIComponent(ticker)}/ohlcv?period=${period}`, `stocks/${encodeURIComponent(ticker)}/ohlcv`, 'stocks');
+      const path = tickerResourcePath('stocks', ticker, 'ohlcv');
+      const res = await this.request<OHLCVRecord[]>(`${path}?period=${period}`, path, 'stocks');
       this.currentRecords.set(res);
       return res;
     } catch (e) {
@@ -199,7 +203,8 @@ export class StockApiService {
 
   async getMovingAverage(ticker: string, days = 50, period = '180d'): Promise<OHLCVRecord[]> {
     try {
-      const res = await this.request<OHLCVRecord[]>(`stocks/${encodeURIComponent(ticker)}/moving-average?days=${days}&period=${period}`, `stocks/${encodeURIComponent(ticker)}/moving-average`, 'stocks');
+      const path = tickerResourcePath('stocks', ticker, 'moving-average');
+      const res = await this.request<OHLCVRecord[]>(`${path}?days=${days}&period=${period}`, path, 'stocks');
       this.currentRecords.set(res);
       return res;
     } catch (e) {
@@ -210,7 +215,8 @@ export class StockApiService {
 
   async getPrediction(ticker: string, model = 'linear_regression', horizon:1|5 = this.horizon()): Promise<PredictionResponse> {
     try {
-      return await this.request<PredictionResponse>(`predictions/${encodeURIComponent(ticker)}/predict?model=${model}&horizon=${horizon}`, `predictions/${encodeURIComponent(ticker)}/predict/${model}/h5`, 'prediction');
+      const path = tickerResourcePath('predictions', ticker, 'predict');
+      return await this.request<PredictionResponse>(`${path}?model=${model}&horizon=${horizon}`, `${path}/${model}/h5`, 'prediction');
     } catch (e) {
       this.handleHttpError(e);
       throw e;
@@ -219,7 +225,8 @@ export class StockApiService {
 
   async getBestModel(ticker: string, horizon:1|5 = this.horizon()): Promise<BestModelResponse> {
     try {
-      return await this.request<BestModelResponse>(`predictions/${encodeURIComponent(ticker)}/best-model?horizon=${horizon}`, `predictions/${encodeURIComponent(ticker)}/best-model/h5`, 'best');
+      const path = tickerResourcePath('predictions', ticker, 'best-model');
+      return await this.request<BestModelResponse>(`${path}?horizon=${horizon}`, `${path}/h5`, 'best');
     } catch (e) {
       this.handleHttpError(e);
       throw e;
@@ -228,7 +235,8 @@ export class StockApiService {
 
   async getCompanyInfo(ticker: string): Promise<any> {
     try {
-      return await this.request<any>(`companies/${encodeURIComponent(ticker)}/info`, `companies/${encodeURIComponent(ticker)}/info`, 'info');
+      const path = tickerResourcePath('companies', ticker, 'info');
+      return await this.request<any>(path, path, 'info');
     } catch (e) {
       this.handleHttpError(e);
       return null;

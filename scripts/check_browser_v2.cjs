@@ -40,6 +40,7 @@ const api = 'https://stock-api.medhainnovation.com/';
         if(mode==='live')await page.waitForTimeout(65000);
         await page.getByRole('button',{name:market==='in'?'India (NSE)':'United States',exact:true}).click();
         await page.waitForLoadState('networkidle');
+        await page.getByRole('button',{name:'Select market asset',exact:true}).filter({hasText:market==='in'?'ADANIENT.NS':'AAPL'}).waitFor();
         if(market==='in') {
           await page.getByRole('button',{name:'Select market asset',exact:true}).click();
           await page.getByPlaceholder('Search symbol or company (e.g. AAPL, TSLA)...').fill('M&M.NS');

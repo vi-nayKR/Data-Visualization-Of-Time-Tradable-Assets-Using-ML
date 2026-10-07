@@ -30,6 +30,9 @@ jobs:
         working-directory: frontend
         run: npm run build
 
+      - name: Ticker snapshot path mapping
+        run: node scripts/check_ticker_paths.cjs
+
   build-backend:
     name: Test Backend (FastAPI & PyTorch)
     runs-on: ubuntu-latest
