@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const { chromium } = require('playwright');
 const site = process.env.STOCK_SITE || 'https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev';
 const mode = process.argv[2] || 'live';
+const fallback = mode === 'offline' || mode === 'service-down';
 const api = 'https://stock-api.medhainnovation.com/';
 
 (async () => {
@@ -16,7 +17,7 @@ const api = 'https://stock-api.medhainnovation.com/';
       page.on('pageerror', error=>errors.push(error.message));
       page.on('console', message=>{
         if(message.type()!=='error')return;
-        const expected = mode==='offline' && message.location().url.startsWith(api) && message.text().startsWith('Failed to load resource');
+        const expected = fallback && message.location().url.startsWith(api) && (message.text().startsWith('Failed to load resource') || message.text().includes('CORS policy'));
         if(!expected)errors.push(message.text());
       });
       page.on('response', response=>{if(response.status()===404)missing.push(response.url());});
@@ -45,7 +46,7 @@ const api = 'https://stock-api.medhainnovation.com/';
         for (const route of ['analysis','prediction','best-analysis']) {
           await page.getByRole('link',{name:route==='analysis'?'SuperChart':route==='prediction'?'ML Forecasts':'Strategy Leaderboard',exact:true}).click();
           await page.waitForLoadState('networkidle');
-          const badge=page.getByRole('status').filter({hasText:mode==='offline'?'Snapshot':'Live'});
+          const badge=page.getByRole('status').filter({hasText:fallback?'Snapshot':'Live'});
           await badge.first().waitFor({timeout:25000});
           await page.waitForFunction(()=>[...document.querySelectorAll('.js-plotly-plot')].some(el=>el._fullLayout && el.data?.length));
           const text=await page.locator('body').innerText();
@@ -72,7 +73,7 @@ const api = 'https://stock-api.medhainnovation.com/';
       }
       assert(network.length>0);
       assert(network.some(url=>url.includes('/M%26M.NS/')),'M&M API paths must be encoded');
-      if(mode==='offline') {
+      if(fallback) {
         assert(snapshots.some(url=>url.includes('/predictions/M%26M.NS/predict/')),'M&M snapshot fetch must be encoded');
         assert(snapshots.some(url=>url.includes('/stocks/M%26M.NS/moving-average')),'M&M stock snapshot fetch must be encoded');
       }
