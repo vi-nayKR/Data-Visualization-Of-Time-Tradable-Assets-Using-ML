@@ -15,6 +15,7 @@ assert manifest["tickers"] == [c["ticker"] for c in companies]
 assert len(read("companies-us")) == 7
 assert len(read("companies-in")) > 0
 assert not manifest["failed_tickers"], manifest["failed_tickers"]
+assert "M&M.NS" in manifest["tickers"]
 for ticker in manifest["tickers"]:
     for route in ("ohlcv", "moving-average"):
         records = read(f"stocks/{ticker}/{route}")

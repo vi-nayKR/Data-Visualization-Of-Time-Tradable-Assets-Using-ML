@@ -12,7 +12,7 @@ const api = 'https://stock-api.medhainnovation.com/';
   try {
     for (const viewport of [{width:1366,height:768},{width:390,height:844}]) {
       const page = await browser.newPage({viewport});
-      const errors=[], missing=[], network=[];
+      const errors=[], missing=[], network=[], snapshots=[];
       page.on('pageerror', error=>errors.push(error.message));
       page.on('console', message=>{
         if(message.type()!=='error')return;
@@ -20,7 +20,10 @@ const api = 'https://stock-api.medhainnovation.com/';
         if(!expected)errors.push(message.text());
       });
       page.on('response', response=>{if(response.status()===404)missing.push(response.url());});
-      page.on('request', request=>{if(request.url().startsWith(api))network.push(request.url());});
+      page.on('request', request=>{
+        if(request.url().startsWith(api))network.push(request.url());
+        if(request.url().includes('/data/'))snapshots.push(request.url());
+      });
       if(mode==='offline')await page.route(`${api}**`,route=>route.abort());
       // Local UI gates use real API responses with local-origin CORS for testing only.
       if(process.env.STOCK_LOCAL_PROXY==='1')await page.route(`${api}**`,async route=>{
@@ -32,6 +35,13 @@ const api = 'https://stock-api.medhainnovation.com/';
         // Keep the existing API's 30/minute shared limiter intact during full-flow tests.
         if(mode==='live')await page.waitForTimeout(65000);
         await page.getByRole('button',{name:market==='in'?'India (NSE)':'United States',exact:true}).click();
+        await page.waitForLoadState('networkidle');
+        if(market==='in') {
+          await page.getByRole('button',{name:'Select market asset',exact:true}).click();
+          await page.getByPlaceholder('Search symbol or company (e.g. AAPL, TSLA)...').fill('M&M.NS');
+          await page.locator('header').getByText('M&M.NS',{exact:true}).click();
+          await page.waitForLoadState('networkidle');
+        }
         for (const route of ['analysis','prediction','best-analysis']) {
           await page.getByRole('link',{name:route==='analysis'?'SuperChart':route==='prediction'?'ML Forecasts':'Strategy Leaderboard',exact:true}).click();
           await page.waitForLoadState('networkidle');
@@ -61,6 +71,11 @@ const api = 'https://stock-api.medhainnovation.com/';
         }
       }
       assert(network.length>0);
+      assert(network.some(url=>url.includes('/M%26M.NS/')),'M&M API paths must be encoded');
+      if(mode==='offline') {
+        assert(snapshots.some(url=>url.includes('/predictions/M%26M.NS/predict/')),'M&M snapshot fetch must be encoded');
+        assert(snapshots.some(url=>url.includes('/stocks/M%26M.NS/moving-average')),'M&M stock snapshot fetch must be encoded');
+      }
       assert.deepEqual(errors,[],'Console errors');
       assert.deepEqual(missing,[],'404 responses');
       await page.close();

@@ -12,7 +12,7 @@ RAW_DIR = Path(os.getenv("STOCK_RAW_DIR", "/var/cache/stock-api/raw"))
 
 
 def symbol_path(symbol, root=RAW_DIR):
-    if not re.fullmatch(r"[A-Za-z0-9.^_-]{1,40}", symbol):
+    if not re.fullmatch(r"[A-Z0-9.^&-]{1,40}", symbol):
         raise ValueError("Invalid market symbol")
     return root / f"{symbol}.csv"
 

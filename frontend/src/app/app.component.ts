@@ -55,7 +55,7 @@ import { Timeframe, ChartType } from './core/models/stock.model';
           <!-- Symbol Search Selector (Shown on Trading & ML views) -->
           @if (!isOverview()) {
             <div class="relative group shrink-0">
-              <button (click)="toggleSymbolSearch()"
+              <button (click)="toggleSymbolSearch()" aria-label="Select market asset"
                       class="flex items-center gap-1.5 bg-[var(--color-surface)] hover:border-[var(--color-accent)]/50 border border-[var(--color-border)] rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 text-[var(--color-frost)] font-semibold transition-all">
                 <svg class="tv-icon tv-icon-sm text-[var(--color-muted)]" viewBox="0 0 24 24">
                   <circle cx="11" cy="11" r="8"></circle>
