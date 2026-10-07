@@ -10,6 +10,9 @@ import { PredictionChartComponent } from '../prediction/prediction-chart.compone
   standalone: true,
   imports: [CommonModule, ModelCardComponent, PredictionChartComponent],
   template: `
+    <div role="status" class="px-3 py-1 text-xs bg-[var(--color-surface)] text-[var(--color-frost)]">
+      {{ api.sourceLabel('best') }} · Not financial advice
+    </div>
     <div class="flex flex-col h-full bg-[var(--color-void)] text-[var(--color-frost)] overflow-y-auto transition-colors duration-300">
       
       <!-- SUB-HEADER: BENCHMARK TITLE & WINNER SUMMARY -->

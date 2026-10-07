@@ -10,6 +10,10 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
   standalone: true,
   imports: [CommonModule, FormsModule, CandlestickChartComponent],
   template: `
+    <div role="status" class="px-3 py-1 text-xs bg-[var(--color-surface)] text-[var(--color-frost)]">
+      {{ api.sourceLabel('stocks') }} · Not financial advice
+      @if (api.sources()['stocks'] === 'snapshot') { <span> · Saved 180-day history, SMA 50</span> }
+    </div>
     <div class="flex flex-col h-full bg-[var(--color-void)] text-[var(--color-frost)] overflow-hidden transition-colors duration-300">
       
       <!-- SUB-HEADER: INDICATORS & TOOLBAR (TOUCH-FRIENDLY & RESPONSIVE) -->
@@ -150,7 +154,7 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
               <span>UTC+05:30</span>
               <span class="text-[#089981] font-semibold flex items-center gap-1">
                 <span class="w-2 h-2 rounded-full bg-[#089981]"></span>
-                Live
+                {{ api.sourceLabel('stocks') }}
               </span>
             </div>
           </div>

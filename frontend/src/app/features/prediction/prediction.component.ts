@@ -9,6 +9,9 @@ import { PredictionChartComponent } from './prediction-chart.component';
   standalone: true,
   imports: [CommonModule, PredictionChartComponent],
   template: `
+    <div role="status" class="px-3 py-1 text-xs bg-[var(--color-surface)] text-[var(--color-frost)]">
+      {{ api.sourceLabel('prediction') }} · Not financial advice
+    </div>
     <div class="flex flex-col h-full bg-[var(--color-void)] text-[var(--color-frost)] overflow-hidden transition-colors duration-300">
       
       <!-- TOP MODEL SELECTION RIBBON (SWIPEABLE & TOUCH-FRIENDLY) -->
@@ -69,7 +72,7 @@ import { PredictionChartComponent } from './prediction-chart.component';
             </div>
             <div class="text-[#089981] font-semibold flex items-center gap-1 shrink-0">
               <span class="w-1.5 h-1.5 rounded-full bg-[#089981]"></span>
-              <span>Online</span>
+              <span>{{ api.sourceLabel('prediction') }}</span>
             </div>
           </div>
         }

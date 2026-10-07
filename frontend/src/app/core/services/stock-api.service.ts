@@ -1,6 +1,6 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Company, OHLCVRecord, PredictionResponse, BestModelResponse, Timeframe, ChartType } from '../models/stock.model';
 
@@ -10,6 +10,30 @@ export type DrawingTool = 'crosshair' | 'trendline' | 'fibonacci' | 'brush' | 't
 export class StockApiService {
   private http = inject(HttpClient);
   private baseUrl = environment.apiUrl;
+  sources = signal<Record<string, 'live' | 'snapshot'>>({});
+  source = computed<'live' | 'snapshot'>(() => Object.values(this.sources()).includes('snapshot') ? 'snapshot' : 'live');
+  generatedAt = signal('');
+  private manifest?: Promise<{ generated_at: string }>;
+
+  sourceLabel(scope: string): string {
+    return this.sources()[scope] === 'snapshot' ? `Snapshot · ${this.generatedAt()}` : 'Live';
+  }
+
+  private async request<T>(path: string, snapshotPath: string, scope: string): Promise<T> {
+    try {
+      const data = await firstValueFrom(this.http.get<T>(`${this.baseUrl}/${path}`).pipe(timeout(5000)));
+      this.sources.update(s => ({ ...s, [scope]: 'live' }));
+      return data;
+    } catch (error) {
+      this.handleHttpError(error);
+      const data = await firstValueFrom(this.http.get<T>(`/data/${snapshotPath}.json`));
+      this.manifest ??= firstValueFrom(this.http.get<{ generated_at: string }>('/data/manifest.json'));
+      const manifest = await this.manifest;
+      this.generatedAt.set(manifest.generated_at.slice(0, 10));
+      this.sources.update(s => ({ ...s, [scope]: 'snapshot' }));
+      return data;
+    }
+  }
 
   // Theme state synchronized with Portfolio-Ng
   isDarkMode = signal<boolean>(true);
@@ -126,7 +150,7 @@ export class StockApiService {
 
   async loadCompanies(): Promise<Company[]> {
     try {
-      const data = await firstValueFrom(this.http.get<Company[]>(`${this.baseUrl}/companies`));
+      const data = await this.request<Company[]>('companies/', 'companies', 'companies');
       this.companies.set(data);
       if (data.length > 0 && !this.selectedTicker()) {
         this.selectCompany(data[0].ticker, data[0].name);
@@ -150,9 +174,7 @@ export class StockApiService {
 
   async getOHLCV(ticker: string, period = '180d'): Promise<OHLCVRecord[]> {
     try {
-      const res = await firstValueFrom(
-        this.http.get<OHLCVRecord[]>(`${this.baseUrl}/stocks/${ticker}/ohlcv?period=${period}`)
-      );
+      const res = await this.request<OHLCVRecord[]>(`stocks/${encodeURIComponent(ticker)}/ohlcv?period=${period}`, `stocks/${encodeURIComponent(ticker)}/ohlcv`, 'stocks');
       this.currentRecords.set(res);
       return res;
     } catch (e) {
@@ -163,9 +185,7 @@ export class StockApiService {
 
   async getMovingAverage(ticker: string, days = 50, period = '180d'): Promise<OHLCVRecord[]> {
     try {
-      const res = await firstValueFrom(
-        this.http.get<OHLCVRecord[]>(`${this.baseUrl}/stocks/${ticker}/moving-average?days=${days}&period=${period}`)
-      );
+      const res = await this.request<OHLCVRecord[]>(`stocks/${encodeURIComponent(ticker)}/moving-average?days=${days}&period=${period}`, `stocks/${encodeURIComponent(ticker)}/moving-average`, 'stocks');
       this.currentRecords.set(res);
       return res;
     } catch (e) {
@@ -176,9 +196,7 @@ export class StockApiService {
 
   async getPrediction(ticker: string, model = 'linear_regression'): Promise<PredictionResponse> {
     try {
-      return await firstValueFrom(
-        this.http.get<PredictionResponse>(`${this.baseUrl}/predictions/${ticker}/predict?model=${model}`)
-      );
+      return await this.request<PredictionResponse>(`predictions/${encodeURIComponent(ticker)}/predict?model=${model}`, `predictions/${encodeURIComponent(ticker)}/predict/${model}`, 'prediction');
     } catch (e) {
       this.handleHttpError(e);
       throw e;
@@ -187,9 +205,7 @@ export class StockApiService {
 
   async getBestModel(ticker: string): Promise<BestModelResponse> {
     try {
-      return await firstValueFrom(
-        this.http.get<BestModelResponse>(`${this.baseUrl}/predictions/${ticker}/best-model`)
-      );
+      return await this.request<BestModelResponse>(`predictions/${encodeURIComponent(ticker)}/best-model`, `predictions/${encodeURIComponent(ticker)}/best-model`, 'best');
     } catch (e) {
       this.handleHttpError(e);
       throw e;
@@ -198,9 +214,7 @@ export class StockApiService {
 
   async getCompanyInfo(ticker: string): Promise<any> {
     try {
-      return await firstValueFrom(
-        this.http.get<any>(`${this.baseUrl}/companies/${ticker}/info`)
-      );
+      return await this.request<any>(`companies/${encodeURIComponent(ticker)}/info`, `companies/${encodeURIComponent(ticker)}/info`, 'info');
     } catch (e) {
       this.handleHttpError(e);
       return null;
