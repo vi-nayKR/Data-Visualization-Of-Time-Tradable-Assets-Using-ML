@@ -94,10 +94,10 @@ const api = 'https://stock-api.medhainnovation.com/';
         await forecastChart.waitFor();
         if(mode==='live') {
           await Promise.all([page.waitForResponse(response=>response.url().includes('/predict?')&&response.url().includes('horizon=1')&&response.status()===200),prediction.getByRole('button',{name:'1 trading day',exact:true}).click()]);
-          await page.waitForFunction(el=>el.layout?.xaxis?.ticktext?.includes('+1 trading days'),await forecastChart.elementHandle());
+          await page.waitForFunction(()=>{document.querySelector('app-prediction .chart-frame')?.scrollIntoView({block:'center'});const chart=document.querySelector('app-prediction .js-plotly-plot');return !!chart?._fullLayout && chart.layout?.xaxis?.ticktext?.includes('+1 trading days');});
           assert.match(await forecastChart.evaluate(el=>JSON.stringify(el.layout.xaxis.ticktext)),/1 trading days/);
           await prediction.getByRole('button',{name:'5 trading days',exact:true}).click();
-          await page.waitForFunction(el=>el.layout?.xaxis?.ticktext?.includes('+5 trading days'),await forecastChart.elementHandle());
+          await page.waitForFunction(()=>{document.querySelector('app-prediction .chart-frame')?.scrollIntoView({block:'center'});const chart=document.querySelector('app-prediction .js-plotly-plot');return !!chart?._fullLayout && chart.layout?.xaxis?.ticktext?.includes('+5 trading days');});
         }
         if(fallback) {
           await prediction.getByRole('button',{name:'1 trading day',exact:true}).click();
