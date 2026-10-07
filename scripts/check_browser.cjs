@@ -9,10 +9,16 @@ const api = 'https://stock-api.medhainnovation.com/';
   const browser = await chromium.launch({ headless: true });
   try {
     const page = await browser.newPage();
-    const errors = [], missing = [], requests = [];
+    const errors = [], missing = [], requests = [], offlineTransport = [];
     page.on('pageerror', error => errors.push(error.message));
     page.on('console', message => {
-      if (message.type() === 'error' && !(mode !== 'live' && message.location().url.startsWith(api))) errors.push(message.text());
+      if (message.type() !== 'error') return;
+      const text = message.text();
+      const expectedOffline = mode !== 'live' && (
+        message.location().url.startsWith(api) && text.startsWith('Failed to load resource') ||
+        text.startsWith('Access to fetch') && text.includes(api) && text.includes('blocked by CORS policy')
+      );
+      (expectedOffline ? offlineTransport : errors).push(text);
     });
     page.on('response', response => { if (response.status() === 404) missing.push(response.url()); });
     page.on('request', request => { if (request.url().startsWith(api)) requests.push(request.url()); });
@@ -28,6 +34,6 @@ const api = 'https://stock-api.medhainnovation.com/';
     assert(requests.length > 0, 'No requests to the production API hostname');
     assert.deepEqual(missing, [], '404 responses');
     assert.deepEqual(errors, [], 'Console/page errors');
-    console.log(`PASS ${mode}: ${requests.length} API requests, no 404s or unexpected console errors`);
+    console.log(`PASS ${mode}: ${requests.length} API requests, no 404s or unexpected console errors; ${offlineTransport.length} expected offline transport diagnostics`);
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

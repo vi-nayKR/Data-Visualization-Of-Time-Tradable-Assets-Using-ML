@@ -16,7 +16,7 @@ try {
         ssh -o BatchMode=yes -o ConnectTimeout=15 $hostName hostname
         if ($LASTEXITCODE -ne 0) { throw "SSH check failed: $hostName" }
     }
-    ssh medha-storage 'sudo systemctl stop $(sudo cat /var/lib/stock-api-deploy/rollback-timer)'
+    ssh medha-storage 'if sudo systemctl is-active --quiet $(sudo cat /var/lib/stock-api-deploy/rollback-timer); then sudo systemctl stop $(sudo cat /var/lib/stock-api-deploy/rollback-timer); fi'
     if ($LASTEXITCODE -ne 0) { throw 'Could not cancel rollback watchdog' }
 } catch {
     ssh medha-storage 'sudo bash /var/lib/stock-api-deploy/rollback.sh'
