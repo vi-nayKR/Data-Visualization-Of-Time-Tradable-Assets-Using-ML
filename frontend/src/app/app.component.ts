@@ -25,6 +25,12 @@ import { Timeframe, ChartType } from './core/models/stock.model';
         </div>
       }
 
+      <div class="flex flex-wrap items-center gap-3 px-3 py-2 text-xs bg-[var(--color-surface)]" role="group" aria-label="Market">
+        <button (click)="api.selectMarket('in')" [attr.aria-pressed]="api.market()==='in'">India (NSE)</button>
+        <button (click)="api.selectMarket('us')" [attr.aria-pressed]="api.market()==='us'">United States</button>
+        <span>{{api.currencySymbol()}} ? {{api.sourceLabel('companies')}}</span>
+        @if(api.modelStatus();as status){<span>Data as of {{status.data_as_of[api.market()]}} ? trained {{status.trained_at | date:'short'}}</span>}
+      </div>
       <!-- TOP NAVIGATION BAR (HORIZONTALLY SCROLLABLE ON MOBILE PHONES & DESKTOP) -->
       <header class="h-12 bg-[var(--color-abyss)] border-b border-[var(--color-border)] flex items-center justify-between px-2 sm:px-3 z-30 flex-shrink-0 text-xs gap-2.5 sm:gap-3 transition-colors duration-300 header-scroll-container">
         
@@ -97,7 +103,7 @@ import { Timeframe, ChartType } from './core/models/stock.model';
             <!-- Live Price & Change Badge -->
             @if (api.latestRecord(); as latest) {
               <div class="flex items-center gap-1.5 pl-1.5 border-l border-[var(--color-border)] shrink-0">
-                <span class="text-xs sm:text-sm font-extrabold font-mono-num text-[var(--color-frost)]">\${{ latest.close }}</span>
+                <span class="text-xs sm:text-sm font-extrabold font-mono-num text-[var(--color-frost)]">{{api.currencySymbol()}}{{ latest.close }}</span>
                 
                 <div [class]="api.priceChange().isPositive ? 'text-[#089981] bg-[#089981]/15 border border-[#089981]/30' : 'text-[#f23645] bg-[#f23645]/15 border border-[#f23645]/30'"
                      class="px-1.5 sm:px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-mono-num font-bold flex items-center gap-0.5">
@@ -110,10 +116,10 @@ import { Timeframe, ChartType } from './core/models/stock.model';
               <!-- Header OHLC Ribbon on Large Screens -->
               @if (isSuperChart()) {
                 <div class="hidden 2xl:flex items-center gap-3 text-xs text-[var(--color-muted)] font-mono-num shrink-0">
-                  <span>O <strong class="text-[var(--color-frost)]">\${{ latest.open }}</strong></span>
-                  <span>H <strong class="text-[#089981]">\${{ latest.high }}</strong></span>
-                  <span>L <strong class="text-[#f23645]">\${{ latest.low }}</strong></span>
-                  <span>C <strong class="text-[var(--color-frost)]">\${{ latest.close }}</strong></span>
+                  <span>O <strong class="text-[var(--color-frost)]">{{api.currencySymbol()}}{{ latest.open }}</strong></span>
+                  <span>H <strong class="text-[#089981]">{{api.currencySymbol()}}{{ latest.high }}</strong></span>
+                  <span>L <strong class="text-[#f23645]">{{api.currencySymbol()}}{{ latest.low }}</strong></span>
+                  <span>C <strong class="text-[var(--color-frost)]">{{api.currencySymbol()}}{{ latest.close }}</strong></span>
                   <span>Vol <strong class="text-[var(--color-frost)]">{{ latest.volume }}M</strong></span>
                 </div>
               }
@@ -443,6 +449,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.api.loadCompanies();
+    this.api.loadModelStatus().catch(() => {});
     this.currentUrl.set(this.router.url);
     if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
       this.showWatchlist.set(true);

@@ -2,7 +2,7 @@ import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom, timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Company, OHLCVRecord, PredictionResponse, BestModelResponse, Timeframe, ChartType } from '../models/stock.model';
+import { ModelStatus, Company, OHLCVRecord, PredictionResponse, BestModelResponse, Timeframe, ChartType } from '../models/stock.model';
 
 export type DrawingTool = 'crosshair' | 'trendline' | 'fibonacci' | 'brush' | 'target' | 'measure' | 'zoom' | 'none';
 
@@ -27,6 +27,8 @@ export class StockApiService {
     } catch (error) {
       this.handleHttpError(error);
       const data = await firstValueFrom(this.http.get<T>(`/data/${snapshotPath}.json`));
+      if (scope === 'prediction' && (data as any).forecast?.horizon !== this.horizon()) this.horizon.set(5);
+      if (scope === 'best' && (data as any).evaluation?.horizon !== this.horizon()) this.horizon.set(5);
       this.manifest ??= firstValueFrom(this.http.get<{ generated_at: string }>('/data/manifest.json'));
       const manifest = await this.manifest;
       this.generatedAt.set(manifest.generated_at.slice(0, 10));
@@ -38,6 +40,11 @@ export class StockApiService {
   // Theme state synchronized with Portfolio-Ng
   isDarkMode = signal<boolean>(true);
 
+  market = signal<'in'|'us'>('us');
+  horizon = signal<1|5>(5);
+  currency = computed(() => this.market() === 'in' ? 'INR' : 'USD');
+  currencySymbol = computed(() => this.market() === 'in' ? '?' : '$');
+  modelStatus = signal<ModelStatus|null>(null);
   selectedTicker = signal<string>('AAPL');
   selectedCompanyName = signal<string>('Apple Inc.');
   companies = signal<Company[]>([]);
@@ -150,9 +157,9 @@ export class StockApiService {
 
   async loadCompanies(): Promise<Company[]> {
     try {
-      const data = await this.request<Company[]>('companies/', 'companies', 'companies');
+      const data = await this.request<Company[]>(`companies/?market=${this.market()}`, `companies-${this.market()}`, 'companies');
       this.companies.set(data);
-      if (data.length > 0 && !this.selectedTicker()) {
+      if (data.length > 0 && !data.some(c => c.ticker === this.selectedTicker())) {
         this.selectCompany(data[0].ticker, data[0].name);
       }
       return data;
@@ -162,6 +169,13 @@ export class StockApiService {
     }
   }
 
+  async selectMarket(market:'in'|'us') {
+    this.market.set(market);
+    await this.loadCompanies();
+  }
+  async loadModelStatus() {
+    this.modelStatus.set(await this.request<ModelStatus>('models/status','models/status','status'));
+  }
   selectCompany(ticker: string, name?: string) {
     this.selectedTicker.set(ticker);
     if (name) {
@@ -194,18 +208,18 @@ export class StockApiService {
     }
   }
 
-  async getPrediction(ticker: string, model = 'linear_regression'): Promise<PredictionResponse> {
+  async getPrediction(ticker: string, model = 'linear_regression', horizon:1|5 = this.horizon()): Promise<PredictionResponse> {
     try {
-      return await this.request<PredictionResponse>(`predictions/${encodeURIComponent(ticker)}/predict?model=${model}`, `predictions/${encodeURIComponent(ticker)}/predict/${model}`, 'prediction');
+      return await this.request<PredictionResponse>(`predictions/${encodeURIComponent(ticker)}/predict?model=${model}&horizon=${horizon}`, `predictions/${encodeURIComponent(ticker)}/predict/${model}/h5`, 'prediction');
     } catch (e) {
       this.handleHttpError(e);
       throw e;
     }
   }
 
-  async getBestModel(ticker: string): Promise<BestModelResponse> {
+  async getBestModel(ticker: string, horizon:1|5 = this.horizon()): Promise<BestModelResponse> {
     try {
-      return await this.request<BestModelResponse>(`predictions/${encodeURIComponent(ticker)}/best-model`, `predictions/${encodeURIComponent(ticker)}/best-model`, 'best');
+      return await this.request<BestModelResponse>(`predictions/${encodeURIComponent(ticker)}/best-model?horizon=${horizon}`, `predictions/${encodeURIComponent(ticker)}/best-model/h5`, 'best');
     } catch (e) {
       this.handleHttpError(e);
       throw e;

@@ -166,19 +166,19 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-5 space-y-1.5 shadow">
                 <span class="text-xs text-[var(--color-muted)] uppercase font-bold tracking-wider">ISIN Code</span>
-                <div class="text-lg sm:text-xl font-mono-num font-extrabold text-[var(--color-frost)]">{{ companyInfo()?.isin || 'US0378331005' }}</div>
+                <div class="text-lg sm:text-xl font-mono-num font-extrabold text-[var(--color-frost)]">{{ companyInfo()?.isin || 'Unavailable' }}</div>
               </div>
               <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-5 space-y-1.5 shadow">
                 <span class="text-xs text-[var(--color-muted)] uppercase font-bold tracking-wider">Market Cap</span>
-                <div class="text-lg sm:text-xl font-mono-num font-bold text-[var(--color-accent)]">$3.42 Trillion</div>
+                <div class="text-lg sm:text-xl font-mono-num font-bold text-[var(--color-accent)]">Unavailable</div>
               </div>
               <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-5 space-y-1.5 shadow">
                 <span class="text-xs text-[var(--color-muted)] uppercase font-bold tracking-wider">Trailing P/E</span>
-                <div class="text-lg sm:text-xl font-mono-num font-bold text-[#089981]">34.82</div>
+                <div class="text-lg sm:text-xl font-mono-num font-bold text-[#089981]">Unavailable</div>
               </div>
               <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-5 space-y-1.5 shadow">
                 <span class="text-xs text-[var(--color-muted)] uppercase font-bold tracking-wider">Dividend Yield</span>
-                <div class="text-lg sm:text-xl font-mono-num font-bold text-[var(--color-frost)]">0.52%</div>
+                <div class="text-lg sm:text-xl font-mono-num font-bold text-[var(--color-frost)]">Unavailable</div>
               </div>
             </div>
 
@@ -213,12 +213,12 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
                   @for (r of records(); track r.date) {
                     <tr class="hover:bg-[var(--color-void)]/60 transition-colors">
                       <td class="p-3 text-[var(--color-muted)]">{{ r.date }}</td>
-                      <td class="p-3">\${{ r.open }}</td>
-                      <td class="p-3 text-[#089981] font-semibold">\${{ r.high }}</td>
-                      <td class="p-3 text-[#f23645] font-semibold">\${{ r.low }}</td>
-                      <td class="p-3 font-bold text-[var(--color-frost)]">\${{ r.close }}</td>
+                      <td class="p-3">{{api.currencySymbol()}}{{ r.open }}</td>
+                      <td class="p-3 text-[#089981] font-semibold">{{api.currencySymbol()}}{{ r.high }}</td>
+                      <td class="p-3 text-[#f23645] font-semibold">{{api.currencySymbol()}}{{ r.low }}</td>
+                      <td class="p-3 font-bold text-[var(--color-frost)]">{{api.currencySymbol()}}{{ r.close }}</td>
                       <td class="p-3 text-[var(--color-muted)]">{{ r.volume }}M</td>
-                      <td class="p-3 text-[#ff9242]">{{ r.ma ? '$' + r.ma : '—' }}</td>
+                      <td class="p-3 text-[#ff9242]">{{ r.ma ? api.currencySymbol() + r.ma : '—' }}</td>
                       <td class="p-3 text-[#e040fb]">{{ r.rsi ? r.rsi : '—' }}</td>
                     </tr>
                   }

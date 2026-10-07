@@ -15,21 +15,3 @@ class OHLCVRecord(BaseModel):
     volume: float
     ma: Optional[float] = None
 
-class PredictionResponse(BaseModel):
-    ticker: str
-    model: str
-    confidence: float
-    records: List[Dict[str, Any]]
-    predictions: List[Optional[float]]
-
-class ModelScore(BaseModel):
-    name: str
-    score: float
-
-class BestModelResponse(BaseModel):
-    ticker: str
-    winner: str
-    winnerScore: float
-    models: List[ModelScore]
-    records: List[Dict[str, Any]]
-    predictions: List[Optional[float]]

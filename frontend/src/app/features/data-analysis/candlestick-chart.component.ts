@@ -442,7 +442,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
         gridcolor: isDark ? '#12121a' : '#f3f4f6',
         linecolor: border,
         tickformat: '.2f',
-        tickprefix: '$',
+        tickprefix: this.api.currencySymbol(),
         tickfont: { color: textMuted, size: isMobile ? 9 : 11, family: 'JetBrains Mono, monospace' },
         showspikes: true,
         spikemode: 'across',

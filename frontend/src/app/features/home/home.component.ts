@@ -22,7 +22,7 @@ import { RouterLink } from '@angular/router';
           </h1>
 
           <p class="text-sm text-[var(--color-muted)] leading-relaxed">
-            A high-performance quantitative technical terminal and machine learning forecasting platform. Integrates dual-pane Plotly.js candlestick charting, drawing annotations, mathematical indicator overlays, and 50-day predictive time-series regressors.
+            A high-performance quantitative technical terminal and machine learning forecasting platform. Integrates dual-pane Plotly.js candlestick charting, drawing annotations, mathematical indicator overlays, and 1- and 5-trading-day return forecasts with chronological validation.
           </p>
 
           <div class="flex flex-wrap items-center gap-3 pt-2">
@@ -99,7 +99,7 @@ import { RouterLink } from '@angular/router';
               ML Predictive Forecasting
             </h2>
             <p class="text-xs text-[var(--color-muted)] leading-relaxed">
-              50-day forward price trend forecasting powered by Linear Regression, Support Vector Machines (Linear &amp; RBF Kernels), Decision Tree regressors, and PyTorch Deep LSTM Neural Networks.
+              Leakage-free 1- and 5-trading-day forecasting with naive baselines and held-out evaluation powered by Linear Regression, Support Vector Machines (Linear &amp; RBF Kernels), Decision Tree regressors, and PyTorch Deep LSTM Neural Networks.
             </p>
           </div>
 
