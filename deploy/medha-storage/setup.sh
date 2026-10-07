@@ -25,7 +25,8 @@ test "$size" -lt 1500000000
 install -m 644 /opt/stock-api/app/deploy/medha-storage/stock-api.service /etc/systemd/system/stock-api.service
 systemd-analyze verify /etc/systemd/system/stock-api.service
 systemctl daemon-reload
-systemctl enable --now stock-api
+systemctl enable stock-api
+systemctl restart stock-api
 for attempt in {1..30}; do
   if curl -fsS http://127.0.0.1:8100/health; then exit 0; fi
   sleep 2

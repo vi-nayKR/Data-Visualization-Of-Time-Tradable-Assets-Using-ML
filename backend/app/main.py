@@ -30,7 +30,7 @@ app.add_middleware(SecurityAndObservabilityMiddleware)
 # 3. CORS Middleware (Supports Cloudflare Workers frontend and local development)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[origin.strip() for origin in os.getenv("ALLOWED_ORIGINS", "https://data-visualization-of-time-tradable-assets-using-ml.vinaykr.workers.dev,http://localhost:4200").split(",") if origin.strip()],
+    allow_origins=[origin.strip() for origin in os.getenv("ALLOWED_ORIGINS", "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev,http://localhost:4200").split(",") if origin.strip()],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],

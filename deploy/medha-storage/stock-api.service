@@ -7,7 +7,7 @@ Wants=network-online.target
 User=stockapi
 WorkingDirectory=/opt/stock-api/app/backend
 ExecStart=/opt/stock-api/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8100 --workers 1 --proxy-headers
-Environment=ALLOWED_ORIGINS=https://data-visualization-of-time-tradable-assets-using-ml.vinaykr.workers.dev
+Environment=ALLOWED_ORIGINS=https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev
 Environment=XDG_CACHE_HOME=/var/cache/stock-api
 Environment=OMP_NUM_THREADS=2
 Environment=OPENBLAS_NUM_THREADS=2
