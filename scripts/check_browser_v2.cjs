@@ -49,9 +49,18 @@ const api = 'https://stock-api.medhainnovation.com/';
         for (const route of ['analysis','prediction','best-analysis']) {
           await page.getByRole('link',{name:route==='analysis'?'SuperChart':route==='prediction'?'ML Forecasts':'Strategy Leaderboard',exact:true}).click();
           await page.waitForLoadState('networkidle');
+          const content=page.locator(route==='analysis'?'app-data-analysis':route==='prediction'?'app-prediction':'app-best-analysis');
+          await content.waitFor();
+          if(route==='best-analysis') {
+            const rows=content.locator('table').filter({has:page.getByText('Lowest validation MAE wins; held-out metrics are for reporting only.',{exact:true})}).locator('tbody tr');
+            await rows.getByRole('rowheader',{name:/^naive(?: - best validation fit)?$/}).waitFor();
+            assert.equal(await rows.count(),8,'All models and baselines must be loaded');
+            for(const baseline of ['naive','drift','sma'])assert.equal(await rows.getByRole('rowheader',{name:new RegExp(`^${baseline}(?: - best validation fit)?$`)}).count(),1);
+          }
           const badge=page.getByRole('status').filter({hasText:fallback?'Snapshot':'Live'});
           await badge.first().waitFor({timeout:25000});
-          await page.waitForFunction(()=>[...document.querySelectorAll('.js-plotly-plot')].some(el=>el._fullLayout && el.data?.length));
+          await content.locator('.js-plotly-plot').first().waitFor();
+          await page.waitForFunction(el=>el._fullLayout && el.data?.length,await content.locator('.js-plotly-plot').first().elementHandle());
           const text=await page.locator('body').innerText();
           assert(text.includes('Not financial advice'));
           if(market==='in')assert(text.includes('₹'),'Missing rupee prices');
