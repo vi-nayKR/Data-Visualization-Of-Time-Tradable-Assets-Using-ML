@@ -1,0 +1,233 @@
+[
+  {
+    "path": "/health",
+    "status": 200,
+    "latency_ms": 1236.77,
+    "headers": {
+      "cf-ray": "a46dbd007e66169b-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/markets",
+    "status": 200,
+    "latency_ms": 938.48,
+    "headers": {
+      "cf-ray": "a46dbd089e51e27a-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/companies/?market=in",
+    "status": 200,
+    "latency_ms": 767.67,
+    "headers": {
+      "cf-ray": "a46dbd0d9e6ae246-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/companies/?market=us",
+    "status": 200,
+    "latency_ms": 806.96,
+    "headers": {
+      "cf-ray": "a46dbd116bf212a2-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/models/status",
+    "status": 200,
+    "latency_ms": 1013.96,
+    "headers": {
+      "cf-ray": "a46dbd16dba6e185-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/stocks/RELIANCE.NS/ohlcv",
+    "status": 200,
+    "latency_ms": 1375.05,
+    "headers": {
+      "cf-ray": "a46dbd1ed97db684-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/stocks/RELIANCE.NS/moving-average",
+    "status": 200,
+    "latency_ms": 1079.56,
+    "headers": {
+      "cf-ray": "a46dbd273915ace6-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/predictions/RELIANCE.NS/predict?model=linear_regression&horizon=5",
+    "status": 200,
+    "latency_ms": 1147.29,
+    "headers": {
+      "cf-ray": "a46dbd2e099a61eb-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/predictions/RELIANCE.NS/best-model?horizon=5",
+    "status": 200,
+    "latency_ms": 958.18,
+    "headers": {
+      "cf-ray": "a46dbd33cb9e3391-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/stocks/M%26M.NS/ohlcv",
+    "status": 200,
+    "latency_ms": 921.06,
+    "headers": {
+      "cf-ray": "a46dbd39bd0061ee-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/stocks/M%26M.NS/moving-average",
+    "status": 200,
+    "latency_ms": 910.76,
+    "headers": {
+      "cf-ray": "a46dbd3f9f50708d-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/predictions/M%26M.NS/predict?model=linear_regression&horizon=5",
+    "status": 200,
+    "latency_ms": 617.26,
+    "headers": {
+      "cf-ray": "a46dbd44da16787a-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/predictions/M%26M.NS/best-model?horizon=5",
+    "status": 200,
+    "latency_ms": 704.82,
+    "headers": {
+      "cf-ray": "a46dbd48f836d893-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/stocks/AAPL/ohlcv",
+    "status": 200,
+    "latency_ms": 914.38,
+    "headers": {
+      "cf-ray": "a46dbd4d6c389104-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/stocks/AAPL/moving-average",
+    "status": 200,
+    "latency_ms": 763.17,
+    "headers": {
+      "cf-ray": "a46dbd52d90c73ab-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
+    "status": 200,
+    "latency_ms": 792.78,
+    "headers": {
+      "cf-ray": "a46dbd58ab5853a8-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/predictions/AAPL/best-model?horizon=5",
+    "status": 200,
+    "latency_ms": 604.27,
+    "headers": {
+      "cf-ray": "a46dbd5c7956531c-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/stocks/%5ENSEI/ohlcv",
+    "status": 200,
+    "latency_ms": 667.9,
+    "headers": {
+      "cf-ray": "a46dbd607fb8b24a-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/stocks/%5ENSEI/moving-average",
+    "status": 200,
+    "latency_ms": 714.06,
+    "headers": {
+      "cf-ray": "a46dbd645cab9104-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/predictions/%5ENSEI/predict?model=linear_regression&horizon=5",
+    "status": 200,
+    "latency_ms": 724.28,
+    "headers": {
+      "cf-ray": "a46dbd6988422cc5-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  },
+  {
+    "path": "/api/predictions/%5ENSEI/best-model?horizon=5",
+    "status": 200,
+    "latency_ms": 732.75,
+    "headers": {
+      "cf-ray": "a46dbd6de9bda3b8-MRS",
+      "server": "cloudflare",
+      "cf-mitigated": null,
+      "access-control-allow-origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev"
+    }
+  }
+]

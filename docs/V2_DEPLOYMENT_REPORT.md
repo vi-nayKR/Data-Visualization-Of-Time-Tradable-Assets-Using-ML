@@ -1,4 +1,4 @@
-# V2 + Aurora staged: production promotion awaiting live verification
+# V2 + Aurora staged: stopped at preview horizon readiness check
 
 Branch: feat/india-honest-forecasting, created from origin/main in a separate worktree. Attempted backend commit: 04776d6a1da37e8bde95a06c3c5d5ce303ed81b2. Restored to cb81aececbf7fb2feaa75cb034ea33bb52769987 after the public browser verification failed. Artifact training commit: 67a9517712587f949c646f38be50da3bc9345615. The Aurora worktree remains untouched at 8f1e21d2e9ecfb965473213d1f3377e3f8aae2d2.
 
@@ -142,3 +142,22 @@ Own command/test corrections this turn: compressed local static preview reflects
 
 
 Public unpromoted preview verification completed successfully: the same four routes/five viewports passed all 20 checks with API requests deliberately aborted, plus twelve India/US analysis/prediction/leaderboard flows at desktop/mobile. Evidence: aurora-preview-snapshot-checks.json and aurora-preview-both-markets.json. After screenshots show this public preview in snapshot mode. Production deployments list still showed 86fe882b at 100% after upload. These are snapshot checks only; normal Live-badge checks and actual backend stop/start are pending the narrow server approval above.
+
+
+## Approved restore and preview attempt: stopped before promotion
+
+The user approved restoring tested v2 and the training timer, with the production origin plus the exact stable Aurora preview origin in ALLOWED_ORIGINS. The server checked out 2fa850e8431b0790047b71a08bf5d91d038b7e07; the API restarted and the timer was enabled. The full origin smoke passed all required endpoints for RELIANCE.NS, M&M.NS, AAPL and ^NSEI, both markets, status and h=1. Cached origin predict p95 was 2.06 ms; API peak 212992000 bytes (203.1 MiB), MemAvailable 2961 MiB, swap zero. Cloudflared remained active with its unchanged config SHA. Existing Medha home, API health and admin returned 200; both SSH hosts worked. CI run 37639991263 passed on 2fa850e.
+
+External curl verified all required endpoints and exact preview ACAO (external-curl-aurora-v2.json). Wrangler whoami initially received a Cloudflare control-plane GET /user 502, then succeeded on retry for medhainnovation2026@gmail.com; this was not an origin API failure and no deployment command followed the failed authentication check.
+
+Preview browser live checks passed India analysis, prediction and leaderboard at 1366x768, including all eight baseline/model rows, forecast band and INR. The runner then timed out at scripts/check_browser_v2.cjs:100 waiting for +5 trading days after switching h=1 to h=5. Evidence saved before closing: browser-live-checks.json contains DOM/HTML, every API header and network/console state; screenshots-v2/live-failure-1366.png captures the page.
+
+The captured page shows Live, the 5-day control/summary and the chart label +5 trading days. Both h=1 and h=5 API requests returned 200 with the exact preview CORS origin; recorded console errors, failed requests and 404 lists are empty. Source confirms the runner passes a chart ElementHandle into waitForFunction at line 100, while prediction.component.ts destroys/recreates the chart under its loading conditional on horizon changes. The wait can retain the previous detached chart although the current DOM is correct. This is a runner readiness defect; no confirmed backend/data failure was found. The proposed smallest fix is to query the current prediction chart inside each horizon wait, assert the requested tick label and keep the strong horizon checks.
+
+Under the user's failed-live-verification stop rule, no retry, promotion or PR creation followed. Public API health remained 200 and cloudflared/API/training timer were active, so the API-break rollback condition did not occur. Backend remains v2; production Worker remains 86fe882b; uploaded Aurora version remains fb2ff6a7, unpromoted. Preview-origin cleanup is pending successful promotion as instructed.
+
+Current ALLOWED_ORIGINS (temporary, not final): https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev,https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev
+
+Pending final ALLOWED_ORIGINS after verified promotion: https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev
+
+Rollback commands remain: npx.cmd --yes wrangler@4.148.0 rollback 86fe882b-273e-440c-bf9b-111f47690ddb --yes (frontend); ssh medha-storage "sudo bash /var/lib/stock-api-deploy/rollback-v2.sh --v2" (API). No WAF, tunnel or firewall change occurred.

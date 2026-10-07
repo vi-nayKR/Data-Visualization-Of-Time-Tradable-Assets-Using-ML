@@ -33,9 +33,11 @@ docs/aurora-preview-both-markets.json
 docs/aurora-preview-snapshot-checks.json
 docs/browser-api-protection-investigation.json
 docs/browser-api-protection-version-63ff45ee.json
+docs/browser-live-checks.json
 docs/browser-offline-checks.json
 docs/curl-api-protection-comparison.json
 docs/dropdown-service-down-evidence.json
+docs/external-curl-aurora-v2.json
 docs/external-endpoint-checks.txt
 docs/leaderboard-timing-evidence.json
 docs/lighthouse-aurora-home.report.html
@@ -47,6 +49,7 @@ docs/screenshots-v2/diagnostic-headed-chrome-restored.png
 docs/screenshots-v2/diagnostic-headed-chrome-version-63ff45ee.png
 docs/screenshots-v2/diagnostic-headless-restored.png
 docs/screenshots-v2/diagnostic-headless-version-63ff45ee.png
+docs/screenshots-v2/live-failure-1366.png
 docs/screenshots-v2/live-in-analysis-1366.png
 docs/screenshots-v2/live-in-analysis-390.png
 docs/screenshots-v2/live-in-best-analysis-1366.png
