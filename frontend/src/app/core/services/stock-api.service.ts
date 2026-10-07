@@ -16,7 +16,7 @@ export class StockApiService {
   private manifest?: Promise<{ generated_at: string }>;
 
   sourceLabel(scope: string): string {
-    return this.sources()[scope] === 'snapshot' ? `Snapshot Â· ${this.generatedAt()}` : 'Live';
+    return this.sources()[scope] === 'snapshot' ? `Snapshot · ${this.generatedAt()}` : 'Live';
   }
 
   private async request<T>(path: string, snapshotPath: string, scope: string): Promise<T> {
