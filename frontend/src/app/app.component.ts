@@ -28,6 +28,6 @@ import { TickerPickerComponent } from './shared/ticker-picker';
 })
 export class AppComponent implements OnInit {
   api = inject(StockApiService);
-  links = [{path:'/',label:'Overview'},{path:'/analysis',label:'Analysis'},{path:'/prediction',label:'Prediction'},{path:'/best-analysis',label:'Best model'}];
+  links = [{path:'/',label:'Overview'},{path:'/analysis',label:'Analysis'},{path:'/prediction',label:'Prediction'},{path:'/best-analysis',label:'Compare models'}];
   ngOnInit() { this.api.loadCompanies(); this.api.loadModelStatus(); }
 }

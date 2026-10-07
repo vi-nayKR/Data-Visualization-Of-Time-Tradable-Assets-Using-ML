@@ -1,0 +1,23 @@
+[
+  {
+    "model": "linear_regression",
+    "forecastReturn": 0.01,
+    "testSkill": "doesn't beat the naive baseline on test, −26%",
+    "directionalAccuracy": "0.0% (0.0%–6.0%)",
+    "errors": []
+  },
+  {
+    "model": "naive",
+    "forecastReturn": 0,
+    "testSkill": "matches the naive baseline on test, 0%",
+    "directionalAccuracy": "N/A",
+    "errors": []
+  },
+  {
+    "model": "linear_regression",
+    "forecastReturn": 0,
+    "testSkill": "doesn't beat the naive baseline on test, −26%",
+    "directionalAccuracy": "N/A",
+    "errors": []
+  }
+]

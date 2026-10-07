@@ -1,4 +1,5 @@
 .github/workflows/ci.yml
+README.md
 backend/app/data/markets.json
 backend/app/data/nifty50-source.csv
 backend/app/data/tickers_in.json
@@ -45,7 +46,10 @@ docs/curl-api-protection-comparison.json
 docs/dropdown-service-down-evidence.json
 docs/external-curl-aurora-v2.json
 docs/external-endpoint-checks.txt
+docs/fb2ff6a7-asset-verification.json
+docs/fb2ff6a7-local-asset-hashes.json
 docs/final-production-cors-health.json
+docs/forecast-label-ui-checks.json
 docs/leaderboard-timing-evidence.json
 docs/lighthouse-aurora-home.report.html
 docs/lighthouse-aurora-home.report.json
@@ -56,6 +60,9 @@ docs/screenshots-v2/diagnostic-headed-chrome-restored.png
 docs/screenshots-v2/diagnostic-headed-chrome-version-63ff45ee.png
 docs/screenshots-v2/diagnostic-headless-restored.png
 docs/screenshots-v2/diagnostic-headless-version-63ff45ee.png
+docs/screenshots-v2/forecast-label-linear_regression-0.01.png
+docs/screenshots-v2/forecast-label-linear_regression-0.png
+docs/screenshots-v2/forecast-label-naive-0.png
 docs/screenshots-v2/live-failure-1366.png
 docs/screenshots-v2/live-in-analysis-1366.png
 docs/screenshots-v2/live-in-analysis-390.png
@@ -892,6 +899,7 @@ frontend/src/app/features/home/home.component.ts
 frontend/src/app/features/prediction/prediction-chart.component.ts
 frontend/src/app/features/prediction/prediction.component.ts
 frontend/src/app/shared/aurora-chart.ts
+frontend/src/app/shared/forecast-labels.ts
 frontend/src/app/shared/metrics-table.component.ts
 frontend/src/app/shared/ticker-picker.ts
 frontend/src/app/shared/ui.ts
@@ -902,6 +910,9 @@ scripts/check_api_v2.py
 scripts/check_aurora_ui.cjs
 scripts/check_backend_shadowing.py
 scripts/check_browser_v2.cjs
+scripts/check_build_assets.cjs
+scripts/check_forecast_labels.cjs
+scripts/check_forecast_ui.cjs
 scripts/check_leaderboard_timing.cjs
 scripts/check_predictions.py
 scripts/check_service_down_v2.cjs

@@ -33,6 +33,12 @@ jobs:
       - name: Ticker snapshot path mapping
         run: node scripts/check_ticker_paths.cjs
 
+      - name: Honest forecast labels
+        run: node scripts/check_forecast_labels.cjs
+
+      - name: Complete snapshot in deploy assets
+        run: node scripts/check_build_assets.cjs
+
   build-backend:
     name: Test Backend (FastAPI & PyTorch)
     runs-on: ubuntu-latest

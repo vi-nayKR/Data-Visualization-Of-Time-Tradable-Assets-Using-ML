@@ -1,0 +1,12 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const ts=require('../frontend/node_modules/typescript');
+const source=fs.readFileSync('frontend/src/app/shared/forecast-labels.ts','utf8');
+const compiled=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText;
+const exported={};vm.runInNewContext(compiled,{exports:exported});
+assert.equal(exported.testSkillLabel(-.26),"doesn't beat the naive baseline on test, \u221226%");
+assert.equal(exported.testSkillLabel(.26),'beats the naive baseline on test, 26%');
+assert.equal(exported.testSkillLabel(0),'matches the naive baseline on test, 0%');
+assert.equal(exported.testSkillLabel(-0),'matches the naive baseline on test, 0%');
+assert.equal(exported.testSkillLabel(null),'Test skill vs naive: N/A');
+for(const [model,value,direction] of [['naive',0,false],['naive',.1,false],['linear_regression',0,false],['svr',-0,false],['linear_regression',.1,true],['linear_regression',-.1,true],['svr',NaN,false],['svr',Infinity,false]])assert.equal(exported.hasForecastDirection(model,value),direction);
+console.log('Forecast labels passed: negative/positive/missing skill and naive/zero/nonzero directions');
