@@ -11,6 +11,9 @@ import { PredictionChartComponent } from '../prediction/prediction-chart.compone
   imports: [CommonModule, ModelCardComponent, PredictionChartComponent],
   template: `
     <div class="flex flex-col h-full bg-[var(--color-void)] text-[var(--color-frost)] overflow-y-auto transition-colors duration-300">
+    <div role="status" class="px-3 py-1 text-xs bg-[var(--color-surface)] text-[var(--color-frost)]">
+      {{ api.sourceLabel('best') }} · Not financial advice
+    </div>
       
       <!-- SUB-HEADER: BENCHMARK TITLE & WINNER SUMMARY -->
       <div class="p-3 sm:p-4 border-b border-[var(--color-border)] bg-[var(--color-surface)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 flex-shrink-0 transition-colors duration-300">

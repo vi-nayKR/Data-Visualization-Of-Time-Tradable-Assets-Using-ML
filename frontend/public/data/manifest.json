@@ -1,0 +1,1 @@
+{"generated_at":"2026-10-07T07:56:31.062257+00:00","tickers":["AAPL","MSFT","AMZN","GOOGL","META","TSLA","NVDA"],"models":["linear_regression","tree","svr","rbf","lstm"],"failed_tickers":{},"period":"180d","ma_days":50}

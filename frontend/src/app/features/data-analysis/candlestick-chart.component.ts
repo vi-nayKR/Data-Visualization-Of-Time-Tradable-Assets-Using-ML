@@ -30,6 +30,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
 
   private touchStartDistance = 0;
   private resizeObserver?: ResizeObserver;
+  private chartReady = false;
 
   constructor() {
     // Render chart on data/indicator/theme changes
@@ -142,7 +143,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
   }
 
   private applyDrawingTool(tool: string) {
-    if (!this.chartContainer?.nativeElement) return;
+    if (!this.chartReady || !this.chartContainer?.nativeElement) return;
     const el = this.chartContainer.nativeElement;
     const accent = this.api.isDarkMode() ? '#ff6b00' : '#ea580c';
 
@@ -482,6 +483,10 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
       showTips: false
     };
 
-    Plotly.react(this.chartContainer.nativeElement, traces, layout, config);
+    this.chartReady = false;
+    Plotly.react(this.chartContainer.nativeElement, traces, layout, config).then(() => {
+      this.chartReady = true;
+      this.applyDrawingTool(this.api.activeDrawingTool());
+    });
   }
 }

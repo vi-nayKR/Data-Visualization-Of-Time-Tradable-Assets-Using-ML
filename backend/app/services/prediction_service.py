@@ -14,7 +14,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-PRED_CACHE_TTL = 300.0  # 5 minutes for heavy machine learning predictions
+PRED_CACHE_TTL = 1800.0  # 30 minutes for heavy machine learning predictions
+torch.set_num_threads(2)
 
 class PredictionService:
     def __init__(self):
@@ -76,7 +77,7 @@ class PredictionService:
             model_name = "Linear Regression"
 
         elif model_type in ["tree", "decision_tree", "Tree Prediction"]:
-            model = DecisionTreeRegressor().fit(x_train, y_train)
+            model = DecisionTreeRegressor(random_state=42).fit(x_train, y_train)
             confidence = model.score(x_test, y_test)
             raw_predictions = model.predict(x_future)
             model_name = "Decision Tree"
@@ -129,6 +130,8 @@ class PredictionService:
         return result
 
     def _train_lstm(self, scaled_data: np.ndarray, scaler: MinMaxScaler) -> Dict[str, Any]:
+        np.random.seed(42)
+        torch.manual_seed(42)
         data = scaled_data.reshape(-1, 1)
         train_size = int(len(data) * 0.75)
         train_data = data[:train_size]
