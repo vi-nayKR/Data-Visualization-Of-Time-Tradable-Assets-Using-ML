@@ -33,7 +33,7 @@ import { CandlestickChartComponent } from './candlestick-chart.component';
                     class="hover:opacity-80 ml-0.5 p-0.5" title="Toggle SMA">
               @if (showMA()) {
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z"></path>
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                   <circle cx="12" cy="12" r="3"></circle>
                 </svg>
               } @else {
