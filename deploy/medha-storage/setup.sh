@@ -2,6 +2,10 @@
 set -euo pipefail
 test "$(id -u)" = 0
 ref=${1:-fix/medha-stock-api}
+if ! dpkg -s python3.13-venv 2>/dev/null | grep -q '^Status: install ok installed$'; then
+  apt-get install -y --no-install-recommends python3.13-venv
+fi
+systemctl is-active --quiet cloudflared
 id stockapi >/dev/null 2>&1 || useradd --system --home-dir /opt/stock-api --shell /usr/sbin/nologin stockapi
 install -d /opt/stock-api
 install -d -o stockapi -g stockapi /var/cache/stock-api
