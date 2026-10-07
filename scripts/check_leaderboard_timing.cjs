@@ -30,7 +30,7 @@ assert(chunk,'Build the frontend first');
   await picker.fill('M&M.NS');await picker.press('Tab');
   await page.waitForLoadState('networkidle');
   await page.waitForFunction(()=>{document.querySelector('app-prediction .chart-frame')?.scrollIntoView({block:'center'});return !!document.querySelector('app-prediction .js-plotly-plot')?._fullLayout;});
-  await page.getByRole('link',{name:'Best model',exact:true}).click();
+  await page.getByRole('link',{name:'Compare models',exact:true}).click();
   await page.waitForLoadState('networkidle');
   await page.getByRole('status').filter({hasText:'Live'}).first().waitFor();
   await page.waitForFunction(()=>[...document.querySelectorAll('.js-plotly-plot')].some(el=>el._fullLayout&&el.data?.length));

@@ -16,7 +16,7 @@ import { UI } from '../../shared/ui';
 <p class="chart-caption">Data as of {{result.as_of}} &middot; trained {{result.trained_at | date:'short'}}. The naive line keeps the last price unchanged.</p>
 }@else{<div class="empty-state"><h2>No forecast available</h2><button uiButton (click)="fetchPrediction(api.selectedTicker(),selectedModel())">Retry</button></div>}
 </section>
-@if(!loading()&&!error()){ @if(response();as result){<section uiCard class="metrics-panel"><div class="panel-heading"><div><p class="eyebrow">// MODEL RESULTS</p><h2>Held-out evaluation</h2></div><p>Positive skill beats the naive baseline.</p></div><app-metrics-table [metrics]="result.metrics" [currency]="result.currency" /></section>} }
+@if(!loading()&&!error()){ @if(response();as result){<section uiCard class="metrics-panel"><div class="panel-heading"><div><p class="eyebrow">// MODEL RESULTS</p><h2>Held-out evaluation</h2></div><p>Positive skill beats the naive baseline.</p></div><app-metrics-table [metrics]="result.metrics" [currency]="result.currency" [modelName]="result.model" [forecastReturn]="result.forecast.return" /></section>} }
 `})
 export class PredictionComponent {
   api = inject(StockApiService);

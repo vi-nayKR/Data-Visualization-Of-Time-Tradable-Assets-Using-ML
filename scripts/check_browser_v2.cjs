@@ -58,7 +58,7 @@ const api = 'https://stock-api.medhainnovation.com/';
           await page.waitForLoadState('networkidle');
         }
         for (const route of ['analysis','prediction','best-analysis']) {
-          await page.getByRole('link',{name:route==='analysis'?'Analysis':route==='prediction'?'Prediction':'Best model',exact:true}).click();
+          await page.getByRole('link',{name:route==='analysis'?'Analysis':route==='prediction'?'Prediction':'Compare models',exact:true}).click();
           await page.waitForLoadState('networkidle');
           const content=page.locator(route==='analysis'?'app-data-analysis':route==='prediction'?'app-prediction':'app-best-analysis');
           await content.waitFor();
