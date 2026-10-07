@@ -24,26 +24,26 @@ const site=process.env.STOCK_SITE||'http://127.0.0.1:4200',api='https://stock-ap
   await page.goto(`${site}/prediction`,{waitUntil:delayedInitialUS?'domcontentloaded':'networkidle'});
   if(delayedInitialUS)await blocked;
   await page.getByRole('button',{name:'India (NSE)',exact:true}).click();
-  const picker=page.getByRole('button',{name:'Select market asset',exact:true});
-  await picker.filter({hasText:'ADANIENT.NS'}).waitFor();
+  const picker=page.getByRole('combobox',{name:'Search asset by ticker or company'});
+  await page.locator('datalist option[value="ADANIENT.NS"]').waitFor({state:'attached'});
   if(delayedInitialUS){
    const responsePromise=page.waitForResponse(r=>r.url().endsWith('/data/companies-us.json'));
    releaseUS();
    const response=await responsePromise;await response.finished();
    await page.waitForLoadState('networkidle');
-   assert.match(await picker.innerText(),/ADANIENT.NS/,'Obsolete US response must not replace the India catalog');
+   assert.match(await picker.inputValue(),/ADANIENT.NS/,'Obsolete US response must not replace the India catalog');
   }
   for(const ticker of ['RELIANCE.NS','M&M.NS']){
    await page.waitForLoadState('networkidle');
-   await picker.click();
-   await page.getByPlaceholder('Search symbol or company (e.g. AAPL, TSLA)...').fill(ticker);
+   await picker.fill(ticker);
    const selection={ticker,domBefore:await page.locator('body').innerText()};state.selections.push(selection);
    const encoded=encodeURIComponent(ticker),predictionPath=`/data/predictions/${encoded}/predict/linear_regression/h5.json`;
    const responsePromise=page.waitForResponse(r=>r.url().endsWith(predictionPath)&&r.status()===200);
-   await page.locator('header').getByText(ticker,{exact:true}).click();
+   await picker.press('Tab');
    const response=await responsePromise,json=JSON.parse(fs.readFileSync(path.join('frontend/public/data/predictions',ticker,'predict/linear_regression/h5.json'),'utf8'));
    assert.equal(response.url(),site+predictionPath);
    assert.equal(json.ticker,ticker);
+   await page.waitForFunction(()=>{document.querySelector('app-prediction .chart-frame')?.scrollIntoView({block:'center'});return !!document.querySelector('app-prediction .js-plotly-plot')?._fullLayout;});
    const chart=page.locator('app-prediction .js-plotly-plot');await chart.waitFor();
    await page.waitForFunction(([el,price])=>el._fullLayout&&el.data?.find(t=>t.name==='linear_regression forecast')?.y.at(-1)===price,[await chart.elementHandle(),json.forecast.price]);
    await page.locator('app-prediction').getByRole('status').filter({hasText:'Snapshot'}).first().waitFor();

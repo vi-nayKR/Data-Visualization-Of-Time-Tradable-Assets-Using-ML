@@ -8,13 +8,24 @@ const fallback = mode === 'offline' || mode === 'service-down';
 const api = 'https://stock-api.medhainnovation.com/';
 
 (async () => {
-  const browser = await chromium.launch({headless:true});
+  const browser = await chromium.launch(process.env.STOCK_HEADED==='1'?{headless:false,channel:'chrome'}:{headless:true});
+  const evidence=[];
   fs.mkdirSync('docs/screenshots-v2', {recursive:true});
   try {
     for (const viewport of [{width:1366,height:768},{width:390,height:844}]) {
       if(process.env.STOCK_TEST_WIDTH && viewport.width!==Number(process.env.STOCK_TEST_WIDTH))continue;
       const page = await browser.newPage({viewport});
       const errors=[], missing=[], network=[], snapshots=[], failed=[];
+      const record={viewport,errors,missing,network,snapshots,failed,apiResponses:[]};evidence.push(record);
+      const session=await page.context().newCDPSession(page),requestURLs=new Map();
+      await session.send('Network.enable');
+      session.on('Network.requestWillBeSent',e=>requestURLs.set(e.requestId,e.request.url));
+      session.on('Network.responseReceivedExtraInfo',e=>{
+        const url=requestURLs.get(e.requestId);if(!url?.startsWith(api))return;
+        const h=Object.fromEntries(Object.entries(e.headers).map(([k,v])=>[k.toLowerCase(),v]));
+        record.apiResponses.push({url,status:e.statusCode,headers:{'cf-ray':h['cf-ray']||null,'cf-mitigated':h['cf-mitigated']||null,server:h.server||null,'access-control-allow-origin':h['access-control-allow-origin']||null}});
+      });
+      page.on('close',()=>record.closed=true);
       page.on('pageerror', error=>errors.push(error.message));
       page.on('console', message=>{
         if(message.type()!=='error')return;
@@ -40,15 +51,14 @@ const api = 'https://stock-api.medhainnovation.com/';
         if(mode==='live')await page.waitForTimeout(65000);
         await page.getByRole('button',{name:market==='in'?'India (NSE)':'United States',exact:true}).click();
         await page.waitForLoadState('networkidle');
-        await page.getByRole('button',{name:'Select market asset',exact:true}).filter({hasText:market==='in'?'ADANIENT.NS':'AAPL'}).waitFor();
+        await page.locator(`datalist option[value="${market==='in'?'ADANIENT.NS':'AAPL'}"]`).waitFor({state:'attached'});
         if(market==='in') {
-          await page.getByRole('button',{name:'Select market asset',exact:true}).click();
-          await page.getByPlaceholder('Search symbol or company (e.g. AAPL, TSLA)...').fill('M&M.NS');
-          await page.locator('header').getByText('M&M.NS',{exact:true}).click();
+          const picker=page.getByRole('combobox',{name:'Search asset by ticker or company'});
+          await picker.fill('M&M.NS');await picker.press('Tab');
           await page.waitForLoadState('networkidle');
         }
         for (const route of ['analysis','prediction','best-analysis']) {
-          await page.getByRole('link',{name:route==='analysis'?'SuperChart':route==='prediction'?'ML Forecasts':'Strategy Leaderboard',exact:true}).click();
+          await page.getByRole('link',{name:route==='analysis'?'Analysis':route==='prediction'?'Prediction':'Best model',exact:true}).click();
           await page.waitForLoadState('networkidle');
           const content=page.locator(route==='analysis'?'app-data-analysis':route==='prediction'?'app-prediction':'app-best-analysis');
           await content.waitFor();
@@ -60,6 +70,7 @@ const api = 'https://stock-api.medhainnovation.com/';
           }
           const badge=page.getByRole('status').filter({hasText:fallback?'Snapshot':'Live'});
           await badge.first().waitFor({timeout:25000});
+          await page.waitForFunction(selector=>{document.querySelector(`${selector} .chart-frame`)?.scrollIntoView({block:'center'});return !!document.querySelector(`${selector} .js-plotly-plot`)?._fullLayout;},route==='analysis'?'app-data-analysis':route==='prediction'?'app-prediction':'app-best-analysis');
           await content.locator('.js-plotly-plot').first().waitFor();
           await page.waitForFunction(el=>el._fullLayout && el.data?.length,await content.locator('.js-plotly-plot').first().elementHandle());
           const text=await page.locator('body').innerText();
@@ -75,10 +86,11 @@ const api = 'https://stock-api.medhainnovation.com/';
           await page.screenshot({path:`docs/screenshots-v2/${mode}-${market}-${route}-${viewport.width}.png`,fullPage:true});
           console.log(`PASS ${mode} ${market} ${route} ${viewport.width}`);
         }
-        await page.getByRole('link',{name:'ML Forecasts',exact:true}).click();
+        await page.getByRole('link',{name:'Prediction',exact:true}).click();
         const prediction=page.locator('app-prediction');
         await prediction.locator('app-metrics-table').waitFor();
         const forecastChart=prediction.locator('.js-plotly-plot').first();
+        await page.waitForFunction(()=>{document.querySelector('app-prediction .chart-frame')?.scrollIntoView({block:'center'});return !!document.querySelector('app-prediction .js-plotly-plot')?._fullLayout;});
         await forecastChart.waitFor();
         if(mode==='live') {
           await Promise.all([page.waitForResponse(response=>response.url().includes('/predict?')&&response.url().includes('horizon=1')&&response.status()===200),prediction.getByRole('button',{name:'1 trading day',exact:true}).click()]);
@@ -105,7 +117,12 @@ const api = 'https://stock-api.medhainnovation.com/';
       await page.close();
     }
   } finally {
-    for(const context of browser.contexts())for(const page of context.pages())await page.unrouteAll({behavior:'ignoreErrors'});
+    for(const context of browser.contexts())for(const page of context.pages()){
+      const record=evidence.find(e=>!e.closed);
+      if(record){record.url=page.url();record.dom=await page.locator('body').innerText().catch(()=>null);record.html=await page.content().catch(()=>null);await page.screenshot({path:`docs/screenshots-v2/${mode}-failure-${record.viewport.width}.png`,fullPage:true}).catch(()=>{});}
+      await page.unrouteAll({behavior:'ignoreErrors'});
+    }
     await browser.close();
+    fs.writeFileSync(`docs/browser-${mode}-checks.json`,JSON.stringify(evidence,null,2));
   }
 })().catch(error=>{console.error(error);process.exitCode=1;});
