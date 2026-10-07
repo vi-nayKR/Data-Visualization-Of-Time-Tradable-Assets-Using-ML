@@ -17,7 +17,7 @@ const api = 'https://stock-api.medhainnovation.com/';
       page.on('pageerror', error=>errors.push(error.message));
       page.on('console', message=>{
         if(message.type()!=='error')return;
-        const expected = fallback && message.location().url.startsWith(api) && (message.text().startsWith('Failed to load resource') || message.text().includes('CORS policy'));
+        const expected = fallback && ((message.location().url.startsWith(api) && message.text().startsWith('Failed to load resource')) || (message.text().includes(api) && message.text().includes('CORS policy')));
         if(!expected)errors.push(message.text());
       });
       page.on('response', response=>{if(response.status()===404)missing.push(response.url());});
@@ -71,6 +71,12 @@ const api = 'https://stock-api.medhainnovation.com/';
           assert.match(await page.locator('.js-plotly-plot').first().evaluate(el=>JSON.stringify(el.layout.xaxis.ticktext)),/1 trading days/);
           await page.getByRole('button',{name:'5 trading days',exact:true}).click();
           await page.waitForLoadState('networkidle');
+        }
+        if(fallback) {
+          await page.getByRole('link',{name:'ML Forecasts',exact:true}).click();
+          await page.getByRole('button',{name:'1 trading day',exact:true}).click();
+          await page.waitForFunction(()=>document.querySelector('[aria-label="Forecast horizon"] button[aria-pressed="true"]')?.textContent?.includes('5 trading days'));
+          await page.getByRole('status').filter({hasText:'Snapshot'}).first().waitFor();
         }
       }
       assert(network.length>0);
