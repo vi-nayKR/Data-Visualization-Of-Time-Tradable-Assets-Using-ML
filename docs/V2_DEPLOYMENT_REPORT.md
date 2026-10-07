@@ -1,4 +1,4 @@
-# V2 + Aurora staged: stopped at preview horizon readiness check
+# V2 + Aurora: preview verified, promotion pending Wrangler login
 
 Branch: feat/india-honest-forecasting, created from origin/main in a separate worktree. Attempted backend commit: 04776d6a1da37e8bde95a06c3c5d5ce303ed81b2. Restored to cb81aececbf7fb2feaa75cb034ea33bb52769987 after the public browser verification failed. Artifact training commit: 67a9517712587f949c646f38be50da3bc9345615. The Aurora worktree remains untouched at 8f1e21d2e9ecfb965473213d1f3377e3f8aae2d2.
 
@@ -161,3 +161,14 @@ Current ALLOWED_ORIGINS (temporary, not final): https://data-visualization-of-ti
 Pending final ALLOWED_ORIGINS after verified promotion: https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev
 
 Rollback commands remain: npx.cmd --yes wrangler@4.148.0 rollback 86fe882b-273e-440c-bf9b-111f47690ddb --yes (frontend); ssh medha-storage "sudo bash /var/lib/stock-api-deploy/rollback-v2.sh --v2" (API). No WAF, tunnel or firewall change occurred.
+
+
+## Approved runner fix and successful preview verification
+
+The user approved the runner fix and deployment retry. Commit ea7e5fa changes only the two horizon waits to query the current prediction chart each poll, scrolling the reserved frame into view and retaining exact +1/+5 trading-day assertions. No application code changed. CI run 37641491578 passed.
+
+All twelve normal Live preview flows passed for India/US at 1366x768 and 390x844: charts, forecast bands, naive line, all eight leaderboard rows, native currency and both horizons. Console errors, 404 responses and failed requests were empty. Evidence: browser-preview-live-checks.json. This successful retry supports the detached-handle readiness diagnosis from the prior captured correct DOM; browser-preview-horizon-failure.json preserves the original failure.
+
+Actual service-down preview verification also passed all twelve flows for both markets and both widths. Only stock-api was stopped, with a stock-api-prefixed 600-second recovery timer; external health was 502, cloudflared remained active, saved data/encoded M&M.NS charts and Snapshot badges rendered. Cleanup explicitly restarted stock-api, stopped the recovery timer and checked markets plus health; external health returned 200. Evidence: browser-preview-service-down-checks.json and service-down screenshots. V2 and the nightly training timer remain active.
+
+Promotion did not run: Wrangler's previously working OAuth config was no longer present when versions deploy was attempted, and whoami then reported unauthenticated. Login was reopened for medhainnovation2026. No claim is made about why the credential file disappeared. Production Worker remains 86fe882b until authentication succeeds and the already-verified fb2ff6a7 version is promoted. A local evidence-copy command initially used frontend/ as its working directory; it was corrected from the repo root under standing approval. No server change resulted from that command error.
