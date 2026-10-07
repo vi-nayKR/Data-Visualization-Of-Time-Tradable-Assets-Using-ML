@@ -1,0 +1,62 @@
+[
+    {
+        "url":  "https://stock-api.medhainnovation.com/api/markets",
+        "status":  "HTTP/1.1 404 Not Found",
+        "headers":  {
+                        "cf-mitigated":  null,
+                        "server":  "cloudflare",
+                        "cf-ray":  "a46d72ef29c8129a-MRS",
+                        "access-control-allow-origin":  null
+                    }
+    },
+    {
+        "url":  "https://stock-api.medhainnovation.com/api/models/status",
+        "status":  "HTTP/1.1 404 Not Found",
+        "headers":  {
+                        "cf-mitigated":  null,
+                        "server":  "cloudflare",
+                        "cf-ray":  "a46d72f37fd0e200-MRS",
+                        "access-control-allow-origin":  null
+                    }
+    },
+    {
+        "url":  "https://stock-api.medhainnovation.com/api/companies/?market=in",
+        "status":  "HTTP/1.1 200 OK",
+        "headers":  {
+                        "cf-mitigated":  null,
+                        "server":  "cloudflare",
+                        "cf-ray":  "a46d72f75c38b684-MRS",
+                        "access-control-allow-origin":  null
+                    }
+    },
+    {
+        "url":  "https://stock-api.medhainnovation.com/api/companies/?market=us",
+        "status":  "HTTP/1.1 200 OK",
+        "headers":  {
+                        "cf-mitigated":  null,
+                        "server":  "cloudflare",
+                        "cf-ray":  "a46d72fcd900e1c5-MRS",
+                        "access-control-allow-origin":  null
+                    }
+    },
+    {
+        "url":  "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
+        "status":  "HTTP/1.1 200 OK",
+        "headers":  {
+                        "cf-mitigated":  null,
+                        "server":  "cloudflare",
+                        "cf-ray":  "a46d73024e2d3d70-MRS",
+                        "access-control-allow-origin":  null
+                    }
+    },
+    {
+        "url":  "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression\u0026horizon=5",
+        "status":  "HTTP/1.1 200 OK",
+        "headers":  {
+                        "cf-mitigated":  null,
+                        "server":  "cloudflare",
+                        "cf-ray":  "a46d7306ae1444c2-MRS",
+                        "access-control-allow-origin":  null
+                    }
+    }
+]

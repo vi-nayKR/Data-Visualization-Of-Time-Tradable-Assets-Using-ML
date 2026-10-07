@@ -23,7 +23,7 @@ NoNewPrivileges=yes
 PrivateTmp=yes
 ProtectSystem=strict
 ProtectHome=yes
-ReadWritePaths=/var/cache/stock-api
+ReadWritePaths=/var/cache/stock-api /var/lib/stock-api/models
 
 [Install]
 WantedBy=multi-user.target

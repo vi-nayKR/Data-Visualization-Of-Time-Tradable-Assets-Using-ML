@@ -1,0 +1,25 @@
+[Unit]
+Description=Offline market forecasting (CPU only)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=stockapi
+WorkingDirectory=/opt/stock-api/app/backend
+ExecStart=/opt/stock-api/venv/bin/python -m app.ml.train_all
+Environment=XDG_CACHE_HOME=/var/cache/stock-api
+Environment=OMP_NUM_THREADS=2
+Environment=OPENBLAS_NUM_THREADS=2
+Environment=MKL_NUM_THREADS=2
+Environment=PYTHONDONTWRITEBYTECODE=1
+Nice=10
+MemoryMax=1200M
+MemorySwapMax=0
+CPUQuota=150%
+TimeoutStartSec=45min
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/cache/stock-api /var/lib/stock-api/models

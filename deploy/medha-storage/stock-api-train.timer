@@ -1,0 +1,10 @@
+[Unit]
+Description=Train after NSE and NYSE daily closes
+
+[Timer]
+OnCalendar=*-*-* 03:00:00 Asia/Kolkata
+Persistent=true
+Unit=stock-api-train.service
+
+[Install]
+WantedBy=timers.target

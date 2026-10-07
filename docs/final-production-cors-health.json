@@ -1,0 +1,26 @@
+[
+  {
+    "origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev",
+    "status": 200,
+    "allow_origin": "https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev",
+    "cf_ray": "a46dddfac8bfa65d-MRS"
+  },
+  {
+    "origin": "https://aurora-v2-data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev",
+    "status": 200,
+    "allow_origin": null,
+    "cf_ray": "a46dddffcf2cf9b5-MRS"
+  },
+  {
+    "url": "https://medhainnovation.com",
+    "status": 200
+  },
+  {
+    "url": "https://api.medhainnovation.com/health",
+    "status": 200
+  },
+  {
+    "url": "https://admin.medhainnovation.com",
+    "status": 200
+  }
+]

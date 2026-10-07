@@ -16,9 +16,7 @@
             "outputPath": "dist/stock-dashboard",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": [],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -28,9 +26,8 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/plotly.js-dist-min/plotly.min.js"
-            ]
+            "scripts": [],
+            "allowedCommonJsDependencies": ["plotly.js-dist-min"]
           },
           "configurations": {
             "production": {

@@ -4,6 +4,7 @@ import numpy as np
 import time
 from typing import List, Dict, Any, Optional
 from app.core.cache import stock_cache
+from app.services.market_data import cached
 
 # TTL in seconds for OHLCV and indicator cache
 STOCK_CACHE_TTL = 180.0 # 3 minutes
@@ -13,17 +14,28 @@ class StockService:
         """Downloads historical OHLCV data with in-memory TTL caching."""
         cache_key = f"HIST_{ticker.upper()}_{period}"
         
-        cached = stock_cache.get(cache_key)
-        if cached is not None:
-            return cached
+        cached_records = stock_cache.get(cache_key)
+        if cached_records is not None:
+            return cached_records
 
-        data = yf.download(tickers=ticker, period=period, interval='1d', auto_adjust=False, progress=False)
-        if data is None or data.empty:
+        try:
+            data = cached(ticker)
+        except FileNotFoundError:
             return []
-            
-        if isinstance(data.columns, pd.MultiIndex):
-            data.columns = data.columns.droplevel(1)
-            
+        if period.endswith("d") and period[:-1].isdigit():
+            days = int(period[:-1])
+            data = data.loc[data.index >= data.index[-1] - pd.Timedelta(days=days)]
+        elif period.endswith("mo") and period[:-2].isdigit():
+            data = data.loc[data.index >= data.index[-1] - pd.DateOffset(months=int(period[:-2]))]
+        elif period.endswith("y") and period[:-1].isdigit():
+            data = data.loc[data.index >= data.index[-1] - pd.DateOffset(years=int(period[:-1]))]
+        elif period == "ytd":
+            data = data.loc[data.index.year == data.index[-1].year]
+        elif period != "max":
+            return []
+        if data.empty:
+            return []
+
         data.dropna(inplace=True)
         if data.empty:
             return []
@@ -60,9 +72,9 @@ class StockService:
     def get_with_technical_indicators(self, ticker: str, ma_days: int = 50, period: str = "180d") -> List[Dict[str, Any]]:
         """Calculates SMA, EMA, RSI(14), MACD(12,26,9), and Bollinger Bands with TTL caching."""
         cache_key = f"TECH_{ticker.upper()}_{ma_days}_{period}"
-        cached = stock_cache.get(cache_key)
-        if cached is not None:
-            return cached
+        cached_records = stock_cache.get(cache_key)
+        if cached_records is not None:
+            return cached_records
 
         records = [dict(r) for r in self.get_historical_data(ticker, period=period)]
         if not records or len(records) < 5:

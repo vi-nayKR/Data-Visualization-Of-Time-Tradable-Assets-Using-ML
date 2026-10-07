@@ -2,7 +2,8 @@ import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom, timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Company, OHLCVRecord, PredictionResponse, BestModelResponse, Timeframe, ChartType } from '../models/stock.model';
+import { tickerResourcePath } from './ticker-path';
+import { ModelStatus, Company, OHLCVRecord, PredictionResponse, BestModelResponse, Timeframe, ChartType } from '../models/stock.model';
 
 export type DrawingTool = 'crosshair' | 'trendline' | 'fibonacci' | 'brush' | 'target' | 'measure' | 'zoom' | 'none';
 
@@ -27,6 +28,8 @@ export class StockApiService {
     } catch (error) {
       this.handleHttpError(error);
       const data = await firstValueFrom(this.http.get<T>(`/data/${snapshotPath}.json`));
+      if (scope === 'prediction' && (data as any).forecast?.horizon !== this.horizon()) this.horizon.set(5);
+      if (scope === 'best' && (data as any).evaluation?.horizon !== this.horizon()) this.horizon.set(5);
       this.manifest ??= firstValueFrom(this.http.get<{ generated_at: string }>('/data/manifest.json'));
       const manifest = await this.manifest;
       this.generatedAt.set(manifest.generated_at.slice(0, 10));
@@ -38,6 +41,11 @@ export class StockApiService {
   // Theme state synchronized with Portfolio-Ng
   isDarkMode = signal<boolean>(true);
 
+  market = signal<'in'|'us'>('us');
+  horizon = signal<1|5>(5);
+  currency = computed(() => this.market() === 'in' ? 'INR' : 'USD');
+  currencySymbol = computed(() => this.market() === 'in' ? '\u20b9' : '$');
+  modelStatus = signal<ModelStatus|null>(null);
   selectedTicker = signal<string>('AAPL');
   selectedCompanyName = signal<string>('Apple Inc.');
   companies = signal<Company[]>([]);
@@ -149,10 +157,12 @@ export class StockApiService {
   }
 
   async loadCompanies(): Promise<Company[]> {
+    const market = this.market();
     try {
-      const data = await this.request<Company[]>('companies/', 'companies', 'companies');
+      const data = await this.request<Company[]>(`companies/?market=${market}`, `companies-${market}`, 'companies');
+      if (market !== this.market()) return [];
       this.companies.set(data);
-      if (data.length > 0 && !this.selectedTicker()) {
+      if (data.length > 0 && !data.some(c => c.ticker === this.selectedTicker())) {
         this.selectCompany(data[0].ticker, data[0].name);
       }
       return data;
@@ -162,6 +172,13 @@ export class StockApiService {
     }
   }
 
+  async selectMarket(market:'in'|'us') {
+    this.market.set(market);
+    await this.loadCompanies();
+  }
+  async loadModelStatus() {
+    this.modelStatus.set(await this.request<ModelStatus>('models/status','models/status','status'));
+  }
   selectCompany(ticker: string, name?: string) {
     this.selectedTicker.set(ticker);
     if (name) {
@@ -174,7 +191,8 @@ export class StockApiService {
 
   async getOHLCV(ticker: string, period = '180d'): Promise<OHLCVRecord[]> {
     try {
-      const res = await this.request<OHLCVRecord[]>(`stocks/${encodeURIComponent(ticker)}/ohlcv?period=${period}`, `stocks/${encodeURIComponent(ticker)}/ohlcv`, 'stocks');
+      const path = tickerResourcePath('stocks', ticker, 'ohlcv');
+      const res = await this.request<OHLCVRecord[]>(`${path}?period=${period}`, path, 'stocks');
       this.currentRecords.set(res);
       return res;
     } catch (e) {
@@ -185,7 +203,8 @@ export class StockApiService {
 
   async getMovingAverage(ticker: string, days = 50, period = '180d'): Promise<OHLCVRecord[]> {
     try {
-      const res = await this.request<OHLCVRecord[]>(`stocks/${encodeURIComponent(ticker)}/moving-average?days=${days}&period=${period}`, `stocks/${encodeURIComponent(ticker)}/moving-average`, 'stocks');
+      const path = tickerResourcePath('stocks', ticker, 'moving-average');
+      const res = await this.request<OHLCVRecord[]>(`${path}?days=${days}&period=${period}`, path, 'stocks');
       this.currentRecords.set(res);
       return res;
     } catch (e) {
@@ -194,18 +213,20 @@ export class StockApiService {
     }
   }
 
-  async getPrediction(ticker: string, model = 'linear_regression'): Promise<PredictionResponse> {
+  async getPrediction(ticker: string, model = 'linear_regression', horizon:1|5 = this.horizon()): Promise<PredictionResponse> {
     try {
-      return await this.request<PredictionResponse>(`predictions/${encodeURIComponent(ticker)}/predict?model=${model}`, `predictions/${encodeURIComponent(ticker)}/predict/${model}`, 'prediction');
+      const path = tickerResourcePath('predictions', ticker, 'predict');
+      return await this.request<PredictionResponse>(`${path}?model=${model}&horizon=${horizon}`, `${path}/${model}/h5`, 'prediction');
     } catch (e) {
       this.handleHttpError(e);
       throw e;
     }
   }
 
-  async getBestModel(ticker: string): Promise<BestModelResponse> {
+  async getBestModel(ticker: string, horizon:1|5 = this.horizon()): Promise<BestModelResponse> {
     try {
-      return await this.request<BestModelResponse>(`predictions/${encodeURIComponent(ticker)}/best-model`, `predictions/${encodeURIComponent(ticker)}/best-model`, 'best');
+      const path = tickerResourcePath('predictions', ticker, 'best-model');
+      return await this.request<BestModelResponse>(`${path}?horizon=${horizon}`, `${path}/h5`, 'best');
     } catch (e) {
       this.handleHttpError(e);
       throw e;
@@ -214,7 +235,8 @@ export class StockApiService {
 
   async getCompanyInfo(ticker: string): Promise<any> {
     try {
-      return await this.request<any>(`companies/${encodeURIComponent(ticker)}/info`, `companies/${encodeURIComponent(ticker)}/info`, 'info');
+      const path = tickerResourcePath('companies', ticker, 'info');
+      return await this.request<any>(path, path, 'info');
     } catch (e) {
       this.handleHttpError(e);
       return null;

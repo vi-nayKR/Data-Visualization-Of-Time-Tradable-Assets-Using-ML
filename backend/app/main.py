@@ -45,3 +45,12 @@ app.include_router(companies.router, prefix="/api/companies", tags=["Companies &
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+
+@app.get("/api/markets")
+def markets():
+    return CompanyService().markets
+
+@app.get("/api/models/status")
+def models_status():
+    from app.routers.predictions import serve, prediction_service
+    return serve(prediction_service.status)

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Apple Inc.",
+    "symbol": "AAPL",
+    "sector": "Not specified in original catalog"
+  },
+  {
+    "name": "Microsoft Corporation",
+    "symbol": "MSFT",
+    "sector": "Not specified in original catalog"
+  },
+  {
+    "name": "Amazon.com Inc.",
+    "symbol": "AMZN",
+    "sector": "Not specified in original catalog"
+  },
+  {
+    "name": "Alphabet Inc.",
+    "symbol": "GOOGL",
+    "sector": "Not specified in original catalog"
+  },
+  {
+    "name": "Meta Platforms, Inc.",
+    "symbol": "META",
+    "sector": "Not specified in original catalog"
+  },
+  {
+    "name": "Tesla, Inc.",
+    "symbol": "TSLA",
+    "sector": "Not specified in original catalog"
+  },
+  {
+    "name": "NVIDIA Corporation",
+    "symbol": "NVDA",
+    "sector": "Not specified in original catalog"
+  }
+]

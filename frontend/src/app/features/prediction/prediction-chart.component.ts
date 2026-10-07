@@ -1,238 +1,27 @@
-import { Component, ElementRef, ViewChild, input, effect, inject, AfterViewInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { OHLCVRecord } from '../../core/models/stock.model';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, input, effect, inject, AfterViewInit, OnDestroy, signal } from '@angular/core';
+import { OHLCVRecord, Forecast } from '../../core/models/stock.model';
 import { StockApiService } from '../../core/services/stock-api.service';
-
-declare const Plotly: any;
-
-@Component({
-  selector: 'app-prediction-chart',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
-    <div #chartContainer 
-         class="tv-chart-touch-canvas w-full h-full min-h-[420px] sm:min-h-[500px] md:min-h-[600px] bg-[var(--color-void)] overflow-hidden transition-colors duration-300 select-none">
-    </div>
-  `
-})
-export class PredictionChartComponent implements AfterViewInit, OnDestroy {
-  api = inject(StockApiService);
-
-  records = input.required<OHLCVRecord[]>();
-  predictions = input.required<(number | null)[]>();
-  modelName = input<string>('ML Model');
-
-  @ViewChild('chartContainer', { static: true }) chartContainer!: ElementRef;
-
-  private touchStartDistance = 0;
-  private resizeObserver?: ResizeObserver;
-
-  constructor() {
-    effect(() => {
-      const recs = this.records();
-      const preds = this.predictions();
-      const name = this.modelName();
-      const isDark = this.api.isDarkMode();
-      if (recs && recs.length > 0 && typeof Plotly !== 'undefined') {
-        this.renderChart(recs, preds, name, isDark);
-      }
-    });
-  }
-
-  ngAfterViewInit() {
-    this.setupTouchGestures();
-    if (typeof ResizeObserver !== 'undefined' && this.chartContainer?.nativeElement) {
-      this.resizeObserver = new ResizeObserver(() => {
-        if (typeof Plotly !== 'undefined' && this.chartContainer?.nativeElement) {
-          Plotly.Plots.resize(this.chartContainer.nativeElement);
-        }
-      });
-      this.resizeObserver.observe(this.chartContainer.nativeElement);
-    }
-  }
-
-  ngOnDestroy() {
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect();
-    }
-  }
-
-  private setupTouchGestures() {
-    const el = this.chartContainer?.nativeElement;
-    if (!el) return;
-
-    el.addEventListener('touchstart', (e: TouchEvent) => {
-      if (e.touches.length === 2) {
-        const dx = e.touches[0].clientX - e.touches[1].clientX;
-        const dy = e.touches[0].clientY - e.touches[1].clientY;
-        this.touchStartDistance = Math.hypot(dx, dy);
-      }
-    }, { passive: true });
-
-    el.addEventListener('touchmove', (e: TouchEvent) => {
-      if (e.touches.length === 2 && this.touchStartDistance > 0) {
-        const dx = e.touches[0].clientX - e.touches[1].clientX;
-        const dy = e.touches[0].clientY - e.touches[1].clientY;
-        const currentDistance = Math.hypot(dx, dy);
-        const factor = currentDistance / this.touchStartDistance;
-
-        if (Math.abs(factor - 1) > 0.08) {
-          this.zoomScale(factor > 1 ? 0.85 : 1.15);
-          this.touchStartDistance = currentDistance;
-        }
-      }
-    }, { passive: true });
-
-    el.addEventListener('touchend', () => {
-      this.touchStartDistance = 0;
-    }, { passive: true });
-  }
-
-  private zoomScale(scaleFactor: number) {
-    const el = this.chartContainer?.nativeElement;
-    if (!el || !el._fullLayout || !el._fullLayout.xaxis) return;
-    
-    const xRange = el._fullLayout.xaxis.range;
-    if (!xRange || xRange.length < 2) return;
-
-    const t0 = new Date(xRange[0]).getTime();
-    const t1 = new Date(xRange[1]).getTime();
-    const mid = (t0 + t1) / 2;
-    const halfSpan = ((t1 - t0) * scaleFactor) / 2;
-
-    const newStart = new Date(mid - halfSpan).toISOString().split('T')[0];
-    const newEnd = new Date(mid + halfSpan).toISOString().split('T')[0];
-
-    Plotly.relayout(el, {
-      'xaxis.range': [newStart, newEnd]
-    });
-  }
-
-  private renderChart(records: OHLCVRecord[], predictions: (number | null)[], modelName: string, isDark: boolean) {
-    const dates = records.map(r => r.date);
-    const closePrices = records.map(r => r.close);
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-
-    // Theme Palette
-    const bgVoid = isDark ? '#060608' : '#ffffff';
-    const bgSurface = isDark ? '#12121a' : '#f9fafb';
-    const border = isDark ? '#1a1a24' : '#e5e7eb';
-    const textMuted = isDark ? '#8e93a0' : '#6b7280';
-    const textFrost = isDark ? '#f4f5f8' : '#111827';
-    const accent = isDark ? '#ff6b00' : '#ea580c';
-    const green = isDark ? '#089981' : '#059669';
-
-    // Filter valid numbers for dynamic tight scaling
-    const validCloses = closePrices.filter(v => typeof v === 'number' && !isNaN(v) && v > 0);
-    const validPreds = predictions.filter(v => typeof v === 'number' && !isNaN(v as number) && (v as number) > 0) as number[];
-    const allValidPrices = [...validCloses, ...validPreds];
-
-    let minPrice = Math.min(...allValidPrices);
-    let maxPrice = Math.max(...allValidPrices);
-    
-    if (!isFinite(minPrice) || !isFinite(maxPrice) || minPrice === maxPrice) {
-      minPrice = 100;
-      maxPrice = 200;
-    }
-    
-    const priceDelta = maxPrice - minPrice;
-    const padding = Math.max(priceDelta * 0.08, 2);
-    const yRange = [Math.max(0, Math.floor(minPrice - padding)), Math.ceil(maxPrice + padding)];
-
-    // Actual Historical Prices Trace
-    const actualTrace = {
-      x: dates,
-      y: closePrices,
-      type: 'scatter',
-      mode: 'lines',
-      name: 'Actual Price',
-      line: { color: accent, width: 2 },
-      fill: 'tozeroy',
-      fillcolor: isDark ? 'rgba(255, 107, 0, 0.08)' : 'rgba(234, 88, 12, 0.08)'
-    };
-
-    // ML Predicted Future Trajectory Trace
-    const predTrace = {
-      x: dates,
-      y: predictions,
-      type: 'scatter',
-      mode: 'lines+markers',
-      name: `${modelName} Forecast`,
-      line: { color: green, width: 2.5, dash: 'dot' },
-      marker: { size: isMobile ? 3 : 5, color: green }
-    };
-
-    const layout = {
-      paper_bgcolor: bgVoid,
-      plot_bgcolor: bgVoid,
-      autosize: true,
-      dragmode: 'pan', // Default to smooth single-finger drag/pan
-      font: { color: textMuted, family: 'Inter, -apple-system, sans-serif', size: isMobile ? 9 : 11 },
-      margin: isMobile 
-        ? { l: 5, r: 48, t: 15, b: 35 }
-        : { l: 25, r: 65, t: 25, b: 45 },
-      showlegend: true,
-      legend: {
-        x: 0.02,
-        y: 0.98,
-        bgcolor: isDark ? 'rgba(18, 18, 26, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-        bordercolor: border,
-        borderwidth: 1,
-        font: { color: textFrost, size: isMobile ? 9 : 11 }
-      },
-      hovermode: 'x unified',
-      hoverlabel: {
-        bgcolor: bgSurface,
-        bordercolor: border,
-        font: { color: textFrost, size: isMobile ? 9 : 11, family: 'JetBrains Mono, monospace' }
-      },
-      xaxis: {
-        type: 'date',
-        range: [dates[0], dates[dates.length - 1]],
-        fixedrange: false, // Zoomable & pannable by hand
-        rangeslider: {
-          visible: true,
-          thickness: isMobile ? 0.05 : 0.06,
-          bgcolor: bgSurface,
-          bordercolor: border,
-          borderwidth: 1,
-          yaxis: { rangemode: 'match' }
-        },
-        gridcolor: isDark ? '#12121a' : '#f3f4f6',
-        linecolor: border,
-        tickfont: { color: textMuted, size: isMobile ? 8 : 10 },
-        showspikes: true,
-        spikemode: 'across',
-        spikethickness: 1,
-        spikedash: 'dot',
-        spikecolor: textMuted
-      },
-      yaxis: {
-        side: 'right',
-        range: yRange,
-        autorange: false,
-        fixedrange: false, // Zoomable & pannable by hand
-        gridcolor: isDark ? '#12121a' : '#f3f4f6',
-        linecolor: border,
-        tickformat: '.2f',
-        tickprefix: '$',
-        tickfont: { color: textMuted, size: isMobile ? 9 : 11, family: 'JetBrains Mono, monospace' },
-        showspikes: true,
-        spikemode: 'across',
-        spikethickness: 1,
-        spikedash: 'dot',
-        spikecolor: textMuted
-      }
-    };
-
-    const config = {
-      responsive: true,
-      scrollZoom: true,     // Enables pinch zoom and mousewheel zoom
-      displayModeBar: false,
-      doubleClick: 'reset', // Double tap to reset
-      showTips: false
-    };
-
-    Plotly.react(this.chartContainer.nativeElement, [actualTrace, predTrace], layout, config);
-  }
+import { UiSkeleton, UiButton } from '../../shared/ui';
+import { loadPlotly, chartPalette, chartLayout } from '../../shared/aurora-chart';
+@Component({selector:'app-prediction-chart',standalone:true,changeDetection:ChangeDetectionStrategy.OnPush,imports:[UiSkeleton,UiButton],template:`@if(loadFailed()){<div class="empty-state"><p>Chart could not load.</p><button uiButton (click)="ngAfterViewInit()">Retry chart</button></div>}@else if(!rendered()){<ui-skeleton />}<div #chartContainer class="chart-canvas" role="img" [attr.aria-label]="modelName()+' forecast, validation residual band, and price-stays-the-same baseline'" ></div>`})
+export class PredictionChartComponent implements AfterViewInit,OnDestroy {
+ api=inject(StockApiService);records=input.required<OHLCVRecord[]>();forecast=input.required<Forecast>();naive=input.required<Forecast>();modelName=input('Model');
+ @ViewChild('chartContainer',{static:true}) chartContainer!:ElementRef;
+ ready=signal(false);private observer?:ResizeObserver;rendered=signal(false);loadFailed=signal(false);private Plotly:any;private destroyed=false;
+ constructor(){effect(()=>{const records=this.records(),forecast=this.forecast(),naive=this.naive(),name=this.modelName(),currency=this.api.currencySymbol(),dark=this.api.isDarkMode();if(this.ready()&&records.length)this.draw(records,forecast,naive,name,currency,dark);});}
+ async ngAfterViewInit(){this.loadFailed.set(false);try{this.Plotly=await loadPlotly();}catch{this.loadFailed.set(true);return;}if(this.destroyed)return;this.ready.set(true);this.observer=new ResizeObserver(()=>{if(this.rendered())this.Plotly.Plots.resize(this.chartContainer.nativeElement);});this.observer.observe(this.chartContainer.nativeElement);}
+ ngOnDestroy(){this.destroyed=true;this.observer?.disconnect();if(this.rendered())this.Plotly.purge(this.chartContainer.nativeElement);}
+ private draw(records:OHLCVRecord[],forecast:Forecast,naive:Forecast,name:string,currency:string,dark:boolean){
+ const history=records.slice(-60),x=history.map((_,i)=>i),last=x.length-1,end=last+forecast.horizon,origin=forecast.origin_price;
+ const palette=chartPalette(),base=chartLayout();const accent=palette.accent,green=palette.indigo,muted=palette.muted;
+ const traces=[
+ {x,y:history.map(r=>r.close),type:'scatter',mode:'lines',name:'Historical close',line:{color:accent,width:2}},
+ {x:[last,end],y:[origin,forecast.lower],type:'scatter',mode:'lines',line:{width:0},showlegend:false,hoverinfo:'skip'},
+ {x:[last,end],y:[origin,forecast.upper],type:'scatter',mode:'lines',line:{width:0},fill:'tonexty',fillcolor:palette.fill,name:'Validation residual band (10-90%)'},
+ {x:[last,end],y:[origin,forecast.price],type:'scatter',mode:'lines+markers',name:name+' forecast',line:{color:green,width:2,dash:'dot'}},
+ {x:[last,end],y:[origin,naive.price],type:'scatter',mode:'lines',name:'Naive: price stays the same',line:{color:muted,width:2,dash:'dash'}}];
+ const mobile=innerWidth<768;const ticks=mobile?[0,Math.floor(last/2),end]:[0,Math.floor(last/2),last,end];const labels=mobile?[history[0].date,history[Math.floor(last/2)].date,'+'+forecast.horizon+' trading days']:[history[0].date,history[Math.floor(last/2)].date,history[last].date,'+'+forecast.horizon+' trading days'];
+ this.rendered.set(false);
+ this.Plotly.react(this.chartContainer.nativeElement,traces,{...base,margin:{l:10,r:70,t:60,b:45},legend:{orientation:'h',y:1.15},hovermode:'x unified',xaxis:{...base.xaxis,tickvals:ticks,ticktext:labels,tickangle:0,automargin:true,gridcolor:palette.grid},yaxis:{...base.yaxis,side:'right',tickprefix:currency,gridcolor:palette.grid}},{responsive:true,scrollZoom:true,displayModeBar:false}).then(()=>{if(!this.destroyed)this.rendered.set(true);});
+ }
 }

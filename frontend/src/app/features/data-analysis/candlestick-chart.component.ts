@@ -1,17 +1,20 @@
-import { Component, ElementRef, ViewChild, input, effect, inject, AfterViewInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, signal, Component, ElementRef, ViewChild, input, effect, inject, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OHLCVRecord, ChartType } from '../../core/models/stock.model';
 import { StockApiService } from '../../core/services/stock-api.service';
 
-declare const Plotly: any;
+import { UiSkeleton, UiButton } from '../../shared/ui';
+import { loadPlotly, chartPalette, chartLayout } from '../../shared/aurora-chart';
 
 @Component({
   selector: 'app-candlestick-chart',
   standalone: true,
-  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule,UiSkeleton,UiButton],
   template: `
+    @if(loadFailed()){<div class="empty-state"><p>Chart could not load.</p><button uiButton (click)="ngAfterViewInit()">Retry chart</button></div>}@else if(!rendered()){<ui-skeleton />}
     <div #chartContainer 
-         class="tv-chart-touch-canvas w-full h-full min-h-[420px] sm:min-h-[520px] md:min-h-[640px] bg-[var(--color-void)] overflow-hidden transition-colors duration-300 select-none">
+         class="chart-canvas" role="img" [attr.aria-label]="api.selectedTicker()+' historical price, volume and selected technical indicators'">
     </div>
   `
 })
@@ -31,6 +34,10 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
   private touchStartDistance = 0;
   private resizeObserver?: ResizeObserver;
   private chartReady = false;
+  private Plotly:any;
+  private destroyed=false;
+  private loaded=signal(false);
+  rendered=signal(false);loadFailed=signal(false);
 
   constructor() {
     // Render chart on data/indicator/theme changes
@@ -43,7 +50,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
       const showRSI = this.showRSI();
       const type = this.chartType();
       const isDark = this.api.isDarkMode();
-      if (records && records.length > 0 && typeof Plotly !== 'undefined') {
+      if (this.loaded() && records && records.length > 0) {
         this.renderChart(records, ma, showMA, showEMA, showBB, showRSI, type, isDark);
       }
     });
@@ -51,7 +58,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
     // Handle Active Tool changes (Trendline, Brush, Measure, Crosshair)
     effect(() => {
       const tool = this.api.activeDrawingTool();
-      if (typeof Plotly !== 'undefined' && this.chartContainer?.nativeElement) {
+      if (this.chartReady && this.chartContainer?.nativeElement) {
         this.applyDrawingTool(tool);
       }
     });
@@ -59,9 +66,9 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
     // Handle One-Shot Drawing Actions (Clear, Fibonacci, Zoom)
     effect(() => {
       const action = this.api.drawingAction();
-      if (action && typeof Plotly !== 'undefined' && this.chartContainer?.nativeElement) {
+      if (action && this.chartReady && this.chartContainer?.nativeElement) {
         if (action.type === 'clear') {
-          Plotly.relayout(this.chartContainer.nativeElement, { shapes: [] });
+          this.Plotly.relayout(this.chartContainer.nativeElement, { shapes: [] });
         } else if (action.type === 'fibonacci') {
           this.applyFibonacci();
         } else if (action.type === 'zoom') {
@@ -71,12 +78,15 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
+    this.loadFailed.set(false);try{this.Plotly=await loadPlotly();}catch{this.loadFailed.set(true);return;}
+    if(this.destroyed)return;
+    this.loaded.set(true);
     this.setupTouchGestures();
     if (typeof ResizeObserver !== 'undefined' && this.chartContainer?.nativeElement) {
       this.resizeObserver = new ResizeObserver(() => {
-        if (typeof Plotly !== 'undefined' && this.chartContainer?.nativeElement) {
-          Plotly.Plots.resize(this.chartContainer.nativeElement);
+        if (this.chartReady && this.chartContainer?.nativeElement) {
+          this.Plotly.Plots.resize(this.chartContainer.nativeElement);
         }
       });
       this.resizeObserver.observe(this.chartContainer.nativeElement);
@@ -84,6 +94,8 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.destroyed=true;
+    if(this.chartReady)this.Plotly.purge(this.chartContainer.nativeElement);
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
     }
@@ -137,7 +149,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
     const newStart = new Date(mid - halfSpan).toISOString().split('T')[0];
     const newEnd = new Date(mid + halfSpan).toISOString().split('T')[0];
 
-    Plotly.relayout(el, {
+    this.Plotly.relayout(el, {
       'xaxis.range': [newStart, newEnd]
     });
   }
@@ -145,31 +157,31 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
   private applyDrawingTool(tool: string) {
     if (!this.chartReady || !this.chartContainer?.nativeElement) return;
     const el = this.chartContainer.nativeElement;
-    const accent = this.api.isDarkMode() ? '#ff6b00' : '#ea580c';
+    const accent = chartPalette().accent;
 
     if (tool === 'trendline') {
-      Plotly.relayout(el, {
+      this.Plotly.relayout(el, {
         dragmode: 'drawline',
         'newshape.line.color': accent,
         'newshape.line.width': 2
       });
     } else if (tool === 'brush') {
-      Plotly.relayout(el, {
+      this.Plotly.relayout(el, {
         dragmode: 'drawrect',
-        'newshape.fillcolor': this.api.isDarkMode() ? 'rgba(255, 107, 0, 0.12)' : 'rgba(234, 88, 12, 0.12)',
+        'newshape.fillcolor': chartPalette().fill,
         'newshape.line.color': accent,
         'newshape.line.width': 1.5
       });
     } else if (tool === 'measure') {
-      Plotly.relayout(el, { dragmode: 'select' });
+      this.Plotly.relayout(el, { dragmode: 'select' });
     } else if (tool === 'crosshair') {
-      Plotly.relayout(el, {
+      this.Plotly.relayout(el, {
         dragmode: 'pan',
         'xaxis.showspikes': true,
         'yaxis.showspikes': true
       });
     } else {
-      Plotly.relayout(el, { dragmode: 'pan' });
+      this.Plotly.relayout(el, { dragmode: 'pan' });
     }
   }
 
@@ -184,13 +196,13 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
     const diff = maxHigh - minLow;
 
     const fibLevels = [
-      { ratio: 0.0, color: '#f23645', name: '0.0% (Low)' },
-      { ratio: 0.236, color: '#ff9242', name: '23.6%' },
-      { ratio: 0.382, color: '#00e5ff', name: '38.2%' },
-      { ratio: 0.5, color: '#ff6b00', name: '50.0%' },
-      { ratio: 0.618, color: '#089981', name: '61.8% (Golden)' },
-      { ratio: 0.786, color: '#e040fb', name: '78.6%' },
-      { ratio: 1.0, color: '#089981', name: '100.0% (High)' }
+      { ratio: 0.0, color: chartPalette().red, name: '0.0% (Low)' },
+      { ratio: 0.236, color: chartPalette().indigo, name: '23.6%' },
+      { ratio: 0.382, color: chartPalette().accent, name: '38.2%' },
+      { ratio: 0.5, color: chartPalette().accent, name: '50.0%' },
+      { ratio: 0.618, color: chartPalette().green, name: '61.8% (Golden)' },
+      { ratio: 0.786, color: chartPalette().indigo, name: '78.6%' },
+      { ratio: 1.0, color: chartPalette().green, name: '100.0% (High)' }
     ];
 
     const shapes = fibLevels.map(fib => {
@@ -211,14 +223,14 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
       };
     });
 
-    Plotly.relayout(this.chartContainer.nativeElement, { shapes });
+    this.Plotly.relayout(this.chartContainer.nativeElement, { shapes });
   }
 
   private applyZoomIn() {
     const records = this.data();
     if (!records || records.length < 30 || !this.chartContainer?.nativeElement) return;
     const last30 = records.slice(records.length - 30);
-    Plotly.relayout(this.chartContainer.nativeElement, {
+    this.Plotly.relayout(this.chartContainer.nativeElement, {
       'xaxis.range': [last30[0].date, last30[last30.length - 1].date]
     });
   }
@@ -243,14 +255,8 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     // Theme Palette
-    const bgVoid = isDark ? '#060608' : '#ffffff';
-    const bgSurface = isDark ? '#12121a' : '#f9fafb';
-    const border = isDark ? '#1a1a24' : '#e5e7eb';
-    const textMuted = isDark ? '#8e93a0' : '#6b7280';
-    const textFrost = isDark ? '#f4f5f8' : '#111827';
-    const accent = isDark ? '#ff6b00' : '#ea580c';
-    const green = isDark ? '#089981' : '#059669';
-    const red = isDark ? '#f23645' : '#dc2626';
+    const palette=chartPalette();
+    const bgVoid='transparent',bgSurface=palette.surface,border=palette.border,textMuted=palette.muted,textFrost=palette.text,accent=palette.accent,green=palette.green,red=palette.red;
 
     // Calculate dynamic tight price range
     const validLows = lows.filter(v => typeof v === 'number' && !isNaN(v) && v > 0);
@@ -267,7 +273,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
     const padding = Math.max(priceDelta * 0.08, 2);
     const yRange = [Math.max(0, Math.floor(minPrice - padding)), Math.ceil(maxPrice + padding)];
 
-    const volumeColors = records.map(r => r.close >= r.open ? (isDark ? 'rgba(8, 153, 129, 0.45)' : 'rgba(5, 150, 105, 0.35)') : (isDark ? 'rgba(242, 54, 69, 0.45)' : 'rgba(220, 38, 38, 0.35)'));
+    const volumeColors = records.map(r => r.close >= r.open ? palette.green : palette.red);
 
     const traces: any[] = [];
 
@@ -295,7 +301,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
         yaxis: 'y',
         line: { color: accent, width: 2 },
         fill: chartType === 'area' ? 'tozeroy' : 'none',
-        fillcolor: isDark ? 'rgba(255, 107, 0, 0.08)' : 'rgba(234, 88, 12, 0.08)'
+        fillcolor: palette.fill
       });
     } else if (chartType === 'bar') {
       traces.push({
@@ -321,7 +327,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
         mode: 'lines',
         name: 'BB Upper (20,2)',
         yaxis: 'y',
-        line: { color: isDark ? 'rgba(255, 146, 66, 0.4)' : 'rgba(234, 88, 12, 0.4)', width: 1, dash: 'dot' }
+        line: { color: palette.indigo, width: 1, dash: 'dot' }
       });
       traces.push({
         x: dates,
@@ -331,8 +337,8 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
         name: 'BB Lower (20,2)',
         yaxis: 'y',
         fill: 'tonexty',
-        fillcolor: isDark ? 'rgba(255, 107, 0, 0.04)' : 'rgba(234, 88, 12, 0.04)',
-        line: { color: isDark ? 'rgba(255, 146, 66, 0.4)' : 'rgba(234, 88, 12, 0.4)', width: 1, dash: 'dot' }
+        fillcolor: palette.fill,
+        line: { color: palette.indigo, width: 1, dash: 'dot' }
       });
     }
 
@@ -345,7 +351,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
         mode: 'lines',
         name: `SMA ${maDays}`,
         yaxis: 'y',
-        line: { color: '#ff9242', width: 1.8 }
+        line: { color: chartPalette().indigo, width: 1.8 }
       });
     }
 
@@ -358,7 +364,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
         mode: 'lines',
         name: 'EMA (20)',
         yaxis: 'y',
-        line: { color: '#00e5ff', width: 1.6 }
+        line: { color: chartPalette().accent, width: 1.6 }
       });
     }
 
@@ -382,7 +388,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
         mode: 'lines',
         name: 'RSI (14)',
         yaxis: 'y3',
-        line: { color: '#e040fb', width: 1.5 }
+        line: { color: chartPalette().indigo, width: 1.5 }
       });
     }
 
@@ -400,7 +406,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
       legend: {
         x: 0.01,
         y: 0.99,
-        bgcolor: isDark ? 'rgba(18, 18, 26, 0.85)' : 'rgba(255, 255, 255, 0.85)',
+        bgcolor: palette.surface,
         bordercolor: border,
         font: { color: textFrost, size: 10 }
       },
@@ -422,7 +428,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
           borderwidth: 1,
           yaxis: { rangemode: 'match' }
         },
-        gridcolor: isDark ? '#12121a' : '#f3f4f6',
+        gridcolor: palette.grid,
         gridwidth: 1,
         linecolor: border,
         tickfont: { color: textMuted, size: isMobile ? 8 : 10 },
@@ -439,10 +445,10 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
         autorange: false,
         fixedrange: false, // Zoomable & stretchable by hand!
         domain: showRSI ? [0.38, 1.0] : [0.24, 1.0],
-        gridcolor: isDark ? '#12121a' : '#f3f4f6',
+        gridcolor: palette.grid,
         linecolor: border,
         tickformat: '.2f',
-        tickprefix: '$',
+        tickprefix: this.api.currencySymbol(),
         tickfont: { color: textMuted, size: isMobile ? 9 : 11, family: 'JetBrains Mono, monospace' },
         showspikes: true,
         spikemode: 'across',
@@ -455,7 +461,7 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
         side: 'right',
         fixedrange: true,
         domain: showRSI ? [0.20, 0.35] : [0.08, 0.22],
-        gridcolor: isDark ? '#12121a' : '#f3f4f6',
+        gridcolor: palette.grid,
         linecolor: border,
         showticklabels: false
       }
@@ -467,14 +473,16 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
         side: 'right',
         fixedrange: true,
         domain: [0.08, 0.18],
-        gridcolor: isDark ? '#12121a' : '#f3f4f6',
+        gridcolor: palette.grid,
         linecolor: border,
         range: [0, 100],
         tickvals: [30, 70],
-        tickfont: { color: '#e040fb', size: 8 }
+        tickfont: { color: chartPalette().indigo, size: 8 }
       };
     }
 
+    const shared=chartLayout();
+    Object.assign(layout,shared,{xaxis:{...layout.xaxis,...shared.xaxis},yaxis:{...layout.yaxis,...shared.yaxis}});
     const config = {
       responsive: true,
       scrollZoom: true,     // Enables pinch-to-zoom and wheel zoom
@@ -484,8 +492,10 @@ export class CandlestickChartComponent implements AfterViewInit, OnDestroy {
     };
 
     this.chartReady = false;
-    Plotly.react(this.chartContainer.nativeElement, traces, layout, config).then(() => {
+    this.Plotly.react(this.chartContainer.nativeElement, traces, layout, config).then(() => {
+      if(this.destroyed)return;
       this.chartReady = true;
+      this.rendered.set(true);
       this.applyDrawingTool(this.api.activeDrawingTool());
     });
   }

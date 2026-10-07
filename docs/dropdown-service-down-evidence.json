@@ -1,0 +1,1206 @@
+[
+  {
+    "controlled": false,
+    "ticker": "RELIANCE.NS",
+    "dom": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nADANIENT.NS\nAdani Enterprises Ltd.\nRELIANCE.NSReliance Industries Ltd.\nSTOCK\n₹2743\n▼\n-106.9\n(-3.75%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nADANIENT.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\n\nForecast ₹2,765.13 · band ₹2,620.02 – ₹3,039.50\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹2600\n₹2700\n₹2800\n₹2900\n₹3000\n₹3100\n₹3200\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0275 / 0.0357\nPrice MAE\t₹82.46\nPrice MAPE\t2.78%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t7.39%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n51\nSYMBOL\nLAST / CHG\nRELIANCE.NS\nReliance Industries Ltd.\nINR\nNot available\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL",
+    "headerDOM": "<div class=\"flex items-center gap-2 sm:gap-3 shrink-0\"><a routerlink=\"/\" class=\"flex items-center gap-1.5 sm:gap-2 pr-1.5 sm:pr-2 border-r border-[var(--color-border)] cursor-pointer hover:opacity-90 transition-opacity shrink-0\" href=\"/\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-accent)]\"><polyline points=\"22 7 13.5 15.5 8.5 10.5 2 17\"></polyline><polyline points=\"16 7 22 7 22 13\"></polyline></svg><div class=\"flex flex-col\"><span class=\"font-extrabold text-xs sm:text-sm tracking-wider font-display leading-tight\"> DATA VIZ<span class=\"text-[var(--color-accent)]\">.ML</span></span><span class=\"text-[8px] sm:text-[9px] text-[var(--color-muted)] tracking-tight hidden md:inline leading-none font-medium\"> Time-Tradable Assets </span></div></a><div class=\"relative group shrink-0\"><button aria-label=\"Select market asset\" class=\"flex items-center gap-1.5 bg-[var(--color-surface)] hover:border-[var(--color-accent)]/50 border border-[var(--color-border)] rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 text-[var(--color-frost)] font-semibold transition-all\"><svg viewBox=\"0 0 24 24\" class=\"tv-icon tv-icon-sm text-[var(--color-muted)]\"><circle cx=\"11\" cy=\"11\" r=\"8\"></circle><line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"></line></svg><span class=\"text-xs sm:text-sm font-bold tracking-wide\">ADANIENT.NS</span><span class=\"text-xs text-[var(--color-muted)] max-w-[120px] truncate hidden xl:inline\">Adani Enterprises Ltd.</span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" class=\"w-2.5 h-2.5 sm:w-3 sm:h-3 text-[var(--color-muted)]\"><polyline points=\"6 9 12 15 18 9\"></polyline></svg></button><div class=\"fixed inset-x-2 top-14 sm:absolute sm:left-0 sm:top-11 sm:w-96 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-2xl z-50 p-3 space-y-2\"><div class=\"flex items-center justify-between sm:hidden pb-1 border-b border-[var(--color-border)]\"><span class=\"font-bold text-xs text-[var(--color-frost)]\">Select Market Asset</span><button class=\"text-[var(--color-muted)] p-1 text-sm\">✕</button></div><div class=\"relative\"><input type=\"text\" placeholder=\"Search symbol or company (e.g. AAPL, TSLA)...\" autofocus=\"\" class=\"w-full bg-[var(--color-void)] border border-[var(--color-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-frost)] placeholder-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] ng-untouched ng-valid ng-dirty\"></div><div class=\"max-h-60 sm:max-h-64 overflow-y-auto divide-y divide-[var(--color-border)]\"><div class=\"flex items-center justify-between p-2.5 hover:bg-[var(--color-abyss)] rounded-lg cursor-pointer transition-colors\"><div><span class=\"font-bold text-[var(--color-frost)] text-xs\">RELIANCE.NS</span><span class=\"text-xs text-[var(--color-muted)] ml-2\">Reliance Industries Ltd.</span></div><span class=\"text-[10px] text-[var(--color-accent)] bg-[var(--color-accent)]/15 px-2 py-0.5 rounded font-mono font-bold\">STOCK</span></div><!----></div></div><!----></div><div class=\"flex items-center gap-1.5 pl-1.5 border-l border-[var(--color-border)] shrink-0\"><span class=\"text-xs sm:text-sm font-extrabold font-mono-num text-[var(--color-frost)]\">₹2743</span><div class=\"px-1.5 sm:px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-mono-num font-bold flex items-center gap-0.5 border bg-[#f23645]/15 border-[#f23645]/30 text-[#f23645]\"><span>▼</span><span>-106.9</span><span class=\"hidden md:inline\">(-3.75%)</span></div></div><!----><!----><!----></div><!----><div class=\"flex items-center gap-2 border-x border-[var(--color-border)] px-3 py-1 text-xs font-mono-num text-[var(--color-muted)] shrink-0\"><span class=\"w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse\"></span><span>Forecast: <strong class=\"text-[var(--color-frost)]\">5 Trading Days Forward</strong></span></div><!----><!----><div class=\"flex items-center gap-1 sm:gap-2 shrink-0\"><nav class=\"flex items-center gap-1 shrink-0\"><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab\" href=\"/analysis\"> SuperChart </a><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab tv-nav-tab-active\" href=\"/prediction\"> ML Forecasts </a><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab\" href=\"/best-analysis\"> Strategy Leaderboard </a><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab\" href=\"/\"> Market Overview </a><!----></nav><button aria-label=\"Toggle dark/light theme\" title=\"Toggle Dark/Light Mode\" class=\"p-1.5 sm:p-2 rounded-lg border border-[var(--color-border)] text-[var(--color-muted)] hover:text-[var(--color-frost)] hover:border-[var(--color-accent)]/40 hover:bg-[var(--color-surface)] transition-all duration-300 cursor-pointer flex items-center justify-center shrink-0\"><svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\" class=\"w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--color-accent)]\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z\"></path></svg><!----><!----></button><button class=\"flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border text-[11px] sm:text-xs font-semibold transition-all shrink-0 bg-[var(--color-accent)] text-white\"><svg viewBox=\"0 0 24 24\" class=\"tv-icon tv-icon-sm\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><line x1=\"9\" y1=\"3\" x2=\"9\" y2=\"21\"></line></svg><span>Watchlist</span></button><!----></div>",
+    "network": [
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/prediction"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/prediction",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/main-UVQG5KX5.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/main-UVQG5KX5.js",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=us"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/models/status"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/chunk-D0smj-9W.js"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=us",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/companies-us.json"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/models/status",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/models/status.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/companies-us.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/manifest.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/models/status.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/chunk-D0smj-9W.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/chunk-Dgx-8Lh5.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/manifest.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/chunk-Dgx-8Lh5.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d"
+      },
+      {
+        "event": "request",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=in"
+      },
+      {
+        "event": "request",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=in",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/companies-in.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/companies-in.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/ADANIENT.NS/predict?model=linear_regression&horizon=5"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/ADANIENT.NS/predict?model=linear_regression&horizon=5",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2",
+        "status": 200
+      }
+    ],
+    "console": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "info",
+        "text": "Autofocus processing was blocked because a document already has a focused element."
+      }
+    ],
+    "chartRendered": true
+  },
+  {
+    "controlled": false,
+    "ticker": "M&M.NS",
+    "dom": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nRELIANCE.NS\nReliance Industries Ltd.\nM&M.NSMahindra & Mahindra Ltd.\nSTOCK\n₹1207.7\n▼\n-10.3\n(-0.85%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nRELIANCE.NS · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-07 · trained 10/7/26, 3:46 PM\n\nForecast ₹1,209.23 · band ₹1,158.10 – ₹1,251.75\n\n2026-07-16\n2026-08-26\n2026-10-07\n+5 trading days\n₹1150\n₹1200\n₹1250\n₹1300\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0196 / 0.0241\nPrice MAE\t₹24.90\nPrice MAPE\t1.98%\nDirectional accuracy · 95% CI\t63.3% (50.7%–74.4%)\nSkill vs naive\t4.13%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n51\nSYMBOL\nLAST / CHG\nM&M.NS\nMahindra & Mahindra Ltd.\nINR\nNot available\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL",
+    "headerDOM": "<div class=\"flex items-center gap-2 sm:gap-3 shrink-0\"><a routerlink=\"/\" class=\"flex items-center gap-1.5 sm:gap-2 pr-1.5 sm:pr-2 border-r border-[var(--color-border)] cursor-pointer hover:opacity-90 transition-opacity shrink-0\" href=\"/\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-accent)]\"><polyline points=\"22 7 13.5 15.5 8.5 10.5 2 17\"></polyline><polyline points=\"16 7 22 7 22 13\"></polyline></svg><div class=\"flex flex-col\"><span class=\"font-extrabold text-xs sm:text-sm tracking-wider font-display leading-tight\"> DATA VIZ<span class=\"text-[var(--color-accent)]\">.ML</span></span><span class=\"text-[8px] sm:text-[9px] text-[var(--color-muted)] tracking-tight hidden md:inline leading-none font-medium\"> Time-Tradable Assets </span></div></a><div class=\"relative group shrink-0\"><button aria-label=\"Select market asset\" class=\"flex items-center gap-1.5 bg-[var(--color-surface)] hover:border-[var(--color-accent)]/50 border border-[var(--color-border)] rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 text-[var(--color-frost)] font-semibold transition-all\"><svg viewBox=\"0 0 24 24\" class=\"tv-icon tv-icon-sm text-[var(--color-muted)]\"><circle cx=\"11\" cy=\"11\" r=\"8\"></circle><line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"></line></svg><span class=\"text-xs sm:text-sm font-bold tracking-wide\">RELIANCE.NS</span><span class=\"text-xs text-[var(--color-muted)] max-w-[120px] truncate hidden xl:inline\">Reliance Industries Ltd.</span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" class=\"w-2.5 h-2.5 sm:w-3 sm:h-3 text-[var(--color-muted)]\"><polyline points=\"6 9 12 15 18 9\"></polyline></svg></button><div class=\"fixed inset-x-2 top-14 sm:absolute sm:left-0 sm:top-11 sm:w-96 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-2xl z-50 p-3 space-y-2\"><div class=\"flex items-center justify-between sm:hidden pb-1 border-b border-[var(--color-border)]\"><span class=\"font-bold text-xs text-[var(--color-frost)]\">Select Market Asset</span><button class=\"text-[var(--color-muted)] p-1 text-sm\">✕</button></div><div class=\"relative\"><input type=\"text\" placeholder=\"Search symbol or company (e.g. AAPL, TSLA)...\" autofocus=\"\" class=\"w-full bg-[var(--color-void)] border border-[var(--color-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-frost)] placeholder-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] ng-untouched ng-valid ng-dirty\"></div><div class=\"max-h-60 sm:max-h-64 overflow-y-auto divide-y divide-[var(--color-border)]\"><div class=\"flex items-center justify-between p-2.5 hover:bg-[var(--color-abyss)] rounded-lg cursor-pointer transition-colors\"><div><span class=\"font-bold text-[var(--color-frost)] text-xs\">M&amp;M.NS</span><span class=\"text-xs text-[var(--color-muted)] ml-2\">Mahindra &amp; Mahindra Ltd.</span></div><span class=\"text-[10px] text-[var(--color-accent)] bg-[var(--color-accent)]/15 px-2 py-0.5 rounded font-mono font-bold\">STOCK</span></div><!----></div></div><!----></div><div class=\"flex items-center gap-1.5 pl-1.5 border-l border-[var(--color-border)] shrink-0\"><span class=\"text-xs sm:text-sm font-extrabold font-mono-num text-[var(--color-frost)]\">₹1207.7</span><div class=\"px-1.5 sm:px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-mono-num font-bold flex items-center gap-0.5 border bg-[#f23645]/15 border-[#f23645]/30 text-[#f23645]\"><span>▼</span><span>-10.3</span><span class=\"hidden md:inline\">(-0.85%)</span></div></div><!----><!----><!----></div><!----><div class=\"flex items-center gap-2 border-x border-[var(--color-border)] px-3 py-1 text-xs font-mono-num text-[var(--color-muted)] shrink-0\"><span class=\"w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse\"></span><span>Forecast: <strong class=\"text-[var(--color-frost)]\">5 Trading Days Forward</strong></span></div><!----><!----><div class=\"flex items-center gap-1 sm:gap-2 shrink-0\"><nav class=\"flex items-center gap-1 shrink-0\"><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab\" href=\"/analysis\"> SuperChart </a><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab tv-nav-tab-active\" href=\"/prediction\"> ML Forecasts </a><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab\" href=\"/best-analysis\"> Strategy Leaderboard </a><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab\" href=\"/\"> Market Overview </a><!----></nav><button aria-label=\"Toggle dark/light theme\" title=\"Toggle Dark/Light Mode\" class=\"p-1.5 sm:p-2 rounded-lg border border-[var(--color-border)] text-[var(--color-muted)] hover:text-[var(--color-frost)] hover:border-[var(--color-accent)]/40 hover:bg-[var(--color-surface)] transition-all duration-300 cursor-pointer flex items-center justify-center shrink-0\"><svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\" class=\"w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--color-accent)]\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z\"></path></svg><!----><!----></button><button class=\"flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border text-[11px] sm:text-xs font-semibold transition-all shrink-0 bg-[var(--color-accent)] text-white\"><svg viewBox=\"0 0 24 24\" class=\"tv-icon tv-icon-sm\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><line x1=\"9\" y1=\"3\" x2=\"9\" y2=\"21\"></line></svg><span>Watchlist</span></button><!----></div>",
+    "network": [
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/prediction"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/prediction",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/main-UVQG5KX5.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/main-UVQG5KX5.js",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=us"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/models/status"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/chunk-D0smj-9W.js"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=us",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/companies-us.json"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/models/status",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/models/status.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/companies-us.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/manifest.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/models/status.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/chunk-D0smj-9W.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/chunk-Dgx-8Lh5.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/manifest.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/chunk-Dgx-8Lh5.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d"
+      },
+      {
+        "event": "request",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=in"
+      },
+      {
+        "event": "request",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=in",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/companies-in.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/companies-in.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/ADANIENT.NS/predict?model=linear_regression&horizon=5"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/ADANIENT.NS/predict?model=linear_regression&horizon=5",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/RELIANCE.NS/predict?model=linear_regression&horizon=5"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/RELIANCE.NS/ohlcv?period=180d"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/RELIANCE.NS/predict?model=linear_regression&horizon=5",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/RELIANCE.NS/ohlcv?period=180d",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/stocks/RELIANCE.NS/ohlcv.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/predictions/RELIANCE.NS/predict/linear_regression/h5.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/stocks/RELIANCE.NS/ohlcv.json",
+        "status": 200
+      }
+    ],
+    "console": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "info",
+        "text": "Autofocus processing was blocked because a document already has a focused element."
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      }
+    ],
+    "chartRendered": true
+  },
+  {
+    "controlled": true,
+    "ticker": "RELIANCE.NS",
+    "dom": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nAAPL\nApple Inc.\n₹333.63\n▲\n+0.74\n(+0.22%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nAAPL · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-06 · trained 10/7/26, 3:50 PM\n\nForecast $334.33 · band $320.74 – $348.69\n\n2026-07-14\n2026-08-24\n2026-10-06\n+5 trading days\n₹300\n₹310\n₹320\n₹330\n₹340\n₹350\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0297 / 0.0383\nPrice MAE\t$9.58\nPrice MAPE\t2.99%\nDirectional accuracy · 95% CI\t51.7% (39.3%–63.8%)\nSkill vs naive\t-4.75%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n7\nSYMBOL\nLAST / CHG\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL",
+    "headerDOM": "<div class=\"flex items-center gap-2 sm:gap-3 shrink-0\"><a routerlink=\"/\" class=\"flex items-center gap-1.5 sm:gap-2 pr-1.5 sm:pr-2 border-r border-[var(--color-border)] cursor-pointer hover:opacity-90 transition-opacity shrink-0\" href=\"/\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-accent)]\"><polyline points=\"22 7 13.5 15.5 8.5 10.5 2 17\"></polyline><polyline points=\"16 7 22 7 22 13\"></polyline></svg><div class=\"flex flex-col\"><span class=\"font-extrabold text-xs sm:text-sm tracking-wider font-display leading-tight\"> DATA VIZ<span class=\"text-[var(--color-accent)]\">.ML</span></span><span class=\"text-[8px] sm:text-[9px] text-[var(--color-muted)] tracking-tight hidden md:inline leading-none font-medium\"> Time-Tradable Assets </span></div></a><div class=\"relative group shrink-0\"><button aria-label=\"Select market asset\" class=\"flex items-center gap-1.5 bg-[var(--color-surface)] hover:border-[var(--color-accent)]/50 border border-[var(--color-border)] rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 text-[var(--color-frost)] font-semibold transition-all\"><svg viewBox=\"0 0 24 24\" class=\"tv-icon tv-icon-sm text-[var(--color-muted)]\"><circle cx=\"11\" cy=\"11\" r=\"8\"></circle><line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"></line></svg><span class=\"text-xs sm:text-sm font-bold tracking-wide\">AAPL</span><span class=\"text-xs text-[var(--color-muted)] max-w-[120px] truncate hidden xl:inline\">Apple Inc.</span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" class=\"w-2.5 h-2.5 sm:w-3 sm:h-3 text-[var(--color-muted)]\"><polyline points=\"6 9 12 15 18 9\"></polyline></svg></button><div class=\"fixed inset-x-2 top-14 sm:absolute sm:left-0 sm:top-11 sm:w-96 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-2xl z-50 p-3 space-y-2\"><div class=\"flex items-center justify-between sm:hidden pb-1 border-b border-[var(--color-border)]\"><span class=\"font-bold text-xs text-[var(--color-frost)]\">Select Market Asset</span><button class=\"text-[var(--color-muted)] p-1 text-sm\">✕</button></div><div class=\"relative\"><input type=\"text\" placeholder=\"Search symbol or company (e.g. AAPL, TSLA)...\" autofocus=\"\" class=\"w-full bg-[var(--color-void)] border border-[var(--color-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-frost)] placeholder-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] ng-untouched ng-valid ng-dirty\"></div><div class=\"max-h-60 sm:max-h-64 overflow-y-auto divide-y divide-[var(--color-border)]\"><!----></div></div><!----></div><div class=\"flex items-center gap-1.5 pl-1.5 border-l border-[var(--color-border)] shrink-0\"><span class=\"text-xs sm:text-sm font-extrabold font-mono-num text-[var(--color-frost)]\">₹333.63</span><div class=\"px-1.5 sm:px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-mono-num font-bold flex items-center gap-0.5 border bg-[#089981]/15 border-[#089981]/30 text-[#089981]\"><span>▲</span><span>+0.74</span><span class=\"hidden md:inline\">(+0.22%)</span></div></div><!----><!----><!----></div><!----><div class=\"flex items-center gap-2 border-x border-[var(--color-border)] px-3 py-1 text-xs font-mono-num text-[var(--color-muted)] shrink-0\"><span class=\"w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse\"></span><span>Forecast: <strong class=\"text-[var(--color-frost)]\">5 Trading Days Forward</strong></span></div><!----><!----><div class=\"flex items-center gap-1 sm:gap-2 shrink-0\"><nav class=\"flex items-center gap-1 shrink-0\"><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab\" href=\"/analysis\"> SuperChart </a><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab tv-nav-tab-active\" href=\"/prediction\"> ML Forecasts </a><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab\" href=\"/best-analysis\"> Strategy Leaderboard </a><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab\" href=\"/\"> Market Overview </a><!----></nav><button aria-label=\"Toggle dark/light theme\" title=\"Toggle Dark/Light Mode\" class=\"p-1.5 sm:p-2 rounded-lg border border-[var(--color-border)] text-[var(--color-muted)] hover:text-[var(--color-frost)] hover:border-[var(--color-accent)]/40 hover:bg-[var(--color-surface)] transition-all duration-300 cursor-pointer flex items-center justify-center shrink-0\"><svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\" class=\"w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--color-accent)]\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z\"></path></svg><!----><!----></button><button class=\"flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border text-[11px] sm:text-xs font-semibold transition-all shrink-0 bg-[var(--color-accent)] text-white\"><svg viewBox=\"0 0 24 24\" class=\"tv-icon tv-icon-sm\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><line x1=\"9\" y1=\"3\" x2=\"9\" y2=\"21\"></line></svg><span>Watchlist</span></button><!----></div>",
+    "network": [
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/prediction"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/prediction",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/main-UVQG5KX5.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/main-UVQG5KX5.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
+      },
+      {
+        "event": "response",
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=us"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/models/status"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/chunk-D0smj-9W.js"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=us",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/models/status",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/companies-us.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/models/status.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/chunk-D0smj-9W.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/chunk-Dgx-8Lh5.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/chunk-Dgx-8Lh5.js",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/models/status.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/manifest.json"
+      },
+      {
+        "event": "request",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/manifest.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=in"
+      },
+      {
+        "event": "request",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=in",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/companies-in.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/companies-in.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/ADANIENT.NS/predict?model=linear_regression&horizon=5"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/ADANIENT.NS/predict?model=linear_regression&horizon=5",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json"
+      },
+      {
+        "event": "response",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/companies-us.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json",
+        "status": 200
+      }
+    ],
+    "console": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "info",
+        "text": "Autofocus processing was blocked because a document already has a focused element."
+      }
+    ],
+    "optionCount": 0
+  },
+  {
+    "controlled": true,
+    "ticker": "M&M.NS",
+    "dom": "India (NSE)\nUnited States\n₹ · Snapshot · 2026-10-07\nData as of 2026-10-07 · trained 10/7/26, 3:34 PM\nDATA VIZ.ML\nTime-Tradable Assets\nAAPL\nApple Inc.\n₹333.63\n▲\n+0.74\n(+0.22%)\nForecast: 5 Trading Days Forward\nSuperChart\nML Forecasts\nStrategy Leaderboard\nMarket Overview\nWatchlist\nSnapshot · 2026-10-07 · Not financial advice\nAAPL · Forward log-return forecast\nLinear Reg\nSVM Linear\nSVM RBF\nTree\nLSTM\n1 trading day\n5 trading days\n\nSaved snapshot · 5-trading-day forecasts only.\n\nData as of 2026-10-06 · trained 10/7/26, 3:50 PM\n\nForecast $334.33 · band $320.74 – $348.69\n\n2026-07-14\n2026-08-24\n2026-10-06\n+5 trading days\n₹300\n₹310\n₹320\n₹330\n₹340\n₹350\nNaive: price stays the same\nlinear_regression forecast\nValidation residual band (10-90%)\nHistorical close\nHeld-out evaluation · 60 trading observations\nReturn MAE / RMSE\t0.0297 / 0.0383\nPrice MAE\t$9.58\nPrice MAPE\t2.99%\nDirectional accuracy · 95% CI\t51.7% (39.3%–63.8%)\nSkill vs naive\t-4.75%\n\nBand: 10th–90th percentile of validation residuals, not a guarantee. Positive skill beats the price-stays-the-same baseline.\n\nWatchlist\n7\nSYMBOL\nLAST / CHG\nTECHNICAL RATING\nNO SIGNAL\nOscillators (12):\nNO SIGNAL\nMoving Averages (18):\nNO SIGNAL",
+    "headerDOM": "<div class=\"flex items-center gap-2 sm:gap-3 shrink-0\"><a routerlink=\"/\" class=\"flex items-center gap-1.5 sm:gap-2 pr-1.5 sm:pr-2 border-r border-[var(--color-border)] cursor-pointer hover:opacity-90 transition-opacity shrink-0\" href=\"/\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-accent)]\"><polyline points=\"22 7 13.5 15.5 8.5 10.5 2 17\"></polyline><polyline points=\"16 7 22 7 22 13\"></polyline></svg><div class=\"flex flex-col\"><span class=\"font-extrabold text-xs sm:text-sm tracking-wider font-display leading-tight\"> DATA VIZ<span class=\"text-[var(--color-accent)]\">.ML</span></span><span class=\"text-[8px] sm:text-[9px] text-[var(--color-muted)] tracking-tight hidden md:inline leading-none font-medium\"> Time-Tradable Assets </span></div></a><div class=\"relative group shrink-0\"><button aria-label=\"Select market asset\" class=\"flex items-center gap-1.5 bg-[var(--color-surface)] hover:border-[var(--color-accent)]/50 border border-[var(--color-border)] rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 text-[var(--color-frost)] font-semibold transition-all\"><svg viewBox=\"0 0 24 24\" class=\"tv-icon tv-icon-sm text-[var(--color-muted)]\"><circle cx=\"11\" cy=\"11\" r=\"8\"></circle><line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"></line></svg><span class=\"text-xs sm:text-sm font-bold tracking-wide\">AAPL</span><span class=\"text-xs text-[var(--color-muted)] max-w-[120px] truncate hidden xl:inline\">Apple Inc.</span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" class=\"w-2.5 h-2.5 sm:w-3 sm:h-3 text-[var(--color-muted)]\"><polyline points=\"6 9 12 15 18 9\"></polyline></svg></button><div class=\"fixed inset-x-2 top-14 sm:absolute sm:left-0 sm:top-11 sm:w-96 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-2xl z-50 p-3 space-y-2\"><div class=\"flex items-center justify-between sm:hidden pb-1 border-b border-[var(--color-border)]\"><span class=\"font-bold text-xs text-[var(--color-frost)]\">Select Market Asset</span><button class=\"text-[var(--color-muted)] p-1 text-sm\">✕</button></div><div class=\"relative\"><input type=\"text\" placeholder=\"Search symbol or company (e.g. AAPL, TSLA)...\" autofocus=\"\" class=\"w-full bg-[var(--color-void)] border border-[var(--color-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-frost)] placeholder-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] ng-untouched ng-valid ng-dirty\"></div><div class=\"max-h-60 sm:max-h-64 overflow-y-auto divide-y divide-[var(--color-border)]\"><!----></div></div><!----></div><div class=\"flex items-center gap-1.5 pl-1.5 border-l border-[var(--color-border)] shrink-0\"><span class=\"text-xs sm:text-sm font-extrabold font-mono-num text-[var(--color-frost)]\">₹333.63</span><div class=\"px-1.5 sm:px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-mono-num font-bold flex items-center gap-0.5 border bg-[#089981]/15 border-[#089981]/30 text-[#089981]\"><span>▲</span><span>+0.74</span><span class=\"hidden md:inline\">(+0.22%)</span></div></div><!----><!----><!----></div><!----><div class=\"flex items-center gap-2 border-x border-[var(--color-border)] px-3 py-1 text-xs font-mono-num text-[var(--color-muted)] shrink-0\"><span class=\"w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse\"></span><span>Forecast: <strong class=\"text-[var(--color-frost)]\">5 Trading Days Forward</strong></span></div><!----><!----><div class=\"flex items-center gap-1 sm:gap-2 shrink-0\"><nav class=\"flex items-center gap-1 shrink-0\"><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab\" href=\"/analysis\"> SuperChart </a><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab tv-nav-tab-active\" href=\"/prediction\"> ML Forecasts </a><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab\" href=\"/best-analysis\"> Strategy Leaderboard </a><a routerlinkactive=\"tv-nav-tab-active\" class=\"tv-nav-tab\" href=\"/\"> Market Overview </a><!----></nav><button aria-label=\"Toggle dark/light theme\" title=\"Toggle Dark/Light Mode\" class=\"p-1.5 sm:p-2 rounded-lg border border-[var(--color-border)] text-[var(--color-muted)] hover:text-[var(--color-frost)] hover:border-[var(--color-accent)]/40 hover:bg-[var(--color-surface)] transition-all duration-300 cursor-pointer flex items-center justify-center shrink-0\"><svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\" class=\"w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--color-accent)]\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z\"></path></svg><!----><!----></button><button class=\"flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border text-[11px] sm:text-xs font-semibold transition-all shrink-0 bg-[var(--color-accent)] text-white\"><svg viewBox=\"0 0 24 24\" class=\"tv-icon tv-icon-sm\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><line x1=\"9\" y1=\"3\" x2=\"9\" y2=\"21\"></line></svg><span>Watchlist</span></button><!----></div>",
+    "network": [
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/prediction"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/prediction",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/main-UVQG5KX5.js"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/polyfills-5CFQRCPP.js",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/styles-VNXPIKUN.css",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/main-UVQG5KX5.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
+      },
+      {
+        "event": "response",
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/scripts-VSVHHUJG.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=us"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/models/status"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/chunk-D0smj-9W.js"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=us",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/models/status",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/companies-us.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/models/status.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/chunk-D0smj-9W.js",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/chunk-Dgx-8Lh5.js"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/chunk-Dgx-8Lh5.js",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/models/status.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/manifest.json"
+      },
+      {
+        "event": "request",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/manifest.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=in"
+      },
+      {
+        "event": "request",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/companies/?market=in",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/companies-in.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/companies-in.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/ADANIENT.NS/predict?model=linear_regression&horizon=5"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/ADANIENT.NS/predict?model=linear_regression&horizon=5",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/ADANIENT.NS/ohlcv?period=180d",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json"
+      },
+      {
+        "event": "response",
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/predictions/ADANIENT.NS/predict/linear_regression/h5.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/stocks/ADANIENT.NS/ohlcv.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/companies-us.json",
+        "status": 200
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5"
+      },
+      {
+        "event": "request",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/predictions/AAPL/predict?model=linear_regression&horizon=5",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "failure",
+        "url": "https://stock-api.medhainnovation.com/api/stocks/AAPL/ohlcv?period=180d",
+        "error": "net::ERR_FAILED"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json"
+      },
+      {
+        "event": "request",
+        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json"
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/predictions/AAPL/predict/linear_regression/h5.json",
+        "status": 200
+      },
+      {
+        "event": "response",
+        "url": "http://127.0.0.1:4200/data/stocks/AAPL/ohlcv.json",
+        "status": 200
+      }
+    ],
+    "console": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      },
+      {
+        "type": "info",
+        "text": "Autofocus processing was blocked because a document already has a focused element."
+      }
+    ],
+    "optionCount": 0
+  }
+]

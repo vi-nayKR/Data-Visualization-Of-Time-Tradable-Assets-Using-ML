@@ -2,7 +2,7 @@ name: CI Build & Quality Gate
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feat/india-honest-forecasting ]
   pull_request:
     branches: [ main ]
 
@@ -30,6 +30,9 @@ jobs:
         working-directory: frontend
         run: npm run build
 
+      - name: Ticker snapshot path mapping
+        run: node scripts/check_ticker_paths.cjs
+
   build-backend:
     name: Test Backend (FastAPI & PyTorch)
     runs-on: ubuntu-latest
@@ -49,8 +52,15 @@ jobs:
         working-directory: backend
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements.txt pytest
 
       - name: Check code syntax
         working-directory: backend
         run: python -m compileall app/
+
+      - name: Reject shadowed backend imports
+        run: python scripts/check_backend_shadowing.py
+
+      - name: Leakage, metrics, sanity and determinism tests
+        working-directory: backend
+        run: python -m pytest tests -q

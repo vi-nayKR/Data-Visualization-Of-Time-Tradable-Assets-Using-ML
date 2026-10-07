@@ -1,86 +1,23 @@
-import { Component, OnInit, inject, signal, effect } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StockApiService } from '../../core/services/stock-api.service';
-import { PredictionResponse } from '../../core/models/stock.model';
+import { PredictionResponse, OHLCVRecord } from '../../core/models/stock.model';
 import { PredictionChartComponent } from './prediction-chart.component';
-
-@Component({
-  selector: 'app-prediction',
-  standalone: true,
-  imports: [CommonModule, PredictionChartComponent],
-  template: `
-    <div class="flex flex-col h-full bg-[var(--color-void)] text-[var(--color-frost)] overflow-hidden transition-colors duration-300">
-    <div role="status" class="px-3 py-1 text-xs bg-[var(--color-surface)] text-[var(--color-frost)]">
-      {{ api.sourceLabel('prediction') }} · Not financial advice
-    </div>
-      
-      <!-- TOP MODEL SELECTION RIBBON (SWIPEABLE & TOUCH-FRIENDLY) -->
-      <div class="h-11 sm:h-12 bg-[var(--color-surface)] border-b border-[var(--color-border)] flex items-center justify-between px-2 sm:px-4 text-xs flex-shrink-0 gap-2 transition-colors duration-300 overflow-x-auto no-scrollbar">
-        
-        <!-- Left: Strategy Selector Buttons -->
-        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-          <span class="text-[var(--color-muted)] font-bold uppercase text-[10px] sm:text-[11px] mr-1 hidden sm:inline tracking-wider">Model:</span>
-          @for (m of models; track m.key) {
-            <button (click)="selectedModel.set(m.key)"
-                    [class]="selectedModel() === m.key
-                      ? 'bg-[var(--color-accent)] text-white font-bold shadow-md shadow-[var(--shadow-accent)]'
-                      : 'bg-[var(--color-void)] text-[var(--color-muted)] hover:text-[var(--color-frost)] border border-[var(--color-border)] hover:bg-[var(--color-surface)]'"
-                    class="px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs transition-all whitespace-nowrap font-medium shrink-0">
-              {{ m.shortLabel || m.label }}
-            </button>
-          }
-        </div>
-
-        <!-- Right: Confidence / R² Score Badge -->
-        @if (response()) {
-          <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-            <span class="text-[var(--color-muted)] text-[10px] sm:text-xs font-semibold hidden sm:inline">R² Score:</span>
-            <span class="font-mono-num font-extrabold text-[10px] sm:text-xs px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg border whitespace-nowrap"
-                  [class]="response()!.confidence >= 0 
-                    ? 'bg-[#089981]/15 text-[#089981] border-[#089981]/30' 
-                    : 'bg-[#f23645]/15 text-[#f23645] border-[#f23645]/30'">
-              {{ (response()!.confidence * 100).toFixed(1) }}% R²
-            </span>
-          </div>
-        }
-      </div>
-
-      <!-- MAIN PREDICTION CANVAS -->
-      <div class="flex-1 relative flex flex-col overflow-hidden">
-        
-        <!-- Loading State -->
-        @if (loading()) {
-          <div class="absolute inset-0 bg-[var(--color-void)]/85 backdrop-blur-sm z-40 flex flex-col items-center justify-center gap-3">
-            <div class="w-8 h-8 border-2 border-[var(--color-accent)] border-t-transparent rounded-full animate-spin"></div>
-            <span class="text-xs font-mono-num text-[var(--color-muted)]">Computing 50-day forecast for {{ api.selectedTicker() }}...</span>
-          </div>
-        }
-
-        @if (response()) {
-          <div class="flex-1 w-full h-full relative overflow-hidden">
-            <app-prediction-chart [records]="response()!.records"
-                                  [predictions]="response()!.predictions"
-                                  [modelName]="response()!.model">
-            </app-prediction-chart>
-          </div>
-
-          <!-- Bottom Forecast Metrics Banner -->
-          <div class="h-9 sm:h-10 bg-[var(--color-surface)] border-t border-[var(--color-border)] flex items-center justify-between px-3 sm:px-4 text-[11px] sm:text-xs font-mono-num flex-shrink-0 transition-colors duration-300">
-            <div class="flex items-center gap-3 sm:gap-5 text-[var(--color-muted)] truncate">
-              <span>Model: <strong class="text-[var(--color-frost)]">{{ response()!.model }}</strong></span>
-              <span class="hidden sm:inline">Horizon: <strong class="text-[var(--color-accent)]">50 Days</strong></span>
-            </div>
-            <div class="text-[#089981] font-semibold flex items-center gap-1 shrink-0">
-              <span class="w-1.5 h-1.5 rounded-full bg-[#089981]"></span>
-              <span>{{ api.sourceLabel('prediction') }}</span>
-            </div>
-          </div>
-        }
-
-      </div>
-    </div>
-  `
-})
+import { MetricsTableComponent } from '../../shared/metrics-table.component';
+import { UI } from '../../shared/ui';
+@Component({selector:'app-prediction',standalone:true,changeDetection:ChangeDetectionStrategy.OnPush,imports:[CommonModule,PredictionChartComponent,MetricsTableComponent,...UI],template:`
+<ui-page-header label="// FORECAST EXPERIMENT" [title]="api.selectedTicker()+' forecasts'" description="Forward log-return forecasts with a validation residual band and an honest naive baseline." [source]="api.sourceLabel('prediction')" />
+<div uiCard class="toolbar"><div class="field"><span>Prediction model</span><div uiSegmented aria-label="Model">@for(m of models;track m.key){<button [attr.aria-pressed]="selectedModel()===m.key" (click)="selectedModel.set(m.key)">{{m.shortLabel}}</button>}</div></div><div class="field"><span>Forecast horizon</span><div uiSegmented aria-label="Forecast horizon"><button [attr.aria-pressed]="api.horizon()===1" (click)="api.horizon.set(1)">1 trading day</button><button [attr.aria-pressed]="api.horizon()===5" (click)="api.horizon.set(5)">5 trading days</button></div></div></div>
+<section uiCard aria-labelledby="forecast-title"><div class="panel-heading"><div><h2 id="forecast-title">{{api.selectedCompanyName()}}</h2><p>Historical close, forecast band and baseline</p></div><span class="mono">{{api.currency()}}</span></div>
+@if(loading()){<div class="chart-frame"><ui-skeleton /></div>}@else if(error()){<div class="empty-state" role="status"><h2>Forecast unavailable</h2><p>Try loading this asset again.</p><button uiButton (click)="fetchPrediction(api.selectedTicker(),selectedModel())">Retry</button></div>}@else if(response();as result){
+<div class="forecast-summary"><div><p class="eyebrow">// {{result.forecast.horizon}} TRADING DAYS</p><h2><ui-count-up [value]="result.forecast.price" [currency]="result.currency" /></h2><p class="metric-note">Band {{result.forecast.lower | currency:result.currency}} to {{result.forecast.upper | currency:result.currency}}</p></div><p class="forecast-note">The band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.</p></div>
+@if(api.sources()['prediction']==='snapshot'){<p class="snapshot-banner">Saved snapshot: 5-trading-day forecasts only.</p>}
+<div class="chart-frame">@defer (on viewport) {<app-prediction-chart [records]="records()" [forecast]="result.forecast" [naive]="result.naive" [modelName]="result.model" />} @placeholder {<ui-skeleton />}</div>
+<p class="chart-caption">Data as of {{result.as_of}} &middot; trained {{result.trained_at | date:'short'}}. The naive line keeps the last price unchanged.</p>
+}@else{<div class="empty-state"><h2>No forecast available</h2><button uiButton (click)="fetchPrediction(api.selectedTicker(),selectedModel())">Retry</button></div>}
+</section>
+@if(!loading()&&!error()){ @if(response();as result){<section uiCard class="metrics-panel"><div class="panel-heading"><div><p class="eyebrow">// MODEL RESULTS</p><h2>Held-out evaluation</h2></div><p>Positive skill beats the naive baseline.</p></div><app-metrics-table [metrics]="result.metrics" [currency]="result.currency" /></section>} }
+`})
 export class PredictionComponent {
   api = inject(StockApiService);
 
@@ -96,23 +33,28 @@ export class PredictionComponent {
   loading = signal<boolean>(false);
   response = signal<PredictionResponse | null>(null);
 
+  records = signal<OHLCVRecord[]>([]);
+  error = signal(false);
   constructor() {
     effect(() => {
       const ticker = this.api.selectedTicker();
       const model = this.selectedModel();
+      const horizon = this.api.horizon();
       if (ticker) {
-        this.fetchPrediction(ticker, model);
+        this.fetchPrediction(ticker, model, horizon);
       }
     });
   }
 
-  private async fetchPrediction(ticker: string, model: string) {
+  async fetchPrediction(ticker: string, model: string, horizon:1|5 = this.api.horizon()) {
     this.loading.set(true);
+    this.error.set(false);
     try {
-      const res = await this.api.getPrediction(ticker, model);
+      const [res, records] = await Promise.all([this.api.getPrediction(ticker, model, horizon),this.api.getOHLCV(ticker)]);
+      this.records.set(records);
       this.response.set(res);
     } catch (e) {
-      console.error(e);
+      this.error.set(true);
     } finally {
       this.loading.set(false);
     }
