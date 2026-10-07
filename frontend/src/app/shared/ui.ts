@@ -21,7 +21,7 @@ export class UiPageHeader {
   description = input.required<string>(); source = input('Live');
 }
 @Component({selector:'ui-count-up',changeDetection:ChangeDetectionStrategy.OnPush,
-  template:`<span [attr.aria-label]="format(value())"><span aria-hidden="true">{{format(displayed())}}</span></span>`})
+  template:`<span class="sr-only">{{format(value())}}</span><span aria-hidden="true">{{format(displayed())}}</span>`})
 export class UiCountUp {
   value=input.required<number>(); currency=input(''); displayed=signal(0);
   constructor(){effect(cleanup=>{

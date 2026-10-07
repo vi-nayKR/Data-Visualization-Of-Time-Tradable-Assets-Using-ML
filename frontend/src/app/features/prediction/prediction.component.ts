@@ -12,7 +12,7 @@ import { UI } from '../../shared/ui';
 @if(loading()){<div class="chart-frame"><ui-skeleton /></div>}@else if(error()){<div class="empty-state" role="status"><h2>Forecast unavailable</h2><p>Try loading this asset again.</p><button uiButton (click)="fetchPrediction(api.selectedTicker(),selectedModel())">Retry</button></div>}@else if(response();as result){
 <div class="forecast-summary"><div><p class="eyebrow">// {{result.forecast.horizon}} TRADING DAYS</p><h2><ui-count-up [value]="result.forecast.price" [currency]="result.currency" /></h2><p class="metric-note">Band {{result.forecast.lower | currency:result.currency}} to {{result.forecast.upper | currency:result.currency}}</p></div><p class="forecast-note">The band contains the 10th to 90th percentile of validation residuals. It is an empirical range, not a guarantee.</p></div>
 @if(api.sources()['prediction']==='snapshot'){<p class="snapshot-banner">Saved snapshot: 5-trading-day forecasts only.</p>}
-<div class="chart-frame"><app-prediction-chart [records]="records()" [forecast]="result.forecast" [naive]="result.naive" [modelName]="result.model" /></div>
+<div class="chart-frame">@defer (on viewport) {<app-prediction-chart [records]="records()" [forecast]="result.forecast" [naive]="result.naive" [modelName]="result.model" />} @placeholder {<ui-skeleton />}</div>
 <p class="chart-caption">Data as of {{result.as_of}} &middot; trained {{result.trained_at | date:'short'}}. The naive line keeps the last price unchanged.</p>
 }@else{<div class="empty-state"><h2>No forecast available</h2><button uiButton (click)="fetchPrediction(api.selectedTicker(),selectedModel())">Retry</button></div>}
 </section>

@@ -20,8 +20,8 @@ export class PredictionChartComponent implements AfterViewInit,OnDestroy {
  {x:[last,end],y:[origin,forecast.upper],type:'scatter',mode:'lines',line:{width:0},fill:'tonexty',fillcolor:palette.fill,name:'Validation residual band (10-90%)'},
  {x:[last,end],y:[origin,forecast.price],type:'scatter',mode:'lines+markers',name:name+' forecast',line:{color:green,width:2,dash:'dot'}},
  {x:[last,end],y:[origin,naive.price],type:'scatter',mode:'lines',name:'Naive: price stays the same',line:{color:muted,width:2,dash:'dash'}}];
- const ticks=[0,Math.floor(last/2),last,end];
+ const mobile=innerWidth<768;const ticks=mobile?[0,Math.floor(last/2),end]:[0,Math.floor(last/2),last,end];const labels=mobile?[history[0].date,history[Math.floor(last/2)].date,'+'+forecast.horizon+' trading days']:[history[0].date,history[Math.floor(last/2)].date,history[last].date,'+'+forecast.horizon+' trading days'];
  this.rendered.set(false);
- this.Plotly.react(this.chartContainer.nativeElement,traces,{...base,margin:{l:10,r:70,t:60,b:45},legend:{orientation:'h',y:1.15},hovermode:'x unified',xaxis:{...base.xaxis,tickvals:ticks,ticktext:[history[0].date,history[Math.floor(last/2)].date,history[last].date,'+'+forecast.horizon+' trading days'],gridcolor:palette.grid},yaxis:{...base.yaxis,side:'right',tickprefix:currency,gridcolor:palette.grid}},{responsive:true,scrollZoom:true,displayModeBar:false}).then(()=>{if(!this.destroyed)this.rendered.set(true);});
+ this.Plotly.react(this.chartContainer.nativeElement,traces,{...base,margin:{l:10,r:70,t:60,b:45},legend:{orientation:'h',y:1.15},hovermode:'x unified',xaxis:{...base.xaxis,tickvals:ticks,ticktext:labels,tickangle:0,automargin:true,gridcolor:palette.grid},yaxis:{...base.yaxis,side:'right',tickprefix:currency,gridcolor:palette.grid}},{responsive:true,scrollZoom:true,displayModeBar:false}).then(()=>{if(!this.destroyed)this.rendered.set(true);});
  }
 }
