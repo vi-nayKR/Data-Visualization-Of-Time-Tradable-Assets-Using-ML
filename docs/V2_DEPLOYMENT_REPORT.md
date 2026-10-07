@@ -1,6 +1,6 @@
-# V2 rollout stopped: live fallback ticker selection failed
+# V2 rollout stopped: public market-control readiness failed
 
-Branch: feat/india-honest-forecasting, created from origin/main in a separate worktree. Attempted backend commit: c368c57 (backend code unchanged from the corrected stock reader). Restored to cb81aececbf7fb2feaa75cb034ea33bb52769987 after the service-down fallback verification failed. Artifact training commit: 67a9517712587f949c646f38be50da3bc9345615. The Aurora worktree remains untouched at 8f1e21d2e9ecfb965473213d1f3377e3f8aae2d2.
+Branch: feat/india-honest-forecasting, created from origin/main in a separate worktree. Attempted backend commit: 04776d6a1da37e8bde95a06c3c5d5ce303ed81b2. Restored to cb81aececbf7fb2feaa75cb034ea33bb52769987 after the public browser verification failed. Artifact training commit: 67a9517712587f949c646f38be50da3bc9345615. The Aurora worktree remains untouched at 8f1e21d2e9ecfb965473213d1f3377e3f8aae2d2.
 
 ## Honest h=5 results
 
@@ -18,9 +18,9 @@ See EVALUATION.md for the methodology, Wilson intervals per ticker, descriptive 
 - Both horizons completed for India 51/51 and US 7/7: 58/58, zero failures.
 - Training duration: 1057.55 seconds (17m 38s). Peak: 369897472 bytes (352.8 MiB), below 1200M. CPU-only, two PyTorch threads; training CPUQuota150%, Nice10, timeout45min.
 - Observed training MemAvailable remained approximately 2.42 GiB. Linux MemFree was approximately 604 MiB because of reclaimable cache; the 1 GiB headroom is available memory, not entirely unused RAM. Swap usage was zero.
-- API peak observed after the local real-data browser checks: 221708288 bytes (211.4 MiB); available memory 2967 MiB. API retains MemoryMax1500M and CPUQuota200%.
+- Latest API peak observed after the origin smoke: 213229568 bytes (203.4 MiB); available memory 2950 MiB, MemFree 1039 MiB, swap usage zero. API retains MemoryMax1500M and CPUQuota200%.
 - Cloudflared measured 28147712 bytes (26.8 MiB), retaining its existing 256M limit.
-- Cached origin predict p95 after the final backend restart: 2.17 ms (nine samples in the full smoke). A prior 18-sample origin check measured 1.99 ms. These exclude Internet latency; no claim that public end-to-end RTT is below 100 ms.
+- Cached origin predict p95 after the latest backend restart: 2.06 ms (nine samples in the full smoke). These exclude Internet latency; no claim that public end-to-end RTT is below 100 ms.
 - Nightly timer: 03:00 Asia/Kolkata, persistent. Forecasts serve artifacts only and reload atomic replacements without an API restart, using inode, nanosecond mtime and size for artifacts and status index.
 
 ## Frontend and verification
@@ -28,16 +28,16 @@ See EVALUATION.md for the methodology, Wilson intervals per ticker, descriptive 
 The minimal v2 UI adds India/US controls, native INR/USD currency, h=1/5, empirical forecast band, naive line, held-out metrics, leaderboard including baselines, honest winner text and data/training dates. Full Aurora redesign is deferred until this PR is merged.
 
 - Angular build passed without warnings. Initial bundle: 5.14 MB raw / 1.18 MB estimated transfer; no application dependency upgrades.
-- All 12 backend tests passed on medha-storage in 37.71 seconds, and CI passed. A stdlib symbol-table check rejects local assignments shadowing module imports across backend and runs in CI.
+- All 12 backend tests passed on medha-storage in 37.79 seconds, and CI run 37630001882 passed for 04776d6. A stdlib symbol-table check rejects local assignments shadowing module imports across backend and runs in CI.
 - API regression coverage calls ohlcv and moving-average for RELIANCE.NS, M&M.NS and AAPL against temporary disk caches, plus memory-cache hits. Atomic artifact tests preserve identical size and exact mtime while changing inode; both forecasts and models/index.json must reload.
 - Full local API smoke passed markets, companies for both markets, status, ohlcv, moving-average, predict and best-model for RELIANCE.NS, M&M.NS, AAPL and ^NSEI, plus h=1. Snapshot export ran only after this smoke.
 - External curl checks returned 200 for health, markets, both company lists, status and all four stock/forecast endpoints for those symbols. Ampersands and carets were URL-encoded.
 - External Python urllib receives 403, with server: cloudflare and cf-ray: a46ce616c926ace6-MRS. Curl and browser verification are used with user approval; Cloudflare WAF/bot/security settings were not changed. Bot protection is suspected, not proven by these headers alone.
 - Snapshot: 701 JSON files, 4841054 bytes (4.84 MB), 58 tickers, all eight models, h=5 only. Catalog matches the dropdown exactly. Local coverage and offline browser checks passed for both markets at 1366x768 and 390x844, including M&M encoded fetches and h=1 switching honestly to h=5.
 - Local browser checks using real API responses passed desktop and mobile, with charts, bands, naive traces, metrics, INR symbol, live badges, zero console errors and zero failed requests. Screenshots are in screenshots-v2/.
-- Live Worker checks passed every India/US analysis, prediction and best-analysis flow at 1366x768 and 390x844, including eight leaderboard rows, all baselines and one/five-day forecasts, with zero console errors, zero 404s and zero failed requests.
-- Actual service-down check: stock-api was stopped with a 600-second detached recovery safeguard; public health returned the expected 502 while cloudflared stayed active. The browser timed out selecting M&M.NS from the India dropdown before completing the flows. The cause is unconfirmed. A finally block restarted the API successfully and stopped the recovery timer. Read-only evidence before rollback showed the live /data/companies-in.json returns 200 with 51 companies, including M&M.NS in INR. This is a failed live fallback gate; local API-aborted fallback tests had passed, but do not replace this gate.
-- Under the stop rule, Worker and backend were both rolled back to the previous matching pair. API and cloudflared are active; API health is 200. Training timer is disabled by backend rollback, completed v2 artifacts remain. PR is not opened because the actual service-down gate is incomplete.
+- The earlier Worker 0ca83239 passed every normal India/US flow at both viewports before its actual service-down selection gate failed. Those screenshots do not establish the latest deployment passed.
+- Latest public Worker check on 63ff45ee failed before any route checks: locator.click timed out after 30000 ms waiting for getByRole('button', { name: 'India (NSE)', exact: true }) at scripts/check_browser_v2.cjs:41. No current failed-page DOM was retained by that runner, so the cause is unconfirmed. The local real-API checks for this same build passed all twelve market/page/viewport flows with zero console errors or failed requests. No actual API-stop test was attempted on this deployment after the public failure.
+- Under the stop rule, Worker and backend were both rolled back to the previous matching pair. API and cloudflared are active; public API health and restored Worker /prediction are 200. Training timer is disabled by backend rollback; completed v2 artifacts remain. Existing Medha sites were 200 and both SSH hosts worked during this attempt. PR is not opened because the live gates are incomplete.
 
 ## Worker deployment and rollback
 
@@ -45,7 +45,7 @@ Wrangler whoami confirmed medhainnovation2026@gmail.com, account a5f4a72257a6964
 
 Live URL: https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev
 
-Attempted version: 0ca83239-6eb4-4e7d-9573-a52ee54f6cd0, rolled back after the actual fallback gate failed. Earlier attempt 34295967-3f5c-42a8-a0da-5676febbc4f8 was rolled back after the premature leaderboard assertion.
+Latest attempted version: 63ff45ee-08f6-4d8d-ad56-7891de760346, rolled back after the public market-button timeout. Earlier 0ca83239-6eb4-4e7d-9573-a52ee54f6cd0 was rolled back after the actual fallback gate failed; 34295967-3f5c-42a8-a0da-5676febbc4f8 was rolled back after the premature leaderboard assertion.
 
 Restored/rollback version: 86fe882b-273e-440c-bf9b-111f47690ddb
 
@@ -92,3 +92,12 @@ The corrected runner scopes readiness to the selected component, waits for the l
 ## Skills
 
 Used Ponytail, Wrangler and Workers best practices. Dedicated Python/data science, pytest and Linux/systemd skills were unavailable; their requested intent was followed through leakage tests, deterministic CPU execution, resource limits and rollback gates. Headless Playwright used the existing external tooling; no application test dependency was added. Official Nifty, sklearn, Pydantic and Wrangler documentation informed the implementation.
+## Confirmed market catalog race and service-down regression
+
+The local built frontend reproduces the missing India option when the initial US company snapshot is deliberately held until after switching to India. The late US response overwrote the India catalog and selected AAPL while the market still read India. Both RELIANCE.NS and M&M.NS disappeared in this controlled case. The ampersand is not the cause: the literal M&M.NS snapshot directory exists, encoded M%26M.NS fetches return 200, and the option value is literal M&M.NS.
+
+The shared loadCompanies method now captures the requested market and discards a response if the current market changed. No artifact, prediction, API contract or snapshot data changed for this fix. dropdown-service-down-evidence.json preserves the pre-fix DOM, console and network evidence; service-down-selection-checks.json records the passing fixed build for desktop/mobile, normal/delayed responses, both symbols, encoded HTTP 200 prediction snapshots and forecast traces matching the saved data.
+
+scripts/check_ticker_paths.cjs tests the production URL helper for M&M.NS, ^NSEI and BRK-B across stock, forecast and info paths; CI runs it. scripts/check_service_down_v2.cjs aborts all API requests and tests both tickers at 1366 and 390 px. It records every request failure, rejecting unexpected failures except net::ERR_ABORTED snapshot reads that already recorded HTTP 200; these can occur during superseded background reads. Selected chart data, snapshot badges, HTTP status, page errors and console errors are asserted independently. The normal live runner still requires zero failed requests.
+
+Additional command corrections under standing approval: external curl JSON assertions use leaderboard.name (not model); the complete API response confirmed all eight entries before retry. The detached recovery helper uses a fresh stock-api-prefixed unit name to avoid collisions with prior transient units. Backend redeployment preserves the original rollback backup and does not rerun update.sh or retrain unchanged ML code.

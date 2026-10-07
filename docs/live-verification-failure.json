@@ -1,0 +1,16 @@
+{
+    "attemptedBackend":  "04776d6a1da37e8bde95a06c3c5d5ce303ed81b2",
+    "attemptedWorker":  "63ff45ee-08f6-4d8d-ad56-7891de760346",
+    "restoredBackend":  "cb81aececbf7fb2feaa75cb034ea33bb52769987",
+    "restoredWorker":  "86fe882b-273e-440c-bf9b-111f47690ddb",
+    "failedGate":  "public Playwright normal-mode verification",
+    "error":  "locator.click: Timeout 30000ms exceeded; waiting for getByRole(\u0027button\u0027, { name: \u0027India (NSE)\u0027, exact: true })",
+    "runner":  "scripts/check_browser_v2.cjs:41",
+    "cause":  "Unconfirmed; failed-page DOM was not retained",
+    "serviceDownAttempted":  false,
+    "postRollbackAPIHealth":  200,
+    "postRollbackWorkerPrediction":  200,
+    "cloudflared":  "active",
+    "trainingTimer":  "disabled",
+    "ci":  "https://github.com/vi-nayKR/Data-Visualization-Of-Time-Tradable-Assets-Using-ML/actions/runs/37630001882"
+}
