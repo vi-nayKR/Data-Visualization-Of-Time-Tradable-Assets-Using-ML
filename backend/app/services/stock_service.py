@@ -25,8 +25,14 @@ class StockService:
         if period.endswith("d") and period[:-1].isdigit():
             days = int(period[:-1])
             data = data.loc[data.index >= data.index[-1] - pd.Timedelta(days=days)]
-        else:
-            raise ValueError("period must be a duration in days")
+        elif period.endswith("mo") and period[:-2].isdigit():
+            data = data.loc[data.index >= data.index[-1] - pd.DateOffset(months=int(period[:-2]))]
+        elif period.endswith("y") and period[:-1].isdigit():
+            data = data.loc[data.index >= data.index[-1] - pd.DateOffset(years=int(period[:-1]))]
+        elif period == "ytd":
+            data = data.loc[data.index.year == data.index[-1].year]
+        elif period != "max":
+            return []
         if data.empty:
             return []
 
