@@ -176,7 +176,7 @@ import { Timeframe, ChartType } from './core/models/stock.model';
         } @else if (isPrediction()) {
           <div class="flex items-center gap-2 border-x border-[var(--color-border)] px-3 py-1 text-xs font-mono-num text-[var(--color-muted)] shrink-0">
             <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"></span>
-            <span>Forecast: <strong class="text-[var(--color-frost)]">50 Trading Days Forward</strong></span>
+            <span>Forecast: <strong class="text-[var(--color-frost)]">{{api.horizon()}} Trading Days Forward</strong></span>
           </div>
         } @else if (isLeaderboard()) {
           <div class="flex items-center gap-2 border-x border-[var(--color-border)] px-3 py-1 text-xs font-mono-num text-[var(--color-muted)] shrink-0">

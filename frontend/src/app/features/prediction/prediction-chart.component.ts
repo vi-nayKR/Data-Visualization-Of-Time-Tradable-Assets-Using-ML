@@ -16,7 +16,7 @@ export class PredictionChartComponent implements AfterViewInit,OnDestroy {
  const traces=[
  {x,y:history.map(r=>r.close),type:'scatter',mode:'lines',name:'Historical close',line:{color:accent,width:2}},
  {x:[last,end],y:[origin,forecast.lower],type:'scatter',mode:'lines',line:{width:0},showlegend:false,hoverinfo:'skip'},
- {x:[last,end],y:[origin,forecast.upper],type:'scatter',mode:'lines',line:{width:0},fill:'tonexty',fillcolor:'rgba(8,153,129,0.18)',name:'Validation residual band (10?90%)'},
+ {x:[last,end],y:[origin,forecast.upper],type:'scatter',mode:'lines',line:{width:0},fill:'tonexty',fillcolor:'rgba(8,153,129,0.18)',name:'Validation residual band (10-90%)'},
  {x:[last,end],y:[origin,forecast.price],type:'scatter',mode:'lines+markers',name:name+' forecast',line:{color:green,width:2,dash:'dot'}},
  {x:[last,end],y:[origin,naive.price],type:'scatter',mode:'lines',name:'Naive: price stays the same',line:{color:muted,width:2,dash:'dash'}}];
  const ticks=[0,Math.floor(last/2),last,end];
