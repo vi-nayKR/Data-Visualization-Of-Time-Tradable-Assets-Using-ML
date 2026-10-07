@@ -2,11 +2,11 @@ import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModelMetrics } from '../core/models/stock.model';
 @Component({selector:'app-metrics-table',standalone:true,imports:[CommonModule],template:`
-<div class="overflow-x-auto"><table class="w-full text-xs text-left"><caption class="text-left py-3">Held-out evaluation ? {{metrics().observations}} trading observations</caption><tbody>
+<div class="overflow-x-auto"><table class="w-full text-xs text-left"><caption class="text-left py-3">Held-out evaluation · {{metrics().observations}} trading observations</caption><tbody>
 <tr><th class="p-2">Return MAE / RMSE</th><td>{{metrics().mae_return | number:'1.4-4'}} / {{metrics().rmse_return | number:'1.4-4'}}</td></tr>
 <tr><th class="p-2">Price MAE</th><td>{{metrics().mae_price | currency:currency()}}</td></tr>
 <tr><th class="p-2">Price MAPE</th><td>{{metrics().mape_price | percent:'1.2-2'}}</td></tr>
-<tr><th class="p-2">Directional accuracy ? 95% CI</th><td>{{metrics().directional_accuracy | percent:'1.1-1'}} ({{metrics().directional_accuracy_ci[0] | percent:'1.1-1'}}?{{metrics().directional_accuracy_ci[1] | percent:'1.1-1'}})</td></tr>
+<tr><th class="p-2">Directional accuracy · 95% CI</th><td>{{metrics().directional_accuracy | percent:'1.1-1'}} ({{metrics().directional_accuracy_ci[0] | percent:'1.1-1'}}–{{metrics().directional_accuracy_ci[1] | percent:'1.1-1'}})</td></tr>
 <tr><th class="p-2">Skill vs naive</th><td>{{metrics().skill_vs_naive === null ? 'N/A' : (metrics().skill_vs_naive | percent:'1.2-2')}}</td></tr>
 </tbody></table></div>`})
 export class MetricsTableComponent {metrics=input.required<ModelMetrics>();currency=input('USD');}

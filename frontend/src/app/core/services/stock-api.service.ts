@@ -16,7 +16,7 @@ export class StockApiService {
   private manifest?: Promise<{ generated_at: string }>;
 
   sourceLabel(scope: string): string {
-    return this.sources()[scope] === 'snapshot' ? `Snapshot · ${this.generatedAt()}` : 'Live';
+    return this.sources()[scope] === 'snapshot' ? `Snapshot Â· ${this.generatedAt()}` : 'Live';
   }
 
   private async request<T>(path: string, snapshotPath: string, scope: string): Promise<T> {
@@ -43,7 +43,7 @@ export class StockApiService {
   market = signal<'in'|'us'>('us');
   horizon = signal<1|5>(5);
   currency = computed(() => this.market() === 'in' ? 'INR' : 'USD');
-  currencySymbol = computed(() => this.market() === 'in' ? '?' : '$');
+  currencySymbol = computed(() => this.market() === 'in' ? '\u20b9' : '$');
   modelStatus = signal<ModelStatus|null>(null);
   selectedTicker = signal<string>('AAPL');
   selectedCompanyName = signal<string>('Apple Inc.');

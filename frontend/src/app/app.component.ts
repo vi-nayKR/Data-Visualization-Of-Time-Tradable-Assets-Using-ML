@@ -28,8 +28,8 @@ import { Timeframe, ChartType } from './core/models/stock.model';
       <div class="flex flex-wrap items-center gap-3 px-3 py-2 text-xs bg-[var(--color-surface)]" role="group" aria-label="Market">
         <button (click)="api.selectMarket('in')" [attr.aria-pressed]="api.market()==='in'">India (NSE)</button>
         <button (click)="api.selectMarket('us')" [attr.aria-pressed]="api.market()==='us'">United States</button>
-        <span>{{api.currencySymbol()}} ? {{api.sourceLabel('companies')}}</span>
-        @if(api.modelStatus();as status){<span>Data as of {{status.data_as_of[api.market()]}} ? trained {{status.trained_at | date:'short'}}</span>}
+        <span>{{api.currencySymbol()}} · {{api.sourceLabel('companies')}}</span>
+        @if(api.modelStatus();as status){<span>Data as of {{status.data_as_of[api.market()]}} · trained {{status.trained_at | date:'short'}}</span>}
       </div>
       <!-- TOP NAVIGATION BAR (HORIZONTALLY SCROLLABLE ON MOBILE PHONES & DESKTOP) -->
       <header class="h-12 bg-[var(--color-abyss)] border-b border-[var(--color-border)] flex items-center justify-between px-2 sm:px-3 z-30 flex-shrink-0 text-xs gap-2.5 sm:gap-3 transition-colors duration-300 header-scroll-container">
