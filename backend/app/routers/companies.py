@@ -1,3 +1,4 @@
+from typing import Literal
 import yfinance as yf
 from fastapi import APIRouter, Request, HTTPException
 from app.services.company_service import CompanyService
@@ -5,9 +6,9 @@ from app.services.company_service import CompanyService
 router = APIRouter()
 
 @router.get("/")
-async def list_companies(request: Request):
+async def list_companies(request: Request, market: Literal["in", "us"] = "us"):
     company_service: CompanyService = request.app.state.company_service
-    return company_service.get_all_companies()
+    return company_service.get_all_companies(market)
 
 @router.get("/{ticker}/info")
 async def company_info(ticker: str):

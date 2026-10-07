@@ -4,6 +4,7 @@ import numpy as np
 import time
 from typing import List, Dict, Any, Optional
 from app.core.cache import stock_cache
+from app.services.market_data import cached
 
 # TTL in seconds for OHLCV and indicator cache
 STOCK_CACHE_TTL = 180.0 # 3 minutes
@@ -17,13 +18,18 @@ class StockService:
         if cached is not None:
             return cached
 
-        data = yf.download(tickers=ticker, period=period, interval='1d', auto_adjust=False, progress=False)
-        if data is None or data.empty:
+        try:
+            data = cached(ticker)
+        except FileNotFoundError:
             return []
-            
-        if isinstance(data.columns, pd.MultiIndex):
-            data.columns = data.columns.droplevel(1)
-            
+        if period.endswith("d") and period[:-1].isdigit():
+            days = int(period[:-1])
+            data = data.loc[data.index >= data.index[-1] - pd.Timedelta(days=days)]
+        else:
+            raise ValueError("period must be a duration in days")
+        if data.empty:
+            return []
+
         data.dropna(inplace=True)
         if data.empty:
             return []
