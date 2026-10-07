@@ -38,11 +38,14 @@ docs/browser-offline-checks.json
 docs/browser-preview-horizon-failure.json
 docs/browser-preview-live-checks.json
 docs/browser-preview-service-down-checks.json
+docs/browser-production-after-cors.json
+docs/browser-production-live-checks.json
 docs/browser-service-down-checks.json
 docs/curl-api-protection-comparison.json
 docs/dropdown-service-down-evidence.json
 docs/external-curl-aurora-v2.json
 docs/external-endpoint-checks.txt
+docs/final-production-cors-health.json
 docs/leaderboard-timing-evidence.json
 docs/lighthouse-aurora-home.report.html
 docs/lighthouse-aurora-home.report.json
@@ -78,6 +81,8 @@ docs/screenshots-v2/offline-us-best-analysis-1366.png
 docs/screenshots-v2/offline-us-best-analysis-390.png
 docs/screenshots-v2/offline-us-prediction-1366.png
 docs/screenshots-v2/offline-us-prediction-390.png
+docs/screenshots-v2/production-home-1366.png
+docs/screenshots-v2/production-home-390.png
 docs/screenshots-v2/selection-down-MM-1366-delayed.png
 docs/screenshots-v2/selection-down-MM-1366-normal.png
 docs/screenshots-v2/selection-down-MM-390-delayed.png

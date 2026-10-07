@@ -1,6 +1,14 @@
-# V2 + Aurora: preview verified, promotion pending Wrangler login
+# V2 + Aurora deployed and verified
 
-Branch: feat/india-honest-forecasting, created from origin/main in a separate worktree. Attempted backend commit: 04776d6a1da37e8bde95a06c3c5d5ce303ed81b2. Restored to cb81aececbf7fb2feaa75cb034ea33bb52769987 after the public browser verification failed. Artifact training commit: 67a9517712587f949c646f38be50da3bc9345615. The Aurora worktree remains untouched at 8f1e21d2e9ecfb965473213d1f3377e3f8aae2d2.
+Branch: feat/india-honest-forecasting, created from origin/main in a separate worktree. Backend deployment checkout: 2fa850e8431b0790047b71a08bf5d91d038b7e07 (subsequent commits change tests/docs only). Artifact training commit: 67a9517712587f949c646f38be50da3bc9345615. Production Worker: fb2ff6a7-ea83-45b7-a4bb-d6779b9cb302 at 100%. The original Aurora worktree remains untouched at 8f1e21d2e9ecfb965473213d1f3377e3f8aae2d2.
+
+Final verification: preview and production both passed all twelve India/US Live flows at 1366x768 and 390x844, with zero console errors, 404s or failed requests. Actual API-stop snapshot checks passed both markets and viewports; API was restored. All twenty Aurora route/viewport snapshot checks passed. After promotion, preview CORS was removed, the service restarted, production CORS/health and desktop/mobile home Live checks passed. Existing Medha sites return 200 and both SSH hosts work. API, cloudflared and training timer are active; the next nightly run is 2026-10-08 03:00 IST.
+
+Final ALLOWED_ORIGINS: https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev (one exact origin; no preview origin or wildcard).
+
+Rollback Worker: 86fe882b-273e-440c-bf9b-111f47690ddb. From frontend/: `npx.cmd --yes wrangler@4.148.0 rollback 86fe882b-273e-440c-bf9b-111f47690ddb --yes`. Backend: `ssh medha-storage "sudo bash /var/lib/stock-api-deploy/rollback-v2.sh --v2"`. Original backend checkout/unit backup remains preserved.
+
+Evidence: browser-preview-live-checks.json, browser-production-live-checks.json, browser-preview-service-down-checks.json, browser-production-after-cors.json and final-production-cors-health.json. Screenshots and Lighthouse reports are linked below. CHANGED_FILES_V2.txt lists every changed repo path; server paths and command corrections are recorded below. Earlier stopped attempts are retained as historical evidence, not current production state.
 
 ## Honest h=5 results
 
@@ -23,7 +31,7 @@ See EVALUATION.md for the methodology, Wilson intervals per ticker, descriptive 
 - Cached origin predict p95 after the latest backend restart: 2.06 ms (nine samples in the full smoke). These exclude Internet latency; no claim that public end-to-end RTT is below 100 ms.
 - Nightly timer: 03:00 Asia/Kolkata, persistent. Forecasts serve artifacts only and reload atomic replacements without an API restart, using inode, nanosecond mtime and size for artifacts and status index.
 
-## Frontend and verification
+## Original v2 verification and earlier stopped attempts (historical)
 
 The minimal v2 UI adds India/US controls, native INR/USD currency, h=1/5, empirical forecast band, naive line, held-out metrics, leaderboard including baselines, honest winner text and data/training dates. The user subsequently approved the full Aurora redesign before v2 merge. It is implemented on the v2 branch; the original feat/aurora-ui branch and worktree remain untouched.
 
@@ -39,7 +47,7 @@ The minimal v2 UI adds India/US controls, native INR/USD currency, h=1/5, empiri
 - Latest public Worker check on 63ff45ee failed before any route checks: locator.click timed out after 30000 ms waiting for getByRole('button', { name: 'India (NSE)', exact: true }) at scripts/check_browser_v2.cjs:41. No current failed-page DOM was retained by that runner, so the cause is unconfirmed. The local real-API checks for this same build passed all twelve market/page/viewport flows with zero console errors or failed requests. No actual API-stop test was attempted on this deployment after the public failure.
 - Under the stop rule, Worker and backend were both rolled back to the previous matching pair. API and cloudflared are active; public API health and restored Worker /prediction are 200. Training timer is disabled by backend rollback; completed v2 artifacts remain. Existing Medha sites were 200 and both SSH hosts worked during this attempt. PR is not opened because the live gates are incomplete.
 
-## Worker deployment and rollback
+## Earlier Worker deployments and rollback (historical)
 
 Wrangler whoami confirmed medhainnovation2026@gmail.com, account a5f4a72257a69645e159e8f769e4e52c before deployment. No vinaykr0605 account was used.
 
@@ -172,3 +180,14 @@ All twelve normal Live preview flows passed for India/US at 1366x768 and 390x844
 Actual service-down preview verification also passed all twelve flows for both markets and both widths. Only stock-api was stopped, with a stock-api-prefixed 600-second recovery timer; external health was 502, cloudflared remained active, saved data/encoded M&M.NS charts and Snapshot badges rendered. Cleanup explicitly restarted stock-api, stopped the recovery timer and checked markets plus health; external health returned 200. Evidence: browser-preview-service-down-checks.json and service-down screenshots. V2 and the nightly training timer remain active.
 
 Promotion did not run: Wrangler's previously working OAuth config was no longer present when versions deploy was attempted, and whoami then reported unauthenticated. Login was reopened for medhainnovation2026. No claim is made about why the credential file disappeared. Production Worker remains 86fe882b until authentication succeeds and the already-verified fb2ff6a7 version is promoted. A local evidence-copy command initially used frontend/ as its working directory; it was corrected from the repo root under standing approval. No server change resulted from that command error.
+
+
+## Final production promotion and CORS cleanup
+
+After renewed OAuth, whoami confirmed medhainnovation2026@gmail.com. Wrangler versions deploy promoted fb2ff6a7-ea83-45b7-a4bb-d6779b9cb302 at 100% with no non-versioned setting changes. The complete production live suite then passed all twelve market/page/viewport flows and both forecast horizons; no console errors, 404s or failed requests occurred. Evidence is browser-production-live-checks.json. The same tested Worker assets were promoted; no new application build was introduced after preview verification.
+
+Only after those checks, the exact preview origin was removed from stock-api.service and the API restarted. The cleanup script validated the stock-api unit and returned PRODUCTION_CORS_EXIT=0. Final API peak was 210186240 bytes (200.45 MiB), cloudflared current 34549760 bytes (32.95 MiB), MemAvailable 2950 MiB and swap zero. API cap remains 1500M/CPU200%; cloudflared cap remains 256M. The cloudflared config SHA remains unchanged. The timer is enabled/active with next run 2026-10-08 03:00 IST.
+
+External curl confirmed API health 200, both markets, matching production ACAO and no ACAO for the removed preview origin. All existing Medha sites returned 200 and both SSH hosts worked. A final post-cleanup production home check passed at desktop/mobile with Live badges, no overflow and no console/network errors. No WAF, tunnel, firewall, sshd or unrelated systemd unit changed. The public preview can now intentionally fall back to snapshots because its CORS origin was removed as requested.
+
+GitHub publication encountered repeated receive-pack HTTP 500 over HTTPS and SSH; a tiny Git Data blob POST with the old API version also returned empty-body 500. A blob POST using the documented 2026-03-10 API version succeeded. Publication fallback uses GitHub's documented Git Data API, with assertions that uploaded blobs, tree and commit hashes exactly match the local objects, and a non-force fast-forward branch update. This avoids history rewriting; the reason for the original Git transport server errors remains unconfirmed. Official reference: https://docs.github.com/en/rest/git/commits#create-a-commit.
