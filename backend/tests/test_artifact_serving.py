@@ -15,9 +15,11 @@ def test_only_artifacts_and_atomic_replacement(tmp_path, monkeypatch):
     path.parent.mkdir()
     artifact = {"ticker":"AAPL", "market":"us", "currency":"USD", "as_of":"2026-01-01",
                 "trained_at":"2026-01-01T00:00:00Z", "git_sha":"test", "evaluation":{},
-                "models":[{"name":name,"metrics":{},"validation_mae":.01,"forecast":{"price":100}} for name in ("naive","linear_regression")]}
+                "winner":"linear_regression",
+                "models":[{"name":name,"metrics":{"skill_vs_naive":-.1},"validation_mae":.01,"forecast":{"price":100}} for name in ("naive","linear_regression")]}
     path.write_text(json.dumps(artifact))
     assert service.run_prediction("AAPL")["forecast"]["price"] == 100
+    assert service.find_best_model("AAPL")["winner_beats_naive"] is False
     artifact["models"][1]["forecast"]["price"] = 200
     temporary = path.with_suffix(".tmp")
     temporary.write_text(json.dumps(artifact))

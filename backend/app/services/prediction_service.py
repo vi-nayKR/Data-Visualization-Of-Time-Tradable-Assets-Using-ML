@@ -35,7 +35,9 @@ class PredictionService:
 
     def find_best_model(self, ticker, horizon=5):
         artifact = self.artifact(ticker, horizon)
-        return {**artifact,"leaderboard":artifact["models"]}
+        winner = next(m for m in artifact["models"] if m["name"] == artifact["winner"])
+        return {**artifact,"leaderboard":artifact["models"],
+                "winner_beats_naive": (winner["metrics"]["skill_vs_naive"] or 0) > 0}
 
     def status(self):
         return json.loads((MODEL_DIR / "index.json").read_text())
