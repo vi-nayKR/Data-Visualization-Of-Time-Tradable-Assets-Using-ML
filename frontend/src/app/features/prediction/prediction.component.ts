@@ -9,10 +9,10 @@ import { PredictionChartComponent } from './prediction-chart.component';
   standalone: true,
   imports: [CommonModule, PredictionChartComponent],
   template: `
+    <div class="flex flex-col h-full bg-[var(--color-void)] text-[var(--color-frost)] overflow-hidden transition-colors duration-300">
     <div role="status" class="px-3 py-1 text-xs bg-[var(--color-surface)] text-[var(--color-frost)]">
       {{ api.sourceLabel('prediction') }} · Not financial advice
     </div>
-    <div class="flex flex-col h-full bg-[var(--color-void)] text-[var(--color-frost)] overflow-hidden transition-colors duration-300">
       
       <!-- TOP MODEL SELECTION RIBBON (SWIPEABLE & TOUCH-FRIENDLY) -->
       <div class="h-11 sm:h-12 bg-[var(--color-surface)] border-b border-[var(--color-border)] flex items-center justify-between px-2 sm:px-4 text-xs flex-shrink-0 gap-2 transition-colors duration-300 overflow-x-auto no-scrollbar">
