@@ -74,20 +74,22 @@ const api = 'https://stock-api.medhainnovation.com/';
           await page.screenshot({path:`docs/screenshots-v2/${mode}-${market}-${route}-${viewport.width}.png`,fullPage:true});
           console.log(`PASS ${mode} ${market} ${route} ${viewport.width}`);
         }
+        await page.getByRole('link',{name:'ML Forecasts',exact:true}).click();
+        const prediction=page.locator('app-prediction');
+        await prediction.locator('app-metrics-table').waitFor();
+        const forecastChart=prediction.locator('.js-plotly-plot').first();
+        await forecastChart.waitFor();
         if(mode==='live') {
-          await page.getByRole('link',{name:'ML Forecasts',exact:true}).click();
-          await Promise.all([page.waitForResponse(response=>response.url().includes('horizon=1')&&response.status()===200),page.getByRole('button',{name:'1 trading day',exact:true}).click()]);
-          await page.waitForLoadState('networkidle');
-          await page.waitForFunction(()=>[...document.querySelectorAll('.js-plotly-plot')].some(el=>el.layout?.xaxis?.ticktext?.includes('+1 trading days')));
-          assert.match(await page.locator('.js-plotly-plot').first().evaluate(el=>JSON.stringify(el.layout.xaxis.ticktext)),/1 trading days/);
-          await page.getByRole('button',{name:'5 trading days',exact:true}).click();
-          await page.waitForLoadState('networkidle');
+          await Promise.all([page.waitForResponse(response=>response.url().includes('/predict?')&&response.url().includes('horizon=1')&&response.status()===200),prediction.getByRole('button',{name:'1 trading day',exact:true}).click()]);
+          await page.waitForFunction(el=>el.layout?.xaxis?.ticktext?.includes('+1 trading days'),await forecastChart.elementHandle());
+          assert.match(await forecastChart.evaluate(el=>JSON.stringify(el.layout.xaxis.ticktext)),/1 trading days/);
+          await prediction.getByRole('button',{name:'5 trading days',exact:true}).click();
+          await page.waitForFunction(el=>el.layout?.xaxis?.ticktext?.includes('+5 trading days'),await forecastChart.elementHandle());
         }
         if(fallback) {
-          await page.getByRole('link',{name:'ML Forecasts',exact:true}).click();
-          await page.getByRole('button',{name:'1 trading day',exact:true}).click();
-          await page.waitForFunction(()=>document.querySelector('[aria-label="Forecast horizon"] button[aria-pressed="true"]')?.textContent?.includes('5 trading days'));
-          await page.getByRole('status').filter({hasText:'Snapshot'}).first().waitFor();
+          await prediction.getByRole('button',{name:'1 trading day',exact:true}).click();
+          await page.waitForFunction(el=>el.querySelector('[aria-label="Forecast horizon"] button[aria-pressed="true"]')?.textContent?.includes('5 trading days'),await prediction.elementHandle());
+          await prediction.getByRole('status').filter({hasText:'Snapshot'}).first().waitFor();
         }
       }
       assert(network.length>0);
