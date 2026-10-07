@@ -1,29 +1,25 @@
 [Unit]
-Description=Stock API (CPU only)
+Description=Offline market forecasting (CPU only)
 After=network-online.target
 Wants=network-online.target
 
 [Service]
+Type=oneshot
 User=stockapi
 WorkingDirectory=/opt/stock-api/app/backend
-ExecStart=/opt/stock-api/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8100 --workers 1 --proxy-headers
-Environment=ALLOWED_ORIGINS=https://data-visualization-of-time-tradable-assets-using-ml.medhainnovation2026.workers.dev
+ExecStart=/opt/stock-api/venv/bin/python -m app.ml.train_all
 Environment=XDG_CACHE_HOME=/var/cache/stock-api
 Environment=OMP_NUM_THREADS=2
 Environment=OPENBLAS_NUM_THREADS=2
 Environment=MKL_NUM_THREADS=2
 Environment=PYTHONDONTWRITEBYTECODE=1
-MemoryMax=1500M
-MemoryHigh=1200M
+Nice=10
+MemoryMax=1200M
 MemorySwapMax=0
-CPUQuota=200%
-Restart=on-failure
-RestartSec=5
+CPUQuota=150%
+TimeoutStartSec=45min
 NoNewPrivileges=yes
 PrivateTmp=yes
 ProtectSystem=strict
 ProtectHome=yes
 ReadWritePaths=/var/cache/stock-api /var/lib/stock-api/models
-
-[Install]
-WantedBy=multi-user.target
